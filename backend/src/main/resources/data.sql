@@ -1,3 +1,5 @@
+-- Product Table Data
+
 INSERT INTO products (title, description, price, image, product_category)
 VALUES ("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
         "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
@@ -32,3 +34,12 @@ VALUES ("Solid Gold Petite Micropave",
         168.00,
         "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
         "jewelery");
+
+-- ***********************************************************************************************************************
+
+-- Category Table Data
+
+INSERT INTO category (category) VALUES ("electronics");
+INSERT INTO category (category) VALUES ("jewelery");
+INSERT INTO category (category) VALUES ("men's clothing");
+INSERT INTO category (category) VALUES ("women's clothing");
