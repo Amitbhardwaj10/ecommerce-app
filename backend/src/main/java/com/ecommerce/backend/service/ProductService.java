@@ -8,4 +8,5 @@ public interface ProductService {
     public Product saveProduct(Product product);
     public List<Product> getAllProducts();
     public Product getProductById(Long id);
+    public Product getProductByCategoryId(Long categoryId);
 }

@@ -28,4 +28,9 @@ public class ProductServiceImpl implements ProductService{
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not Available!"));
     }
+
+    @Override
+    public Product getProductByCategoryId(Long categoryId) {
+        return productRepository.findById(categoryId).orElseThrow(() -> new ProductNotFoundException("Product is not Available!"));
+    }
 }
