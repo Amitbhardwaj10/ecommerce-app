@@ -1,5 +1,6 @@
 package com.ecommerce.backend.service;
 
+import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not Available!"));
     }
 }
