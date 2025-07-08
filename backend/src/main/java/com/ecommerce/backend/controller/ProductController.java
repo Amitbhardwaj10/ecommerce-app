@@ -30,8 +30,8 @@ public class ProductController {
     }
 
     @GetMapping("/category/{categoryId}")
-    public Product getProductByCategoryId(@PathVariable Long categoryId) {
-        return productService.getProductByCategoryId(categoryId);
+    public List<Product> getProductsByCategoryId(@PathVariable Long categoryId) {
+        return productService.getProductsByCategoryId(categoryId);
     }
 
 }

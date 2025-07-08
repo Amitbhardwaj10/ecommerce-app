@@ -26,11 +26,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not Available!"));
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not available!"));
     }
 
     @Override
-    public Product getProductByCategoryId(Long categoryId) {
-        return productRepository.findById(categoryId).orElseThrow(() -> new ProductNotFoundException("Product is not Available!"));
+    public List<Product> getProductsByCategoryId(Long categoryId) {
+        return productRepository.findByCategory_Id(categoryId);
     }
 }

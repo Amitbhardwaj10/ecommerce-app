@@ -1,5 +1,6 @@
 package com.ecommerce.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +19,10 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long categoryId;
-    String categoryName;
+    Long id;
+    String category;
 
     @OneToMany(mappedBy = "category")
-    private List<Product> products = new ArrayList<>();
+    @JsonIgnore
+    private List<Product> products;
 }

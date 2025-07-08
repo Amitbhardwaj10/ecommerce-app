@@ -23,12 +23,8 @@ public class Product {
     private String description;
     private Double price;
     private String image;
-    @JsonProperty("product_category")
-    @Column(name = "product_category")
-    private String productCategory;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 }
