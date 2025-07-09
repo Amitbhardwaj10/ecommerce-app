@@ -1,6 +1,7 @@
 package com.ecommerce.backend.controller;
 
 import com.ecommerce.backend.dto.ProductRequestDto;
+import com.ecommerce.backend.dto.ProductResponseDto;
 import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +19,27 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<String> createProduct(@RequestBody ProductRequestDto dto) {
+        return productService.createProduct(dto);
     }
 
-    @PostMapping
+    @PostMapping("/bulk")
     public ResponseEntity<String> createMultipleProducts(@RequestBody List<ProductRequestDto> productDtos) {
-        return productService.saveAllproducts(productDtos);
+        return productService.saveAllProducts(productDtos);
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ProductResponseDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @GetMapping("/{productId}")
-    public Product getProductById(@PathVariable Long productId) {
+    public ProductResponseDto getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
     }
 
     @GetMapping("/category/{categoryId}")
-    public List<Product> getProductsByCategoryId(@PathVariable Long categoryId) {
+    public List<ProductResponseDto> getProductsByCategoryId(@PathVariable Long categoryId) {
         return productService.getProductsByCategoryId(categoryId);
     }
 
