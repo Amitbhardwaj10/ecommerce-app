@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public ResponseEntity<String> saveNewUser(User user) {
-        if(userRepository.findByUsername(user.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists!");
         }
 
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
     public ResponseEntity<String> userLogin(User loginRequest) {
         Optional<User> user = userRepository.findByUsername(loginRequest.getUsername());
 
-        if(user.isPresent() && user.get().getPassword().equals( loginRequest.getPassword())) {
+        if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
             return ResponseEntity.ok("Login Successfully!");
         }
 
