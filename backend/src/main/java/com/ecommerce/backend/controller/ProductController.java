@@ -34,4 +34,7 @@ public class ProductController {
         return productService.getProductsByCategoryId(categoryId);
     }
 
+//    PUT /products/{id} → Edit product
+//    DELETE /products/{id} → Delete product
+
 }
