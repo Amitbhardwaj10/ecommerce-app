@@ -1,8 +1,10 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.ProductRequestDto;
 import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class ProductController {
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
         return productService.saveProduct(product);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createMultipleProducts(@RequestBody List<ProductRequestDto> productDtos) {
+        return productService.saveAllproducts(productDtos);
     }
 
     @GetMapping
