@@ -19,7 +19,7 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     String category;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

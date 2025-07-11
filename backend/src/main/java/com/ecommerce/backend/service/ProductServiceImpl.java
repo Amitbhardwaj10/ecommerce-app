@@ -25,13 +25,13 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository categoryRepository;
 
     private ProductResponseDto mapToDto(Product product) {
-        ProductResponseDto dto = new ProductResponseDto();
-        dto.setProductId(product.getProductId());
-        dto.setTitle(product.getTitle());
-        dto.setDescription(product.getDescription());
-        dto.setPrice(product.getPrice());
-        dto.setImage(product.getImage());
-        dto.setCategoryId(product.getCategory().getId());
+        ProductResponseDto dto = ProductResponseDto.builder()
+                .title(product.getTitle())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .image(product.getImage())
+                .categoryName(product.getCategory().getCategory())
+                .build();
         return dto;
     }
 
@@ -47,8 +47,6 @@ public class ProductServiceImpl implements ProductService {
                 .image(dto.getImage())
                 .category(category)
                 .build();
-
-        product.setCategory(category);
 
         productRepository.save(product);
         return ResponseEntity.ok("Created successfully!");

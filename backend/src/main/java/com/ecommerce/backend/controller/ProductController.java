@@ -2,7 +2,6 @@ package com.ecommerce.backend.controller;
 
 import com.ecommerce.backend.dto.ProductRequestDto;
 import com.ecommerce.backend.dto.ProductResponseDto;
-import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
