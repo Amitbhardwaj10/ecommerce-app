@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductResponseDto mapToDto(Product product) {
         ProductResponseDto dto = ProductResponseDto.builder()
+                .productId(product.getProductId())
                 .title(product.getTitle())
                 .description(product.getDescription())
                 .price(product.getPrice())
