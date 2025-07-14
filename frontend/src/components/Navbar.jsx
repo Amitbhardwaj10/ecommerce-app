@@ -3,16 +3,15 @@ import Sidebar from "./Sidebar";
 import { useState } from "react";
 
 function Navbar() {
-	const navItems = ["Men", "Women", "jewelery", "electronics"];
+	const navItems = ["Men", "Women", "Jewelery", "Electronics"];
 	const [isVisible, setIsVisible] = useState(false);
 
 	return (
 		<>
-			<header className="flex items-center w-full h-20 sticky top-0">
+			<header className="flex items-center w-full h-20 sticky top-0 hover:shadow-[#535353] shadow-sm z-10">
 				<nav className="w-full flex justify-between items-center">
 					<div className="left-div flex items-center">
 						<HiBars3CenterLeft
-							id="menuIcon"
 							className="h-11 w-11 p-1 sm:hidden"
 							onClick={() => {
 								setIsVisible(!isVisible);
@@ -28,9 +27,13 @@ function Navbar() {
 					</div>
 
 					<div className="center-div">
-						<ul className="sm:flex sm:justify-center sm:items-center sm:gap-3 hidden">
+						<ul className="sm:flex justify-center items-center gap-4 hidden">
 							{navItems.map((item, index) => (
-								<a key={index} href={item.toLowerCase()}>
+								<a
+									key={index}
+									href={item.toLowerCase()}
+									className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-0 before:left-1/2 before:translate-x-[-50%] relative px-4"
+								>
 									<li>{item}</li>
 								</a>
 							))}
@@ -41,7 +44,8 @@ function Navbar() {
 				</nav>
 			</header>
 
-			{isVisible && <Sidebar />}
+			{/* sideBar */}
+			<Sidebar isVisible={isVisible} setIsVisible={setIsVisible} />
 		</>
 	);
 }
