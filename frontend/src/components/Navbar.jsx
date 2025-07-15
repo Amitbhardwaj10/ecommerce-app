@@ -1,20 +1,40 @@
 import { HiBars3CenterLeft } from "react-icons/hi2";
-import Sidebar from "./Sidebar";
-import { useState } from "react";
+import { HiOutlineUserCircle } from "react-icons/hi2";
+import { HiOutlineShoppingCart } from "react-icons/hi2";
+import { HiMiniChevronDown } from "react-icons/hi2";
+import { HiOutlineHeart } from "react-icons/hi2";
 
-function Navbar() {
+import { useEffect, useRef, useState } from "react";
+import SearchBar from "./subComponents/SearchBar";
+import Dropdown from "./subComponents/Dropdown";
+
+function Navbar({ onToggleSidebar }) {
 	const navItems = ["Men", "Women", "Jewelery", "Electronics"];
-	const [isVisible, setIsVisible] = useState(false);
+	const [showDropdown, setShowDropdown] = useState(false);
+	const dropdownRef = useRef();
+
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+				setShowDropdown(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [dropdownRef]);
 
 	return (
 		<>
-			<header className="flex items-center w-full h-20 sticky top-0 hover:shadow-[#535353] shadow-sm z-10">
+			<header className="flex items-center w-full h-16 sticky top-0 text-[#ffffffde] hover:shadow-[#535353] shadow-sm z-10">
 				<nav className="w-full flex justify-between items-center">
 					<div className="left-div flex items-center">
 						<HiBars3CenterLeft
-							className="h-11 w-11 p-1 sm:hidden"
+							className="menu-icon h-11 w-11 p-1 md:hidden"
 							onClick={() => {
-								setIsVisible(!isVisible);
+								onToggleSidebar();
 							}}
 						/>
 
@@ -24,28 +44,55 @@ function Navbar() {
 								QuickShop
 							</a>
 						</div>
+						<div className="items-div">
+							<ul className="md:flex justify-center items-center gap-2 hidden">
+								{navItems.map((item, index) => (
+									<a
+										key={index}
+										href={item.toLowerCase()}
+										className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-0 before:left-1/2 before:translate-x-[-50%] relative px-4"
+									>
+										<li>{item}</li>
+									</a>
+								))}
+							</ul>
+						</div>
 					</div>
 
-					<div className="center-div">
-						<ul className="sm:flex justify-center items-center gap-4 hidden">
-							{navItems.map((item, index) => (
-								<a
-									key={index}
-									href={item.toLowerCase()}
-									className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-0 before:left-1/2 before:translate-x-[-50%] relative px-4"
-								>
-									<li>{item}</li>
-								</a>
-							))}
-						</ul>
-					</div>
+					<div
+						className="right-div flex mr-4 md:mx-8 gap-5 items-center justify-between"
+						ref={dropdownRef}
+					>
+						{/* search bar component */}
+						<div className="hidden md:flex justify-center flex-grow mx-4">
+							<SearchBar />
+						</div>
 
-					<div className="right-div"></div>
+						<div
+							className="flex gap-1 items-center cursor-pointer relative"
+							onClick={() => setShowDropdown(!showDropdown)}
+						>
+							<HiOutlineUserCircle className="h-6 w-6" />
+							<small className="">Profile</small>
+							<HiMiniChevronDown className="sm:block hidden h-6 w-6" />
+
+							{/* dropdown component */}
+							{showDropdown && <Dropdown />}
+						</div>
+
+						{/* Hide Wishlist if user is not logged in after login it should be visible then! */}
+						{/* <div className="flex gap-1 items-center cursor-pointer">
+							<HiOutlineHeart className="h-6 w-6" />
+							<small ">Wishlist</small>
+						</div> */}
+
+						<div className="flex gap-1 items-center cursor-pointer">
+							<HiOutlineShoppingCart className="h-6 w-6" />
+							<small className="sm:block hidden">Cart</small>
+						</div>
+					</div>
 				</nav>
 			</header>
-
-			{/* sideBar */}
-			<Sidebar isVisible={isVisible} setIsVisible={setIsVisible} />
 		</>
 	);
 }

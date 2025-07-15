@@ -16,7 +16,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 	return (
 		<>
 			<aside
-				className={`side-bar w-3/4 bg-[#003049] h-svh absolute top-0 left-0 shadow-neutral-800 shadow-xl z-20 transition-transform duration-500 ${translate} ease-in-out`}
+				className={`side-bar w-3/4 text-[#ffffffde] bg-[#003049] h-screen absolute top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-transform duration-500 ${translate} ease-in-out`}
 			>
 				<div className="menuItems">
 					<ul className="px-4 py-3 flex flex-col">
@@ -42,7 +42,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 			{isVisible && (
 				// Overlay
 				<div
-					className="overlay h-screen w-full bg-slate-900 bg-opacity-95 absolute top-0 left-0 z-10 transition-opacity delay-1000 duration-750 ease-in"
+					className="overlay h-screen w-full bg-black bg-opacity-65 absolute top-0 left-0 z-30 transition-opacity delay-1000 duration-750 ease-in"
 					onClick={() => setIsVisible(false)}
 				></div>
 			)}
