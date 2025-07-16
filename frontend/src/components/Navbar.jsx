@@ -50,7 +50,7 @@ function Navbar({ onToggleSidebar }) {
 									<a
 										key={index}
 										href={item.toLowerCase()}
-										className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-0 before:left-1/2 before:translate-x-[-50%] relative px-4"
+										className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-2 before:left-1/2 before:translate-x-[-50%] relative px-4"
 									>
 										<li>{item}</li>
 									</a>
