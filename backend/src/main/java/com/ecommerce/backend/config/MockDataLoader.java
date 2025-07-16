@@ -22,13 +22,13 @@ public class MockDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (productRepository.count() == 0) {
-            Category men = categoryRepository.findByCategory("men's clothing")
+            Category laptop = categoryRepository.findByCategory("Laptops")
                     .orElseThrow(() -> new RuntimeException("Category not found"));
-            Category electronics = categoryRepository.findByCategory("electronics")
+            Category monitor = categoryRepository.findByCategory("Monitors")
                     .orElseThrow(() -> new RuntimeException("Category not found"));
-            Category jewellery = categoryRepository.findByCategory("jewelery")
+            Category keyboard = categoryRepository.findByCategory("Keyboards")
                     .orElseThrow(() -> new RuntimeException("Category not found"));
-            Category women = categoryRepository.findByCategory("women's clothing")
+            Category mouse = categoryRepository.findByCategory("Mouses")
                     .orElseThrow(() -> new RuntimeException("Category not found"));
 
             List<Product> products = List.of(
@@ -37,7 +37,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Perfect pack for everyday use and forest walks.")
                             .price(109.95)
                             .image("https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg")
-                            .category(men)
+                            .category(laptop)
                             .build(),
 
                     Product.builder()
@@ -45,7 +45,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Slim-fitting style, contrast raglan long sleeve...")
                             .price(22.30)
                             .image("https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg")
-                            .category(men)
+                            .category(laptop)
                             .build(),
 
                     Product.builder()
@@ -53,7 +53,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Great outerwear jackets for Spring/Autumn/Winter.")
                             .price(55.99)
                             .image("https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg")
-                            .category(men)
+                            .category(laptop)
                             .build(),
 
                     Product.builder()
@@ -61,7 +61,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Color may differ slightly...")
                             .price(15.99)
                             .image("https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg")
-                            .category(men)
+                            .category(monitor)
                             .build(),
 
                     Product.builder()
@@ -69,7 +69,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Return or exchange any order within 30 days.")
                             .price(168.00)
                             .image("https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg")
-                            .category(jewellery)
+                            .category(monitor)
                             .build(),
 
                     Product.builder()
@@ -77,7 +77,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Classic Created Wedding Engagement Ring.")
                             .price(9.99)
                             .image("https://fakestoreapi.com/img/71ya6Jk9F0L._AC_UL640_QL65_ML3_.jpg")
-                            .category(jewellery)
+                            .category(keyboard)
                             .build(),
 
                     Product.builder()
@@ -85,7 +85,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Rose Gold Plated Double Flared Tunnel Plug Earrings.")
                             .price(10.99)
                             .image("https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg")
-                            .category(jewellery)
+                            .category(keyboard)
                             .build(),
 
                     Product.builder()
@@ -93,7 +93,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("USB 3.0 and USB 2.0 Compatibility.")
                             .price(64.00)
                             .image("https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg")
-                            .category(electronics)
+                            .category(keyboard)
                             .build(),
 
                     Product.builder()
@@ -101,7 +101,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Easy upgrade for faster boot up, shutdown, and app response.")
                             .price(109.00)
                             .image("https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg")
-                            .category(electronics)
+                            .category(mouse)
                             .build(),
 
                     Product.builder()
@@ -109,7 +109,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .description("Soft, lightweight fabric delivers superior comfort.")
                             .price(7.95)
                             .image("https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg")
-                            .category(women)
+                            .category(mouse)
                             .build()
             );
 
