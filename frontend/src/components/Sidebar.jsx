@@ -16,7 +16,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 	return (
 		<>
 			<aside
-				className={`side-bar w-3/4 text-[#ffffffde] bg-[#003049] h-screen absolute top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-transform duration-500 ${translate} ease-in-out`}
+				className={`side-bar w-3/4 md:w-2/4 text-[#ffffffde] bg-[#003049] h-screen absolute top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-transform duration-500 ${translate} ease-in-out`}
 			>
 				<div className="menuItems">
 					<ul className="px-4 py-3 flex flex-col">

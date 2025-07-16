@@ -5,7 +5,7 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 function SearchBar() {
 	return (
 		<>
-			<div className="w-full md:w-48 lg:w-72 xl:w-96 relative rounded-lg">
+			<div className="w-full md:w-80 lg:max-w-60 xl:max-w-96  relative rounded-lg">
 				<a href="/">
 					<HiMagnifyingGlass className="w-5 h-5 absolute left-2 top-[.7rem] text-neutral-500" />
 				</a>

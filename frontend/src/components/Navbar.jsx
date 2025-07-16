@@ -32,7 +32,7 @@ function Navbar({ onToggleSidebar }) {
 				<nav className="w-full flex justify-between items-center">
 					<div className="left-div flex items-center">
 						<HiBars3CenterLeft
-							className="menu-icon h-11 w-11 p-1 md:hidden"
+							className="menu-icon h-11 w-11 p-1 lg:hidden"
 							onClick={() => {
 								onToggleSidebar();
 							}}
@@ -45,7 +45,7 @@ function Navbar({ onToggleSidebar }) {
 							</a>
 						</div>
 						<div className="items-div">
-							<ul className="md:flex justify-center items-center gap-2 hidden">
+							<ul className="lg:flex justify-center items-center gap-2 hidden">
 								{navItems.map((item, index) => (
 									<a
 										key={index}
