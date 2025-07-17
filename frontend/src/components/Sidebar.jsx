@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { HiUser } from "react-icons/hi2";
-import { api } from "../api/api";
+import { Link, useNavigate } from "react-router-dom";
+import useCategories from "../hooks/useCategories";
 
-// import { HiXMark } from "react-icons/hi2";
+import { HiXMark } from "react-icons/hi2";
 
 function Sidebar({ isVisible, setIsVisible }) {
-	// const sidebarItems = ["Men", "Women", "Jewelery", "Electronics"];
 	const [translate, setTranslate] = useState("-translate-x-full");
+	const { categories } = useCategories();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (isVisible) {
@@ -15,24 +17,6 @@ function Sidebar({ isVisible, setIsVisible }) {
 			setTranslate("-translate-x-full"); // Slide out
 		}
 	}, [isVisible]);
-
-	const [categories, setCategories] = useState([]);
-
-	// Fetching categories from backend
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const resp = await api.get("/categories");
-				setCategories(resp.data);
-			} catch (error) {
-				console.log("While fetching categories: ", error);
-			}
-		};
-
-		fetchData();
-
-		return () => {};
-	}, []);
 
 	return (
 		<>
@@ -46,18 +30,23 @@ function Sidebar({ isVisible, setIsVisible }) {
 					</div>
 
 					<div className="flex flex-col gap-3 my-5">
-						<button
-							type="button"
-							className="text-white w-full bg-black hover:bg-gray-900 rounded-md text-lg px-5 py-3 text-center"
-						>
-							Sign up
-						</button>
-						<button
-							type="button"
-							className="text-black w-full bg-neutral-300 hover:bg-neutral-400 rounded-md text-xl px-4 py-3 text-center"
-						>
-							Log in
-						</button>
+						<Link to="/signup">
+							<button
+								type="button"
+								className="text-white w-full bg-black hover:bg-gray-900 rounded-md text-lg px-5 py-3 text-center"
+							>
+								Sign up
+							</button>
+						</Link>
+						<Link to="/login">
+							<button
+								type="button"
+								className="text-black w-full bg-neutral-300 hover:bg-neutral-400 rounded-md text-xl px-4 py-3 text-center"
+								// onClick={setIsVisible(false)}
+							>
+								Log in
+							</button>
+						</Link>
 					</div>
 				</div>
 
@@ -66,21 +55,28 @@ function Sidebar({ isVisible, setIsVisible }) {
 						<p className="text-2xl">Categories</p>
 						{categories.map((item) => {
 							return (
-								<a key={item.id} href={item}>
-									<li>{item.category}</li>
-								</a>
+								<li
+									key={item.id}
+									// to={`/${item.category.toLowerCase()}`}
+									onClick={() => {
+										setIsVisible(false);
+										navigate(`products/category/${item.id}`);
+									}}
+								>
+									{item.category}
+								</li>
 							);
 						})}
 					</ul>
 				</div>
-				{/* <div className="close-icon w-fit rounded-full absolute top-2 right-2">
+				<div className="close-icon w-fit rounded-full absolute top-2 right-2">
 					<HiXMark
 						className="h-8 w-8 p-1"
 						onClick={() => {
 							setIsVisible(!isVisible);
 						}}
 					/>
-				</div> */}
+				</div>
 			</aside>
 
 			{isVisible && (

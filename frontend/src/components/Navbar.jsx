@@ -7,6 +7,7 @@ import { HiOutlineHeart } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
+import { NavLink } from "react-router-dom";
 
 function Navbar({ onToggleSidebar }) {
 	const navItems = ["Men", "Women", "Jewelery", "Electronics"];
@@ -47,13 +48,13 @@ function Navbar({ onToggleSidebar }) {
 						<div className="items-div">
 							<ul className="lg:flex justify-center items-center gap-2 hidden">
 								{navItems.map((item, index) => (
-									<a
+									<NavLink
 										key={index}
-										href={item.toLowerCase()}
+										to={`/${item.toLowerCase()}`}
 										className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-2 before:left-1/2 before:translate-x-[-50%] relative px-4"
 									>
 										<li>{item}</li>
-									</a>
+									</NavLink>
 								))}
 							</ul>
 						</div>
