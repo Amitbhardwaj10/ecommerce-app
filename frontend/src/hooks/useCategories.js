@@ -4,16 +4,17 @@ import { api } from "../api/api";
 export default function useCategories() {
 	// Fetching categories from backend
 	const [categories, setCategories] = useState([]);
-	useEffect(() => {
-		const fetchCategories = async () => {
-			try {
-				const resp = await api.get("/categories");
-				setCategories(resp.data);
-			} catch (error) {
-				console.log("While fetching categories: ", error);
-			}
-		};
 
+	const fetchCategories = async () => {
+		try {
+			const res = await api.get("/categories");
+			setCategories(res.data);
+		} catch (error) {
+			console.log("while fetching categories: ", error);
+		}
+	};
+
+	useEffect(() => {
 		fetchCategories();
 	}, []);
 

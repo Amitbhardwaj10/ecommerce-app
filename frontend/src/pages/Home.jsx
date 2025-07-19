@@ -5,17 +5,15 @@ import FilterBox from "../components/FilterBox";
 function Home() {
 	return (
 		<>
-			<main className="p-4">
-				<div className="flex gap-1">
-					<div className="w-80 hidden lg:block bg-slate-400">
-						<FilterBox />
-					</div>
+			<div className="">
+				{/* <div className="w-80 hidden lg:block bg-slate-400">
+					<FilterBox />
+				</div> */}
 
-					<div className="w-full bg-orange-500">
-						<Products />
-					</div>
+				<div className="w-full p-4">
+					<Products />
 				</div>
-			</main>
+			</div>
 		</>
 	);
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { HiUser } from "react-icons/hi2";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 
 import { HiXMark } from "react-icons/hi2";
@@ -8,7 +8,6 @@ import { HiXMark } from "react-icons/hi2";
 function Sidebar({ isVisible, setIsVisible }) {
 	const [translate, setTranslate] = useState("-translate-x-full");
 	const { categories } = useCategories();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (isVisible) {
@@ -42,7 +41,6 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<button
 								type="button"
 								className="text-black w-full bg-neutral-300 hover:bg-neutral-400 rounded-md text-xl px-4 py-3 text-center"
-								// onClick={setIsVisible(false)}
 							>
 								Log in
 							</button>
@@ -55,16 +53,13 @@ function Sidebar({ isVisible, setIsVisible }) {
 						<p className="text-2xl">Categories</p>
 						{categories.map((item) => {
 							return (
-								<li
+								<Link
 									key={item.id}
-									// to={`/${item.category.toLowerCase()}`}
-									onClick={() => {
-										setIsVisible(false);
-										navigate(`products/category/${item.id}`);
-									}}
+									to={`products/category/${item.id}`}
+									onClick={() => setIsVisible(false)}
 								>
 									{item.category}
-								</li>
+								</Link>
 							);
 						})}
 					</ul>

@@ -2,15 +2,15 @@ import { HiBars3CenterLeft } from "react-icons/hi2";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { HiMiniChevronDown } from "react-icons/hi2";
-import { HiOutlineHeart } from "react-icons/hi2";
 
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
 import { NavLink } from "react-router-dom";
+import useCategories from "../hooks/useCategories";
 
 function Navbar({ onToggleSidebar }) {
-	const navItems = ["Men", "Women", "Jewelery", "Electronics"];
+	const { categories } = useCategories();
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
 
@@ -47,13 +47,17 @@ function Navbar({ onToggleSidebar }) {
 						</div>
 						<div className="items-div">
 							<ul className="lg:flex justify-center items-center gap-2 hidden">
-								{navItems.map((item, index) => (
+								{categories.map((item) => (
 									<NavLink
-										key={index}
-										to={`/${item.toLowerCase()}`}
-										className=" before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute py-8 before:bottom-2 before:left-1/2 before:translate-x-[-50%] relative px-4"
+										key={item.id}
+										to={`products/category/${item.id}`}
+										className={({ isActive }) =>
+											`relative px-4 py-8 before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute before:bottom-2 before:left-1/2 before:translate-x-[-50%] ${
+												isActive ? "text-cyan-600 font-bold" : ""
+											}`
+										}
 									>
-										<li>{item}</li>
+										{item.category}
 									</NavLink>
 								))}
 							</ul>

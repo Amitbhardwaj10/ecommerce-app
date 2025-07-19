@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
 
 :root {
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -13,6 +14,8 @@
 	/* color: #ffffffde; */
 	color: black;
 	background-color: #edf6f9;
+	font-family: "Play", sans-serif;
+	font-weight: 400;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -20,9 +23,21 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+header {
+	background-color: #003049;
+}
+
+.logo {
+	height: 4em;
+	padding: 0.5em;
+	will-change: filter;
+	transition: filter 300ms;
+}
+
 a {
 	text-decoration: inherit;
 }
+
 a:hover {
 	color: #adb5bd;
 }
