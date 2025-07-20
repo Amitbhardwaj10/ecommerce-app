@@ -4,13 +4,13 @@ import { api } from "../api/api";
 import ProductCard from "../components/ProductCard";
 
 function CategoryPage() {
-	const { categoryId } = useParams();
+	const { slug } = useParams();
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	const fetchProductsByCategory = async () => {
 		try {
-			const res = await api.get(`/products/category/${categoryId}`);
+			const res = await api.get(`/products/category/${slug}`);
 			setProducts(res.data);
 		} catch (err) {
 			console.error("while fetching products by category: ", err);
@@ -21,25 +21,27 @@ function CategoryPage() {
 
 	useEffect(() => {
 		fetchProductsByCategory();
-	}, [categoryId]);
+	}, [slug]);
 
 	return (
-		<div className="p-4">
-			<h2 className="text-2xl font-bold mb-4">{products[0]?.categoryName}</h2>
+		<div className="py-4">
 			{loading ? (
 				<p>Loading...</p>
 			) : (
-				<div className="max-w-2xl lg:max-w-7xl ">
-					<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+				<div className="mx-auto xl:max-w-7xl ">
+					<h2 className="my-10 mx-auto w-fit text-3xl font-medium text-center px-2 border-b-[1.3px] leading-[3px] after:border-t-[1.3px] after:bottom-[5px] h-[17px] after:absolute after:-right-[15px] after:-rotate-45 after:w-[17px] relative border-black after:border-black">
+						{products[0]?.categoryName.toUpperCase()}
+					</h2>
+					<div className="grid my-11 grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-2 sm:gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 						{products.map((product) => {
 							return (
-								<Link key={product.productId} className="group">
-									<ProductCard
-										productTitle={product.title}
-										productImage={product.image}
-										productPrice={`$${product.price}`}
-									/>
-								</Link>
+								<ProductCard
+									key={product.productId}
+									productId={product.productId}
+									productTitle={product.title}
+									productImage={product.image}
+									productPrice={product.price}
+								/>
 							);
 						})}
 					</div>

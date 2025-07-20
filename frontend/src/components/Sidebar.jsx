@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiUser } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 
 import { HiXMark } from "react-icons/hi2";
@@ -8,6 +8,7 @@ import { HiXMark } from "react-icons/hi2";
 function Sidebar({ isVisible, setIsVisible }) {
 	const [translate, setTranslate] = useState("-translate-x-full");
 	const { categories } = useCategories();
+	const ref = useRef();
 
 	useEffect(() => {
 		if (isVisible) {
@@ -53,13 +54,22 @@ function Sidebar({ isVisible, setIsVisible }) {
 						<p className="text-2xl">Categories</p>
 						{categories.map((item) => {
 							return (
-								<Link
+								<NavLink
 									key={item.id}
-									to={`products/category/${item.id}`}
-									onClick={() => setIsVisible(false)}
+									to={`products/category/${item.category.toLowerCase()}`}
+									onClick={() => {
+										setTimeout(() => {
+											setIsVisible(false);
+										}, 100);
+									}}
+									className={({ isActive }) =>
+										`block px-4 py-2 ${
+											isActive ? "text-cyan-600 font-bold" : ""
+										}`
+									}
 								>
 									{item.category}
-								</Link>
+								</NavLink>
 							);
 						})}
 					</ul>
@@ -77,8 +87,8 @@ function Sidebar({ isVisible, setIsVisible }) {
 			{isVisible && (
 				// Overlay
 				<div
-					className="overlay h-screen w-full bg-black bg-opacity-70 fixed top-0 left-0 z-30 transition-opacity delay-1000 duration-750 ease-in overflow-hidden"
-					onTouchStart={() => setIsVisible(false)}
+					className="overlay h-screen w-full bg-black bg-opacity-70 fixed top-0 left-0 z-30 transition-all delay-1000 duration-750 ease-in overflow-hidden"
+					onClick={() => setIsVisible(false)}
 				></div>
 			)}
 		</>

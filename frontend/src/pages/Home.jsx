@@ -10,7 +10,7 @@ function Home() {
 					<FilterBox />
 				</div> */}
 
-				<div className="w-full p-4">
+				<div className="w-full">
 					<Products />
 				</div>
 			</div>

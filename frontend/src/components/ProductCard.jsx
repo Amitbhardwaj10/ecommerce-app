@@ -1,17 +1,33 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function ProductCard({ productTitle, productPrice, productImage }) {
+function ProductCard({ productId, productTitle, productPrice, productImage }) {
+	let formatter = new Intl.NumberFormat("en-IN", {
+		style: "currency",
+		currency: "INR",
+	});
+
 	return (
 		<>
-			<div className="">
+			<Link
+				to={`/product-details/${productId}`}
+				key={productId}
+				className="transition-shadow delay-75 hover:shadow-lg hover:shadow-neutral-300 rounded-md py-2 px-3  hover:text-sky-700 text-gray-700"
+			>
 				<img
 					alt="image not found"
 					src={productImage}
-					className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+					className="aspect-square w-full rounded-lg mix-blend-darken object-contain object-center group-hover:opacity-75 xl:aspect-7/8"
 				/>
-				<h3 className="mt-4 text-sm text-gray-700">{productTitle}</h3>
-				<p className="mt-1 text-lg font-medium text-gray-900">{productPrice}</p>
-			</div>
+				<h3 className="mt-4 text-xs sm:text-sm">
+					{productTitle.length > 140
+						? productTitle.slice(0, 141) + "..."
+						: productTitle}
+				</h3>
+				<p className="mt-1 text-sm md:text-lg font-medium text-gray-900">
+					{formatter.format(productPrice)}
+				</p>
+			</Link>
 		</>
 	);
 }

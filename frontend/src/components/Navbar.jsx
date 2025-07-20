@@ -41,8 +41,8 @@ function Navbar({ onToggleSidebar }) {
 
 						<div className="logo-div pl-1 sm:px-3 flex items-center justify-center">
 							{/* <img className="logo" src={logo} alt="logo" /> */}
-							<a href="/" className="text-xl mb-1">
-								QuickShop
+							<a href="/" className="text-xl">
+								Quick Shop
 							</a>
 						</div>
 						<div className="items-div">
@@ -50,10 +50,12 @@ function Navbar({ onToggleSidebar }) {
 								{categories.map((item) => (
 									<NavLink
 										key={item.id}
-										to={`products/category/${item.id}`}
+										to={`products/category/${item.category.toLowerCase()}`}
 										className={({ isActive }) =>
-											`relative px-4 py-8 before:hidden before:w-full before:hover:block before:bg-current before:h-[3px] before:absolute before:bottom-2 before:left-1/2 before:translate-x-[-50%] ${
-												isActive ? "text-cyan-600 font-bold" : ""
+											`relative px-4 py-8 before:w-full before:h-[3px] before:absolute before:bottom-3 before:left-1/2 before:translate-x-[-50%] before:bg-current transition-all ease-in hover:text-cyan-500 ${
+												isActive
+													? "before:opacity-100 text-cyan-500 font-bold"
+													: "before:opacity-0"
 											}`
 										}
 									>
@@ -65,7 +67,7 @@ function Navbar({ onToggleSidebar }) {
 					</div>
 
 					<div
-						className="right-div flex mr-4 md:mx-8 gap-5 items-center justify-between"
+						className="right-div flex mr-4 md:mx-4 gap-5 items-center justify-between"
 						ref={dropdownRef}
 					>
 						{/* search bar component */}

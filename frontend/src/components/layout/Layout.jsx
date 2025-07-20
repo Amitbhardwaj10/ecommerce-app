@@ -16,8 +16,8 @@ function Layout() {
 				setIsVisible={setIsSidebarVisible}
 			/>
 
-			<main className="p-4">
-				<div className="md:hidden sticky bg-[#edf6f9] top-0 place-items-center h-16 w-full rounded-lg flex justify-center px-2">
+			<main className="py-4 px-3">
+				<div className="md:hidden sticky top-0 place-items-center h-16 w-full rounded-lg flex justify-center px-2">
 					{<SearchBar />}
 				</div>
 				<Outlet />
