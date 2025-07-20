@@ -37,9 +37,9 @@ public class ProductController {
         return productService.getProductById(productId);
     }
 
-    @GetMapping("/category/{categoryId}")
-    public List<ProductResponseDto> getProductsByCategoryId(@PathVariable Long categoryId) {
-        return productService.getProductsByCategoryId(categoryId);
+    @GetMapping("/category/{slug}")
+    public List<ProductResponseDto> getProductsBySlug(@PathVariable String slug) {
+        return productService.getprodutsByCategory(slug);
     }
 
 //    PUT /products/{id} → Edit product

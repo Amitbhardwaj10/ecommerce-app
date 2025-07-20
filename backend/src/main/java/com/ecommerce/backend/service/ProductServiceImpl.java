@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,8 +88,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getProductsByCategoryId(Long categoryId) {
-        List<Product> products = productRepository.findByCategory_Id(categoryId);
-        return products.stream().map(this::mapToDto).collect(Collectors.toList());
+    public List<ProductResponseDto> getprodutsByCategory(String slug) {
+        Category category = categoryRepository.findBySlug(slug.toLowerCase())
+                .orElseThrow(() -> new RuntimeException("Category not found with slug: " + slug));
+        List<Product> products = productRepository.findByCategory_Id(category.getId());
+        return products.stream().map(this::mapToDto).toList();
     }
 }

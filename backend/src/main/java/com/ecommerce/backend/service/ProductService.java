@@ -14,7 +14,7 @@ public interface ProductService {
 
     public ProductResponseDto getProductById(Long id);
 
-    public List<ProductResponseDto> getProductsByCategoryId(Long categoryId);
-
     public ResponseEntity<String> saveAllProducts(List<ProductRequestDto> productDtos);
+
+   public List<ProductResponseDto> getprodutsByCategory(String slug);
 }

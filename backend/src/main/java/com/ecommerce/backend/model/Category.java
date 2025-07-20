@@ -22,7 +22,19 @@ public class Category {
     private Long id;
     String category;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @Column(unique = true)
+    private String slug;
+
+    @PrePersist
+    @PreUpdate
+    public void generateSlug() {
+        if (this.category != null && (this.slug == null || this.slug.isEmpty())) {
+            String trimmed = category.trim().toLowerCase();
+            this.slug = trimmed.replaceAll("[^a-z0-9]+", "-").replaceAll("(^-|-$)", "");
+        }
+    }
+
+    @OneToMany(mappedBy = "category")
     @JsonIgnore
     private List<Product> products;
 }
