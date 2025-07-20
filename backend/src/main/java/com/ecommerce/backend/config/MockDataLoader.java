@@ -85,7 +85,7 @@ public class MockDataLoader implements CommandLineRunner {
                             .title("Redragon K599 Diemos RGB LED Backlit Mechanical Gaming Keyboard (Black)")
                             .description("Redragon K599 Wireless/Wired Mechanical Gaming Keyboard up to 60 hours battery life with LED off and 30 hours with LED on, easily switch between wired and wireless mode by plugging in the USB cable")
                             .price(4299L)
-                            .image("https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg")
+                            .image("https://m.media-amazon.com/images/I/61T5V49kATL._SL1500_.jpg")
                             .category(keyboard)
                             .build(),
 

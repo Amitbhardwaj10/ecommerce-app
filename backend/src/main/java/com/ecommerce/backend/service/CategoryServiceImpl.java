@@ -1,15 +1,19 @@
 package com.ecommerce.backend.service;
 
+import com.ecommerce.backend.dto.CategoryDto;
+import com.ecommerce.backend.dto.ProductResponseDto;
 import com.ecommerce.backend.model.Category;
+import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.repository.CategoryRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -30,8 +34,34 @@ public class CategoryServiceImpl implements CategoryService{
         }
     }
 
+    private CategoryDto mapToCategoryDto(Category category) {
+        List<ProductResponseDto> productDtos = category.getProducts().stream().map(this::mapToProductDto).collect(Collectors.toList());
+
+        return CategoryDto.builder()
+                .id(category.getId())
+                .category(category.getCategory())
+                .slug(category.getSlug())
+                .products(productDtos)
+                .build();
+    }
+
+    private ProductResponseDto mapToProductDto(Product product) {
+        return ProductResponseDto.builder()
+                .productId(product.getProductId())
+                .title(product.getTitle())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .image(product.getImage())
+                .build();
+    }
+
+
     @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+
+        return categories.stream()
+                .map(this::mapToCategoryDto)
+                .collect(Collectors.toList());
     }
 }
