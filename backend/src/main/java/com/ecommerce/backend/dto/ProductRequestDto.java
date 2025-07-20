@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ProductRequestDto {
     private String title;
     private String description;
-    private Double price;
+    private Long price;
     private String image;
     private Long categoryId;
 }

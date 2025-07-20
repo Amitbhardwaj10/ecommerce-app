@@ -19,10 +19,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
+    @Column(columnDefinition = "TEXT")
     private String title;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private Double price;
+    private Long price;
     private String image;
 
     @ManyToOne
