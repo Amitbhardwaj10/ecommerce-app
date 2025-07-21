@@ -5,14 +5,17 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 	let formatter = new Intl.NumberFormat("en-IN", {
 		style: "currency",
 		currency: "INR",
+		maximumFractionDigits: 0,
 	});
+
+	const priceInInr = formatter.format(productPrice);
 
 	return (
 		<>
 			<Link
-				to={`/product-details/${productId}`}
+				to={`/products/${productId}/product-details`}
 				key={productId}
-				className="transition-shadow delay-75 hover:shadow-lg hover:shadow-neutral-300 rounded-md py-2 px-3  hover:text-sky-700 text-gray-700"
+				className="transition-shadow bg-white ease-in hover:shadow-lg hover:shadow-neutral-300 rounded-md py-2 px-3  hover:text-sky-700 text-gray-700"
 			>
 				<img
 					alt="image not found"
@@ -25,7 +28,7 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 						: productTitle}
 				</h3>
 				<p className="mt-1 text-sm md:text-lg font-medium text-gray-900">
-					{formatter.format(productPrice)}
+					{priceInInr}
 				</p>
 			</Link>
 		</>
