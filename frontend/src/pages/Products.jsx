@@ -20,7 +20,7 @@ function Products() {
 	return (
 		<>
 			<div className="mx-auto xl:max-w-7xl">
-				<h2 className="my-10 mx-auto w-fit text-3xl font-medium text-center px-2 border-b-[1.3px] leading-[3px] after:border-t-[1.3px] after:bottom-[5px] h-[17px] after:absolute after:-right-[15px] after:-rotate-45 after:w-[17px] relative border-black after:border-black">
+				<h2 className="my-10 mx-auto w-fit text-3xl font-medium text-center stylish-line-after stylish-line">
 					PRODUCTS
 				</h2>
 				<div className="grid my-11 grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">

@@ -21,7 +21,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 	return (
 		<>
 			<aside
-				className={`side-bar w-3/4 sm:w-80 py-4 px-3 text-[#ffffffde] bg-[#003049] h-screen fixed top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-transform duration-500 ${translate} ease-in-out`}
+				className={`side-bar w-3/4 sm:w-80 py-4 px-3 text-[#ffffffde] bg-primary h-screen fixed top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-transform duration-500 ${translate} ease-in-out`}
 			>
 				<div className="auth-box w-full px-2 py-2">
 					<div className="flex gap-1 items-center mb-5">
@@ -34,6 +34,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<button
 								type="button"
 								className="text-white w-full bg-black hover:bg-gray-900 rounded-md text-lg px-5 py-3 text-center"
+								onClick={() => setIsVisible(false)}
 							>
 								Sign up
 							</button>
@@ -42,6 +43,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<button
 								type="button"
 								className="text-black w-full bg-neutral-300 hover:bg-neutral-400 rounded-md text-xl px-4 py-3 text-center"
+								onClick={() => setIsVisible(false)}
 							>
 								Log in
 							</button>

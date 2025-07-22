@@ -29,7 +29,7 @@ function Navbar({ onToggleSidebar }) {
 
 	return (
 		<>
-			<header className="flex items-center w-full h-16 sticky top-0 text-[#ffffffde] hover:shadow-[#535353] shadow-sm z-10">
+			<header className="flex items-center w-full h-16 sticky top-0 text-[#ffffffde] bg-primary hover:shadow-[#535353] shadow-sm z-10">
 				<nav className="w-full flex justify-between items-center">
 					<div className="left-div flex items-center">
 						<HiBars3CenterLeft

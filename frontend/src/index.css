@@ -3,14 +3,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+	.bg-primary {
+		background-color: #003049;
+	}
+
+	.text-primary {
+		color: #003d5e;
+	}
+
+	.stylish-line-after::after {
+		content: "";
+		border-top: 1.3px solid #003049;
+		bottom: 5px;
+		position: absolute;
+		right: -15px;
+		transform: rotate(-45deg);
+		width: 17px;
+	}
+
+	.stylish-line {
+		position: relative;
+		height: 17px;
+		border-bottom: 1.3px solid #003049;
+		line-height: 3px;
+	}
+}
+
 :root {
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 
-	--dark-bg: #003049;
-
-	/* color-scheme: light dark; */
 	/* color: #ffffffde; */
 	color: black;
 	background-color: #ffffff;
@@ -21,10 +45,6 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-header {
-	background-color: #003049;
 }
 
 .logo {
