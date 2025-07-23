@@ -15,7 +15,6 @@ function ProductDetails() {
 	const [selectedImage, setSelectedImage] = useState(imagesUrl[0]);
 	const { productId } = useParams();
 	const [product, setProduct] = useState({});
-	console.log(productId);
 
 	const getProdcutByProductId = async () => {
 		try {

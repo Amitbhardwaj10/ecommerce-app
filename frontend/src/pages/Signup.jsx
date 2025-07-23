@@ -1,7 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { api } from "../api/api";
 
 function Signup() {
+	const navigate = useNavigate();
+	const [formData, setFormData] = useState({
+		fullname: "",
+		username: "",
+		password: "",
+	});
+
+	function handleChange(e) {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		});
+	}
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log("Submitted data: ", formData);
+		const res = await api.post("/auth/signup", formData);
+		navigate("/auth/login");
+	};
+
 	return (
 		<>
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +40,12 @@ function Signup() {
 				</div>
 
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-					<form action="/" method="POST" className="space-y-6">
+					<form
+						action="/"
+						method="POST"
+						className="space-y-6"
+						onSubmit={handleSubmit}
+					>
 						<div>
 							<div className="flex items-center justify-between">
 								<label
@@ -34,6 +61,8 @@ function Signup() {
 									name="fullname"
 									type="text"
 									required
+									value={formData.fullname}
+									onChange={handleChange}
 									autoComplete="given-name"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border border-neutral-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"
 								/>
@@ -54,6 +83,8 @@ function Signup() {
 									type="text"
 									pattern="[A-Za-z0-9@]{3,16}"
 									title="Username can contain letters, numbers and be 3-16 characters long."
+									value={formData.username}
+									onChange={handleChange}
 									required
 									autoComplete="username"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 border border-neutral-300 -outline-offset-1 outline-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"
@@ -75,6 +106,8 @@ function Signup() {
 									id="password"
 									name="password"
 									type="password"
+									value={formData.password}
+									onChange={handleChange}
 									required
 									autoComplete="current-password"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border border-neutral-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"
@@ -95,7 +128,7 @@ function Signup() {
 					<p className="mt-10 text-center text-sm/6 text-gray-500">
 						Already a member?{" "}
 						<Link
-							to="/login"
+							to="/auth/login"
 							className="font-semibold text-primary hover:text-teal-700"
 						>
 							Sign In

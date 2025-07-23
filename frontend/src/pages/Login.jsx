@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../api/api";
 
 function Login() {
+	const [formData, setFormData] = useState({
+		username: "",
+		password: "",
+	});
+
+	function handleChange(e) {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		});
+	}
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log("Submitted data: ", formData);
+		const res = await api.post("/auth/login", formData);
+		setFormData({
+			username: "",
+			password: "",
+		});
+	};
+
 	return (
 		<>
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +41,12 @@ function Login() {
 				</div>
 
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-					<form action="/" method="POST" className="space-y-6">
+					<form
+						action="/"
+						method="POST"
+						className="space-y-6"
+						onSubmit={handleSubmit}
+					>
 						<div>
 							<label
 								htmlFor="username"
@@ -33,6 +61,8 @@ function Login() {
 									type="text"
 									pattern="[A-Za-z0-9@]{3,16}"
 									title="Username can contain letters, numbers and be 3-16 characters long."
+									value={formData.username}
+									onChange={handleChange}
 									required
 									autoComplete="username"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 border border-neutral-300 -outline-offset-1 outline-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"
@@ -62,6 +92,8 @@ function Login() {
 									id="password"
 									name="password"
 									type="password"
+									value={formData.password}
+									onChange={handleChange}
 									required
 									autoComplete="current-password"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border border-neutral-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"
@@ -82,7 +114,7 @@ function Login() {
 					<p className="mt-10 text-center text-sm/6 text-gray-500">
 						Not a member?{" "}
 						<Link
-							to="/signup"
+							to="/auth/signup"
 							className="font-semibold text-primary hover:text-teal-700"
 						>
 							Sign Up

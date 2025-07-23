@@ -30,7 +30,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 					</div>
 
 					<div className="flex flex-col gap-3 my-5">
-						<Link to="/signup">
+						<Link to="/auth/signup">
 							<button
 								type="button"
 								className="text-white w-full bg-black hover:bg-gray-900 rounded-md text-lg px-5 py-3 text-center"
@@ -39,7 +39,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 								Sign up
 							</button>
 						</Link>
-						<Link to="/login">
+						<Link to="/auth/login">
 							<button
 								type="button"
 								className="text-black w-full bg-neutral-300 hover:bg-neutral-400 rounded-md text-xl px-4 py-3 text-center"
