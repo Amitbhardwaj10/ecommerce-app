@@ -12,6 +12,10 @@
 		color: #003d5e;
 	}
 
+	.bg-secondary {
+		background-color: #023c5c;
+	}
+
 	.stylish-line-after::after {
 		content: "";
 		border-top: 1.3px solid #003049;

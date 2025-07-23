@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
+import Toast from "../components/subComponents/Toast";
 
 function Login() {
 	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
 	});
+
+	const location = useLocation();
+	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
+	const navigate = useNavigate();
 
 	function handleChange(e) {
 		setFormData({
@@ -17,16 +22,42 @@ function Login() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("Submitted data: ", formData);
-		const res = await api.post("/auth/login", formData);
-		setFormData({
-			username: "",
-			password: "",
-		});
+		try {
+			const res = await api.post("/auth/login", formData);
+			console.log("Success:", res.data);
+			setFormData({
+				username: "",
+				password: "",
+			});
+
+			setToastMessage(res.data || "Login successfully!");
+			navigate("/");
+			localStorage.setItem("isLoggedIn", "true");
+		} catch (err) {
+			if (err.response) {
+				setToastMessage(err.response.data || "Login failed.");
+			} else if (err.request) {
+				setToastMessage("No response from server. Try again later.");
+			} else {
+				setToastMessage("Something went wrong. Try again.");
+			}
+		}
 	};
+
+	useEffect(() => {
+		if (toastMessage) {
+			const timer = setTimeout(() => {
+				window.history.replaceState({}, document.title);
+				setToastMessage("");
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [toastMessage]);
 
 	return (
 		<>
+			{toastMessage && <Toast message={toastMessage} />}
+
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
 					<Link
@@ -94,6 +125,7 @@ function Login() {
 									type="password"
 									value={formData.password}
 									onChange={handleChange}
+									pattern="[A-Za-z0-9]{6,16}"
 									required
 									autoComplete="current-password"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border border-neutral-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"

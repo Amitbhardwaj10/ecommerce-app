@@ -2,9 +2,13 @@
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
-		extend: {
-			transitionDelay: {
-				3000: "3000ms",
+		animation: {
+			pop: "popIn 0.3s ease-out",
+		},
+		keyframes: {
+			popIn: {
+				"0%": { opacity: 0, transform: "scale(0.5)" },
+				"100%": { opacity: 1, transform: "scale(1)" },
 			},
 		},
 	},

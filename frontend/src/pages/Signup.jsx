@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
+// import Toast from "../components/subComponents/Toast";
 
 function Signup() {
 	const navigate = useNavigate();
@@ -9,6 +10,8 @@ function Signup() {
 		username: "",
 		password: "",
 	});
+
+	// const [toastMessage, setToastMessage] = useState("");
 
 	function handleChange(e) {
 		setFormData({
@@ -19,13 +22,40 @@ function Signup() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("Submitted data: ", formData);
-		const res = await api.post("/auth/signup", formData);
-		navigate("/auth/login");
+		try {
+			const res = await api.post("/auth/signup", formData);
+			setFormData({
+				fullname: "",
+				username: "",
+				password: "",
+			});
+
+			navigate("/auth/login", {
+				state: { toast: res.data || "Signup successfully!" },
+			});
+		} catch (err) {
+			if (err.response) {
+				setToastMessage(err.response.data);
+			} else if (err.request) {
+				setToastMessage("No response from server. Try again later.");
+			} else {
+				setToastMessage("Something went wrong. Try again.");
+			}
+		}
 	};
+
+	// useEffect(() => {
+	// 	if (toastMessage) {
+	// 		const timer = setTimeout(() => {
+	// 			setToastMessage("");
+	// 		}, 3000);
+	// 		return () => clearTimeout(timer);
+	// 	}
+	// }, [toastMessage]);
 
 	return (
 		<>
+			{/* {toastMessage && <Toast message={toastMessage} />} */}
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
 					<Link
