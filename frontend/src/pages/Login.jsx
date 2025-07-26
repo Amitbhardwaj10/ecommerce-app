@@ -24,15 +24,14 @@ function Login() {
 		e.preventDefault();
 		try {
 			const res = await api.post("/auth/login", formData);
-			console.log("Success:", res.data);
 			setFormData({
 				username: "",
 				password: "",
 			});
 
 			setToastMessage(res.data || "Login successfully!");
-			navigate("/");
 			localStorage.setItem("isLoggedIn", "true");
+			navigate("/", { state: { toast: res.data || "Login Successfully!" } });
 		} catch (err) {
 			if (err.response) {
 				setToastMessage(err.response.data || "Login failed.");

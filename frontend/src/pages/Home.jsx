@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Products from "./Products";
-import FilterBox from "../components/FilterBox";
+import Toast from "../components/subComponents/Toast";
+import { useLocation } from "react-router-dom";
 
 function Home() {
+	const location = useLocation();
+	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
+
+	useEffect(() => {
+		if (toastMessage) {
+			const timer = setTimeout(() => {
+				window.history.replaceState({}, document.title);
+				setToastMessage("");
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [toastMessage]);
+
 	return (
 		<>
+			{toastMessage && <Toast message={toastMessage} />}
+
 			<div className="w-full">
 				<Products />
 			</div>

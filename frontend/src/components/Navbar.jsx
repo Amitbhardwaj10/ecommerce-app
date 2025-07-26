@@ -8,11 +8,15 @@ import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
 import { NavLink } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
+import userImage from "../assets/user.png";
 
 function Navbar({ onToggleSidebar }) {
 	const { categories } = useCategories();
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
+	const [isLoggedIn, setIsLoggedIn] = useState(
+		Boolean(localStorage.getItem("isLoggedIn"))
+	);
 
 	useEffect(() => {
 		function handleClickOutside(event) {
@@ -79,10 +83,14 @@ function Navbar({ onToggleSidebar }) {
 							className="flex gap-1 items-center cursor-pointer relative"
 							onClick={() => setShowDropdown(!showDropdown)}
 						>
-							<HiOutlineUserCircle className="h-6 w-6" />
-							<small className="">Profile</small>
-							<HiMiniChevronDown className="sm:block hidden h-6 w-6" />
+							{isLoggedIn ? (
+								<img className="w-8 h-8" src={userImage} alt="user image" />
+							) : (
+								<HiOutlineUserCircle className="h-6 w-6" />
+							)}
 
+							<small>Profile</small>
+							<HiMiniChevronDown className="sm:block hidden h-6 w-6" />
 							{/* dropdown component */}
 							{showDropdown && <Dropdown />}
 						</div>
