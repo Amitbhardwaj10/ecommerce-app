@@ -1,27 +1,22 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/features/auth/authSlice";
 import { Link } from "react-router-dom";
 
 function Dropdown() {
-	const [isLoggedIn, setIsLoggedIn] = useState(
-		Boolean(localStorage.getItem("isLoggedIn"))
-	);
-
-	const signOut = () => {
-		localStorage.setItem("isLoggedIn", "false");
-		setIsLoggedIn(!isLoggedIn);
-	};
-
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const user = useSelector((state) => state.auth.user);
 	return (
 		<div className="absolute top-full right-0 mt-2 w-36 shadow-2xl shadow-gray-700 bg-primary text-[#ffffffde] ring-1 ring-black ring-opacity-5 focus:outline-none z-40 rounded-md">
 			{isLoggedIn ? (
 				<>
 					<p className="px-4 py-2 text-sm text-white font-normal">
-						Signed in as test@example.com
+						Signed in as {user.email}
 					</p>
 
 					<Link
 						className="block px-4 py-2 text-sm hover:text-black hover:bg-slate-300 rounded-b-md"
-						onClick={signOut}
+						onClick={() => dispatch(logout())}
 					>
 						Sign out
 					</Link>

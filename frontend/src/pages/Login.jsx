@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
+import { useDispatch } from "react-redux";
+import { login } from "../store/features/auth/authSlice";
 
 function Login() {
 	const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ function Login() {
 	const location = useLocation();
 	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	function handleChange(e) {
 		setFormData({
@@ -31,10 +34,13 @@ function Login() {
 
 			setToastMessage(res.data || "Login successfully!");
 			localStorage.setItem("isLoggedIn", "true");
-			navigate("/", { state: { toast: res.data || "Login Successfully!" } });
+			dispatch(login(res.data.user));
+			navigate("/", {
+				state: { toast: res.data.message || "Login Successfully!" },
+			});
 		} catch (err) {
 			if (err.response) {
-				setToastMessage(err.response.data || "Login failed.");
+				setToastMessage(err.response.data.message || "Login failed.");
 			} else if (err.request) {
 				setToastMessage("No response from server. Try again later.");
 			} else {

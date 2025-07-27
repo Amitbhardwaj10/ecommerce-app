@@ -9,14 +9,13 @@ import Dropdown from "./subComponents/Dropdown";
 import { NavLink } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 import userImage from "../assets/user.png";
+import { useSelector } from "react-redux";
 
 function Navbar({ onToggleSidebar }) {
 	const { categories } = useCategories();
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
-	const [isLoggedIn, setIsLoggedIn] = useState(
-		Boolean(localStorage.getItem("isLoggedIn"))
-	);
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
 	useEffect(() => {
 		function handleClickOutside(event) {
@@ -84,7 +83,7 @@ function Navbar({ onToggleSidebar }) {
 							onClick={() => setShowDropdown(!showDropdown)}
 						>
 							{isLoggedIn ? (
-								<img className="w-8 h-8" src={userImage} alt="user image" />
+								<img className="w-8 h-8" src={userImage} alt="avatar" />
 							) : (
 								<HiOutlineUserCircle className="h-6 w-6" />
 							)}
