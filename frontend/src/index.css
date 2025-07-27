@@ -60,10 +60,11 @@
 
 a {
 	text-decoration: inherit;
+	color: #adb5bd;
 }
 
 a:hover {
-	color: #adb5bd;
+	color: white;
 }
 
 h1 {

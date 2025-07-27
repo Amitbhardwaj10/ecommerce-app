@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
+import Toast from "../components/subComponents/Toast";
 
 function Signup() {
 	const navigate = useNavigate();
@@ -9,6 +10,7 @@ function Signup() {
 		username: "",
 		password: "",
 	});
+	const [toastMessage, setToastMessage] = useState("");
 
 	function handleChange(e) {
 		setFormData({
@@ -27,22 +29,33 @@ function Signup() {
 				password: "",
 			});
 
+			const message = res.data.message || "Signup successfully!";
 			navigate("/auth/login", {
-				state: { toast: res.data || "Signup successfully!" },
+				state: { toast: message },
 			});
 		} catch (err) {
+			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
-				setToastMessage(err.response.data);
+				errorMessage = err.response.data || "Signup failed.";
 			} else if (err.request) {
-				setToastMessage("No response from server. Try again later.");
-			} else {
-				setToastMessage("Something went wrong. Try again.");
+				errorMessage = "No response from server. Try again later.";
 			}
+			setToastMessage(errorMessage);
 		}
 	};
 
+	useEffect(() => {
+		if (toastMessage) {
+			const timer = setTimeout(() => {
+				setToastMessage("");
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [toastMessage]);
+
 	return (
 		<>
+			{toastMessage && <Toast message={toastMessage} />}
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
 					<Link

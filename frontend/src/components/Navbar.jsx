@@ -6,7 +6,7 @@ import { HiMiniChevronDown } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 import userImage from "../assets/user.png";
 import { useSelector } from "react-redux";
@@ -16,6 +16,7 @@ function Navbar({ onToggleSidebar }) {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const user = useSelector((state) => state.auth.user);
 
 	useEffect(() => {
 		function handleClickOutside(event) {
@@ -44,9 +45,9 @@ function Navbar({ onToggleSidebar }) {
 
 						<div className="logo-div pl-1 sm:px-3 flex items-center justify-center">
 							{/* <img className="logo" src={logo} alt="logo" /> */}
-							<a href="/" className="text-xl">
+							<Link to="/" className="text-xl text-white">
 								Quick Shop
-							</a>
+							</Link>
 						</div>
 						<div className="items-div">
 							<ul className="lg:flex justify-center items-center gap-2 hidden">
@@ -83,7 +84,7 @@ function Navbar({ onToggleSidebar }) {
 							onClick={() => setShowDropdown(!showDropdown)}
 						>
 							{isLoggedIn ? (
-								<img className="w-8 h-8" src={userImage} alt="avatar" />
+								<img className="w-6 h-6" src={userImage} alt="avatar" />
 							) : (
 								<HiOutlineUserCircle className="h-6 w-6" />
 							)}

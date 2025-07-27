@@ -32,7 +32,7 @@ function Login() {
 				password: "",
 			});
 
-			setToastMessage(res.data || "Login successfully!");
+			setToastMessage(res.data.message || "Login successfully!");
 			localStorage.setItem("isLoggedIn", "true");
 			dispatch(login(res.data.user));
 			navigate("/", {

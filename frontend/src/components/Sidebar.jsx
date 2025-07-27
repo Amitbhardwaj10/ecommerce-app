@@ -24,15 +24,15 @@ function Sidebar({ isVisible, setIsVisible }) {
 	return (
 		<>
 			<aside
-				className={`side-bar w-3/4 sm:w-80 py-4 px-3 text-[#ffffffde] bg-primary h-screen fixed top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-transform duration-500 ${translate} ease-in-out`}
+				className={`side-bar w-3/4 sm:w-80 text-[#ffffffde] bg-primary h-screen fixed top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-all duration-500 ${translate} ease-in-out`}
 			>
 				{isLoggedIn ? (
-					<div>
+					<div className="flex gap-4 items-center bg-secondary p-2">
 						<img className="w-8 h-8" src={userImage} alt="avatar" />
-						<p>{user.email}</p>
+						<p>{user.username}</p>
 					</div>
 				) : (
-					<div className="auth-box w-full px-2 py-2">
+					<div className="auth-box w-full px-2 py-2 bg-secondary">
 						<div className="flex gap-1 items-center mb-5">
 							<HiUser className="w-6 h-6" />
 							<p href="/login">Login, Signup </p>
@@ -42,7 +42,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<Link to="/auth/signup">
 								<button
 									type="button"
-									className="text-white w-full bg-black hover:bg-gray-900 rounded-md text-lg px-5 py-3 text-center"
+									className="text-white w-full bg-black hover:bg-slate-900 rounded-md text-lg px-5 py-3 text-center"
 									onClick={() => setIsVisible(false)}
 								>
 									Sign up
@@ -51,7 +51,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<Link to="/auth/login">
 								<button
 									type="button"
-									className="text-black w-full bg-neutral-300 hover:bg-neutral-400 rounded-md text-xl px-4 py-3 text-center"
+									className="text-black w-full bg-white hover:bg-neutral-300 rounded-md text-xl px-4 py-3 text-center"
 									onClick={() => setIsVisible(false)}
 								>
 									Log in
@@ -61,7 +61,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 					</div>
 				)}
 
-				<div className="menuItems">
+				<div className="menuItems mt-5 py-4 px-3">
 					<ul className="px-4 py-3 flex flex-col gap-3">
 						<p className="text-2xl">Categories</p>
 						{categories.map((item) => {
@@ -86,11 +86,12 @@ function Sidebar({ isVisible, setIsVisible }) {
 						})}
 					</ul>
 				</div>
+
 				<div className="close-icon w-fit rounded-full absolute top-2 right-2">
 					<HiXMark
-						className="h-8 w-8 p-1"
+						className="h-7 w-7"
 						onClick={() => {
-							setIsVisible(!isVisible);
+							setIsVisible(false);
 						}}
 					/>
 				</div>
@@ -99,7 +100,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 			{isVisible && (
 				// Overlay
 				<div
-					className="overlay h-screen w-full bg-black bg-opacity-70 fixed top-0 left-0 z-30 transition-all delay-1000 duration-750 ease-in overflow-hidden"
+					className="overlay h-screen w-full bg-black bg-opacity-70 fixed top-0 left-0 z-30 duration-750 ease-in overflow-hidden"
 					onClick={() => setIsVisible(false)}
 				></div>
 			)}
