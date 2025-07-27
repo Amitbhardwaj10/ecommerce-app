@@ -1,5 +1,8 @@
 package com.ecommerce.backend.service;
 
+import com.ecommerce.backend.dto.ErrorMessage;
+import com.ecommerce.backend.dto.LoginResponseDto;
+import com.ecommerce.backend.dto.UserDto;
 import com.ecommerce.backend.model.User;
 import com.ecommerce.backend.repository.AuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +29,30 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<String> userLogin(User loginRequest) {
+    public ResponseEntity<LoginResponseDto> userLogin(User loginRequest) {
         Optional<User> user = authRepository.findByUsername(loginRequest.getUsername());
 
         if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
-            return ResponseEntity.ok("Login Successfully!");
+
+            UserDto userDto = UserDto.builder()
+                    .id(user.get().getId())
+                    .fullname(user.get().getFullname())
+                    .username(user.get().getUsername())
+                    .build();
+
+            LoginResponseDto response = LoginResponseDto.builder()
+                    .message("Login Successfully!")
+                    .user(userDto)
+                    .build();
+
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        LoginResponseDto errorResponse = LoginResponseDto.builder()
+                .message("Invalid username or password!")
+                .user(null)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 }

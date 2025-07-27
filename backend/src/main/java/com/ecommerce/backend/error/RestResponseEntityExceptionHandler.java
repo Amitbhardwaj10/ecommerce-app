@@ -1,6 +1,6 @@
 package com.ecommerce.backend.error;
 
-import com.ecommerce.backend.model.ErrorMessage;
+import com.ecommerce.backend.dto.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

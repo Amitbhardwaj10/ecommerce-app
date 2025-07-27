@@ -1,4 +1,4 @@
-package com.ecommerce.backend.model;
+package com.ecommerce.backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

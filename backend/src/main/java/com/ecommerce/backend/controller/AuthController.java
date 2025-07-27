@@ -1,5 +1,6 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.LoginResponseDto;
 import com.ecommerce.backend.model.User;
 import com.ecommerce.backend.repository.AuthRepository;
 import com.ecommerce.backend.service.AuthService;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody User loginRequest) {
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody User loginRequest) {
         return authService.userLogin(loginRequest);
     }
 }
