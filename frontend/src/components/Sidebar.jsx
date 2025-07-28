@@ -76,7 +76,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 									}}
 									className={({ isActive }) =>
 										`block px-4 py-2 ${
-											isActive ? "text-cyan-600 font-bold" : ""
+											isActive ? "text-cyan-400 font-semibold" : ""
 										}`
 									}
 								>

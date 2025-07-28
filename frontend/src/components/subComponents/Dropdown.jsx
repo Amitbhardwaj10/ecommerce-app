@@ -29,16 +29,20 @@ function Dropdown() {
 						<p className="text-[13px] text-[#adb5bd]">{user.username}</p>
 					</div>
 
-					<a
-						href="#"
-						className="text-sm"
-						onClick={(e) => {
-							e.preventDefault();
-							handleLogout();
-						}}
-					>
-						Logout
-					</a>
+					<div className="text-sm flex flex-col gap-2">
+						<Link to="/">Orders</Link>
+						<Link to="/">Wishlist</Link>
+
+						<a
+							href="#"
+							onClick={(e) => {
+								e.preventDefault();
+								handleLogout();
+							}}
+						>
+							Logout
+						</a>
+					</div>
 				</>
 			) : (
 				<div className="flex flex-col gap-2">

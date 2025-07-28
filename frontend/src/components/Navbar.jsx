@@ -56,9 +56,9 @@ function Navbar({ onToggleSidebar }) {
 										key={item.id}
 										to={`products/category/${item.category.toLowerCase()}`}
 										className={({ isActive }) =>
-											`relative px-4 py-8 before:w-full before:h-[3px] before:absolute before:bottom-3 before:left-1/2 before:translate-x-[-50%] before:bg-current transition-all ease-in hover:text-cyan-500 ${
+											`relative px-4 py-8 before:w-full before:h-[3px] before:absolute before:bottom-3 before:left-1/2 before:translate-x-[-50%] before:bg-current transition-all ease-in hover:text-cyan-400 ${
 												isActive
-													? "before:opacity-100 text-cyan-500 font-bold"
+													? "before:opacity-100 text-cyan-400 font-semibold"
 													: "before:opacity-0"
 											}`
 										}
