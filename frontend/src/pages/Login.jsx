@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+	Link,
+	Navigate,
+	replace,
+	useLocation,
+	useNavigate,
+} from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/features/auth/authSlice";
 
 function Login() {
@@ -15,6 +21,7 @@ function Login() {
 	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
 	function handleChange(e) {
 		setFormData({
@@ -58,6 +65,10 @@ function Login() {
 			return () => clearTimeout(timer);
 		}
 	}, [toastMessage]);
+
+	if (isLoggedIn) {
+		return <Navigate to="/" replace />;
+	}
 
 	return (
 		<>

@@ -8,13 +8,20 @@ function Home() {
 	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
 
 	useEffect(() => {
-		if (toastMessage) {
-			const timer = setTimeout(() => {
-				window.history.replaceState({}, document.title);
-				setToastMessage("");
-			}, 3000);
-			return () => clearTimeout(timer);
+		if (location.state?.toast) {
+			setToastMessage(location.state.toast);
 		}
+	}, [location.state]);
+
+	useEffect(() => {
+		if (!toastMessage) return;
+
+		const timer = setTimeout(() => {
+			window.history.replaceState({}, document.title);
+			setToastMessage("");
+		}, 3000);
+
+		return () => clearTimeout(timer);
 	}, [toastMessage]);
 
 	return (

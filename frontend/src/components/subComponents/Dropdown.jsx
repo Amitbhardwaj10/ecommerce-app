@@ -1,13 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/features/auth/authSlice";
-import { Link } from "react-router-dom";
+import { Link, Navigate, replace, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Toast from "./Toast";
 
 function Dropdown() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const user = useSelector((state) => state.auth.user);
+
+	const handleLogout = () => {
+		dispatch(logout());
+		navigate("/", {
+			replace: true,
+			state: { toast: "You have been logged out." },
+		});
+	};
 
 	return (
 		<div className="absolute top-full right-0 mt-2 p-4 w-40 shadow-2xl shadow-gray-700 bg-secondary text-[#ffffffde] ring-1 ring-black ring-opacity-5 focus:outline-none z-40 rounded-md">
@@ -20,9 +29,16 @@ function Dropdown() {
 						<p className="text-[13px] text-[#adb5bd]">{user.username}</p>
 					</div>
 
-					<Link className="text-sm" onClick={() => dispatch(logout())}>
-						Sign out
-					</Link>
+					<a
+						href="#"
+						className="text-sm"
+						onClick={(e) => {
+							e.preventDefault();
+							handleLogout();
+						}}
+					>
+						Logout
+					</a>
 				</>
 			) : (
 				<div className="flex flex-col gap-2">

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
+import { useSelector } from "react-redux";
 
 function Signup() {
 	const navigate = useNavigate();
@@ -11,6 +12,7 @@ function Signup() {
 		password: "",
 	});
 	const [toastMessage, setToastMessage] = useState("");
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
 	function handleChange(e) {
 		setFormData({
@@ -30,9 +32,7 @@ function Signup() {
 			});
 
 			const message = res.data.message || "Signup successfully!";
-			navigate("/auth/login", {
-				state: { toast: message },
-			});
+			<Navigate to="/auth/login" state={{ toast: message }} />;
 		} catch (err) {
 			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
@@ -52,6 +52,10 @@ function Signup() {
 			return () => clearTimeout(timer);
 		}
 	}, [toastMessage]);
+
+	if (isLoggedIn) {
+		return <Navigate to="/" replace />;
+	}
 
 	return (
 		<>
