@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/features/auth/authSlice";
-import { Link, Navigate, replace, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Toast from "./Toast";
+import { Link, useNavigate } from "react-router-dom";
 
 function Dropdown() {
 	const dispatch = useDispatch();

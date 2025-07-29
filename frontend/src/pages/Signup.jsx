@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ function Signup() {
 			});
 
 			const message = res.data.message || "Signup successfully!";
-			<Navigate to="/auth/login" state={{ toast: message }} />;
+			navigate("/auth/login", { state: { toast: message } });
 		} catch (err) {
 			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
@@ -47,6 +47,7 @@ function Signup() {
 	useEffect(() => {
 		if (toastMessage) {
 			const timer = setTimeout(() => {
+				window.history.replaceState({}, document.title);
 				setToastMessage("");
 			}, 3000);
 			return () => clearTimeout(timer);
@@ -54,7 +55,7 @@ function Signup() {
 	}, [toastMessage]);
 
 	if (isLoggedIn) {
-		return <Navigate to="/" replace />;
+		return navigate("/", { replace: true });
 	}
 
 	return (

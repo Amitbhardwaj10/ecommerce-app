@@ -14,14 +14,13 @@ function Home() {
 	}, [location.state]);
 
 	useEffect(() => {
-		if (!toastMessage) return;
-
-		const timer = setTimeout(() => {
-			window.history.replaceState({}, document.title);
-			setToastMessage("");
-		}, 3000);
-
-		return () => clearTimeout(timer);
+		if (toastMessage) {
+			const timer = setTimeout(() => {
+				window.history.replaceState({}, document.title);
+				setToastMessage("");
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
 	}, [toastMessage]);
 
 	return (

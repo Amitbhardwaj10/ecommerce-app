@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-	Link,
-	Navigate,
-	replace,
-	useLocation,
-	useNavigate,
-} from "react-router-dom";
+import { Link, replace, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,11 +33,12 @@ function Login() {
 				password: "",
 			});
 
-			setToastMessage(res.data.message || "Login successfully!");
+			const message = res.data.message || "Login successfully!";
+			setToastMessage(message);
 			localStorage.setItem("isLoggedIn", "true");
 			dispatch(login(res.data.user));
 			navigate("/", {
-				state: { toast: res.data.message || "Login Successfully!" },
+				state: { toast: message },
 			});
 		} catch (err) {
 			if (err.response) {
@@ -66,9 +61,11 @@ function Login() {
 		}
 	}, [toastMessage]);
 
-	if (isLoggedIn) {
-		return <Navigate to="/" replace />;
-	}
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate("/", { replace: true });
+		}
+	}, [isLoggedIn]);
 
 	return (
 		<>
@@ -106,7 +103,7 @@ function Login() {
 									id="username"
 									name="username"
 									type="text"
-									pattern="[A-Za-z0-9@]{3,16}"
+									pattern="[A-Za-z0-9@]{3,20}"
 									title="Username can contain letters, numbers and be 3-16 characters long."
 									value={formData.username}
 									onChange={handleChange}
