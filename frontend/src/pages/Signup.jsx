@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function Signup() {
 	const navigate = useNavigate();
@@ -11,7 +12,7 @@ function Signup() {
 		username: "",
 		password: "",
 	});
-	const [toastMessage, setToastMessage] = useState("");
+	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
 	function handleChange(e) {
@@ -31,8 +32,10 @@ function Signup() {
 				password: "",
 			});
 
-			const message = res.data.message || "Signup successfully!";
-			navigate("/auth/login", { state: { toast: message } });
+			const message = res.data.message || "User Registered successfully!";
+
+			navigate("/auth/login");
+			dispatch(showToast({ message: message, type: "success" }));
 		} catch (err) {
 			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
@@ -40,27 +43,18 @@ function Signup() {
 			} else if (err.request) {
 				errorMessage = "No response from server. Try again later.";
 			}
-			setToastMessage(errorMessage);
+			dispatch(showToast({ message: errorMessage, type: "error" }));
 		}
 	};
 
 	useEffect(() => {
-		if (toastMessage) {
-			const timer = setTimeout(() => {
-				window.history.replaceState({}, document.title);
-				setToastMessage("");
-			}, 3000);
-			return () => clearTimeout(timer);
+		if (isLoggedIn) {
+			navigate("/", { replace });
 		}
-	}, [toastMessage]);
-
-	if (isLoggedIn) {
-		return navigate("/", { replace: true });
-	}
+	}, [isLoggedIn]);
 
 	return (
 		<>
-			{toastMessage && <Toast message={toastMessage} />}
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
 					<Link
@@ -116,8 +110,8 @@ function Signup() {
 									id="username"
 									name="username"
 									type="text"
-									pattern="[A-Za-z0-9@]{3,16}"
-									title="Username can contain letters, numbers and be 3-16 characters long."
+									pattern="[A-Za-z0-9@]{3,20}"
+									title="Username can contain letters, numbers, @ and be 3-20 characters long."
 									value={formData.username}
 									onChange={handleChange}
 									required
@@ -142,6 +136,8 @@ function Signup() {
 									name="password"
 									type="password"
 									value={formData.password}
+									title="Password must be 6-20 characters long, and can not contain special character except @ only"
+									pattern="[A-Za-z0-9]{6,20}"
 									onChange={handleChange}
 									required
 									autoComplete="current-password"

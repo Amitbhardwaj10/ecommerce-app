@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Products from "./Products";
 import Toast from "../components/subComponents/Toast";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Home() {
-	const location = useLocation();
-	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
-
-	useEffect(() => {
-		if (location.state?.toast) {
-			setToastMessage(location.state.toast);
-		}
-	}, [location.state]);
-
-	useEffect(() => {
-		if (toastMessage) {
-			const timer = setTimeout(() => {
-				window.history.replaceState({}, document.title);
-				setToastMessage("");
-			}, 3000);
-			return () => clearTimeout(timer);
-		}
-	}, [toastMessage]);
+	const show = useSelector((state) => state.toast.show);
 
 	return (
 		<>
-			{toastMessage && <Toast message={toastMessage} />}
+			{show && <Toast />}
 
 			<div className="w-full">
 				<Products />

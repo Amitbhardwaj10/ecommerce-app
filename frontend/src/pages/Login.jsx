@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, replace, useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/features/auth/authSlice";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function Login() {
 	const [formData, setFormData] = useState({
@@ -11,11 +12,10 @@ function Login() {
 		password: "",
 	});
 
-	const location = useLocation();
-	const [toastMessage, setToastMessage] = useState(location.state?.toast || "");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const show = useSelector((state) => state.toast.show);
 
 	function handleChange(e) {
 		setFormData({
@@ -34,42 +34,28 @@ function Login() {
 			});
 
 			const message = res.data.message || "Login successfully!";
-			setToastMessage(message);
-			localStorage.setItem("isLoggedIn", "true");
+
+			dispatch(showToast({ message: message, type: "success" }));
 			dispatch(login(res.data.user));
-			navigate("/", {
-				state: { toast: message },
-			});
+			navigate("/");
 		} catch (err) {
+			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
-				setToastMessage(err.response.data.message || "Login failed.");
+				errorMessage = err.response.data.message || "Login failed.";
 			} else if (err.request) {
-				setToastMessage("No response from server. Try again later.");
-			} else {
-				setToastMessage("Something went wrong. Try again.");
+				errorMessage = "No response from server. Try again later.";
 			}
+			dispatch(showToast({ message: errorMessage, type: "error" }));
 		}
 	};
 
-	useEffect(() => {
-		if (toastMessage) {
-			const timer = setTimeout(() => {
-				window.history.replaceState({}, document.title);
-				setToastMessage("");
-			}, 3000);
-			return () => clearTimeout(timer);
-		}
-	}, [toastMessage]);
-
-	useEffect(() => {
-		if (isLoggedIn) {
-			navigate("/", { replace: true });
-		}
-	}, [isLoggedIn]);
+	if (isLoggedIn) {
+		navigate("/", { replace: true });
+	}
 
 	return (
 		<>
-			{toastMessage && <Toast message={toastMessage} />}
+			{show && <Toast />}
 
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
@@ -104,7 +90,7 @@ function Login() {
 									name="username"
 									type="text"
 									pattern="[A-Za-z0-9@]{3,20}"
-									title="Username can contain letters, numbers and be 3-16 characters long."
+									title="Username can contain letters, numbers, @ and be 3-20 characters long."
 									value={formData.username}
 									onChange={handleChange}
 									required
@@ -138,7 +124,8 @@ function Login() {
 									type="password"
 									value={formData.password}
 									onChange={handleChange}
-									pattern="[A-Za-z0-9]{6,16}"
+									pattern="[A-Za-z0-9@]{6,20}"
+									title="Password must be 6-20 characters long, and can not contain special character except @ only"
 									required
 									autoComplete="current-password"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border border-neutral-300 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-800 sm:text-sm/6"

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { showToast } from "../../store/features/toast/toastSlice";
 
 function Dropdown() {
 	const dispatch = useDispatch();
@@ -9,11 +10,9 @@ function Dropdown() {
 	const user = useSelector((state) => state.auth.user);
 
 	const handleLogout = () => {
+		dispatch(showToast({ message: "Logout Successfully!", type: "success" }));
 		dispatch(logout());
-		navigate("/", {
-			replace: true,
-			state: { toast: "You have been logged out." },
-		});
+		navigate("/");
 	};
 
 	return (
