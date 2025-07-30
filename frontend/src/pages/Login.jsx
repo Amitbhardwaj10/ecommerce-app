@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import Toast from "../components/subComponents/Toast";
@@ -49,9 +49,11 @@ function Login() {
 		}
 	};
 
-	if (isLoggedIn) {
-		navigate("/", { replace: true });
-	}
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate("/", { replace: true });
+		}
+	}, [isLoggedIn]);
 
 	return (
 		<>

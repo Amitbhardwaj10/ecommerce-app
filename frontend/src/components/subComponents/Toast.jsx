@@ -16,24 +16,102 @@ const Toast = () => {
 		}
 	}, [show]);
 
+	const getIcon = (type) => {
+		if (type == "success")
+			return (
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					strokeWidth={2}
+					stroke="currentColor"
+					className="w-6 h-6 text-green-500"
+				>
+					<circle
+						cx="12"
+						cy="12"
+						r="10"
+						stroke="currentColor"
+						strokeWidth="2"
+						fill="none"
+					/>
+					<path
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						d="M7 13l3 3 7-7"
+					/>
+				</svg>
+			);
+
+		if (type == "error")
+			return (
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					strokeWidth={2}
+					stroke="currentColor"
+					className="w-6 h-6 text-red-500"
+				>
+					<circle
+						cx="12"
+						cy="12"
+						r="10"
+						stroke="currentColor"
+						strokeWidth="2"
+						fill="none"
+					/>
+					<path
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						d="M15 9l-6 6m0-6l6 6"
+					/>
+				</svg>
+			);
+
+		return (
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				strokeWidth={2}
+				stroke="currentColor"
+				className="w-6 h-6 text-blue-500"
+			>
+				<circle
+					cx="12"
+					cy="12"
+					r="10"
+					stroke="currentColor"
+					strokeWidth="2"
+					fill="none"
+				/>
+				<line
+					x1="12"
+					y1="16"
+					x2="12"
+					y2="12"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+				/>
+				<circle cx="12" cy="8" r="1" fill="currentColor" />
+			</svg>
+		);
+	};
+
 	return (
 		<div
-			className="flex fixed top-[10%] right-6 items-center w-full max-w-xs py-3 px-4 bg-white rounded-lg shadow-lg shadow-blue-800/40 backdrop-blur-md border border-white/20 animate-pop z-50"
+			className="flex fixed top-6 right-3 items-center w-fit py-3 px-4 bg-white rounded-lg shadow-lg shadow-blue-800/40 backdrop-blur-md border border-white/20 animate-pop z-50"
 			role="alert"
 		>
-			{/* <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 text-white rounded-lg bg-green-900">
-				<svg
-					className="w-5 h-5"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-				>
-					<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />	
-				</svg>
-				<span className="sr-on
-				ly">Check icon</span>
-			</div> */}
+			<div className="inline-flex items-center justify-center shrink-0 w-6 h-6 text-white rounded-full">
+				{getIcon(type)}
+			</div>
 
 			<div
 				className={`ms-2 font-medium ${
@@ -41,8 +119,8 @@ const Toast = () => {
 						? "text-green-700"
 						: type == "error"
 						? "text-red-500"
-						: type == "info" && "text-sky-500"
-				} text-white`}
+						: "text-sky-500"
+				}`}
 			>
 				{message}
 			</div>

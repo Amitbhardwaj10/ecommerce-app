@@ -16,14 +16,14 @@ function Dropdown() {
 	};
 
 	return (
-		<div className="absolute top-full right-0 mt-2 p-4 w-40 shadow-2xl shadow-gray-700 bg-secondary text-[#ffffffde] ring-1 ring-black ring-opacity-5 focus:outline-none z-40 rounded-md">
+		<div className="absolute top-full right-0 mt-2 p-4 w-44 shadow-2xl shadow-gray-700 bg-secondary text-[#ffffffde] ring-1 ring-black ring-opacity-5 focus:outline-none z-40 rounded-md">
 			{isLoggedIn ? (
 				<>
 					<div className="border-b border-slate-500 mb-3 py-1">
 						<p className="text-sm text-white font-normal">
 							Hello, {user.fullname.split(" ")[0]}
 						</p>
-						<p className="text-[13px] text-[#adb5bd]">{user.username}</p>
+						<p className="text-xs text-[#adb5bd]">{user.username}</p>
 					</div>
 
 					<div className="text-sm flex flex-col gap-2">
