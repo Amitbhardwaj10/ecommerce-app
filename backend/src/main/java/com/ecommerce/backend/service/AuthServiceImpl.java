@@ -32,27 +32,36 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<LoginResponseDto> userLogin(User loginRequest) {
         Optional<User> user = authRepository.findByUsername(loginRequest.getUsername());
 
-        if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
+        if (user.isPresent()) {
+            User foundUser = user.get();
+            if (foundUser.getPassword().equals(loginRequest.getPassword())) {
 
-            UserDto userDto = UserDto.builder()
-                    .id(user.get().getId())
-                    .fullname(user.get().getFullname())
-                    .username(user.get().getUsername())
+                UserDto userDto = UserDto.builder()
+                        .id(user.get().getId())
+                        .fullname(user.get().getFullname())
+                        .username(user.get().getUsername())
+                        .build();
+
+                LoginResponseDto response = LoginResponseDto.builder()
+                        .message("Login Successfully!")
+                        .user(userDto)
+                        .build();
+
+                return ResponseEntity.ok(response);
+            } else {
+                LoginResponseDto errorResponse = LoginResponseDto.builder()
+                        .message("Invalid password!")
+                        .user(null)
+                        .build();
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            }
+        } else {
+            LoginResponseDto errorResponse = LoginResponseDto.builder()
+                    .message("User not registered. Please sign up.")
+                    .user(null)
                     .build();
 
-            LoginResponseDto response = LoginResponseDto.builder()
-                    .message("Login Successfully!")
-                    .user(userDto)
-                    .build();
-
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
-
-        LoginResponseDto errorResponse = LoginResponseDto.builder()
-                .message("Invalid username or password!")
-                .user(null)
-                .build();
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 }
