@@ -8,12 +8,12 @@
 		background-color: #003049;
 	}
 
-	.text-primary {
-		color: #003d5e;
-	}
-
 	.bg-secondary {
 		background-color: #023c5c;
+	}
+
+	.text-primary {
+		color: #003d5e;
 	}
 
 	.stylish-line-after::after {

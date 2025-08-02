@@ -6,7 +6,7 @@ import { HiMiniChevronDown } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 import userImage from "../assets/user.png";
 import { useSelector } from "react-redux";
@@ -16,7 +16,7 @@ function Navbar({ onToggleSidebar }) {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-	const user = useSelector((state) => state.auth.user);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		function handleClickOutside(event) {
@@ -101,7 +101,10 @@ function Navbar({ onToggleSidebar }) {
 							<small ">Wishlist</small>
 						</div> */}
 
-						<div className="flex gap-1 items-center cursor-pointer">
+						<div
+							className="flex gap-1 items-center cursor-pointer"
+							onClick={() => navigate("/checkout/cart")}
+						>
 							<HiOutlineShoppingCart className="h-6 w-6" />
 							<small className="sm:block hidden">Cart</small>
 						</div>
