@@ -10,7 +10,7 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 				<img
 					src={item.image}
 					alt={item.name}
-					className="w-28 h-38 object-cover rounded bg-gray-100 shadow hover:cursor-pointer"
+					className="w-24 md:w-28 h-32 md:h-38 object-cover rounded bg-gray-100 shadow hover:cursor-pointer"
 					onClick={() => navigate(`/products/${item.id}/product-details`)}
 				/>
 			</div>

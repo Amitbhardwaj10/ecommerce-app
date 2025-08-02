@@ -20,7 +20,7 @@ function Layout() {
 				{<SearchBar />}
 			</div>
 
-			<main className="py-4 px-3">
+			<main>
 				<Outlet />
 			</main>
 

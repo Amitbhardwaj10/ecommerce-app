@@ -107,7 +107,7 @@ const Toast = () => {
 	return (
 		<div
 			className="flex items-center w-fit fixed z-50 px-4 py-3 text-xs md:text-base text-black bg-white border border-white/20 rounded-lg shadow-lg shadow-blue-800/40 backdrop-blur-md animate-pop
-			inset-x-4 bottom-4
+			inset-x-4 bottom-12
 			sm:inset-x-auto sm:left-auto sm:right-3 sm:top-6 sm:bottom-auto mx-auto sm:mx-0 text-center"
 			role="alert"
 		>

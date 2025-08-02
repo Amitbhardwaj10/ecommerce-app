@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CartItem from "../components/CartItem";
+import cartImage from "../assets/cart.jpg";
+import { Link } from "react-router-dom";
 
 function Cart() {
 	const cartItems = [
@@ -70,17 +72,23 @@ function Cart() {
 	const total = subtotal - discount + delivery + tax;
 
 	return (
-		<div className="min-h-screen flex items-start justify-center bg-gray-50 px-2 py-6">
+		<div className="h-full flex items-start justify-center bg-gray-100 py-6 md:p-6">
 			<div className="w-full max-w-7xl flex flex-col lg:flex-row gap-5">
 				{/* Cart Items */}
-				<div className="bg-white shadow rounded-lg flex-1 p-2 md:p-6">
-					<h2 className="text-2xl md:text-3xl hidden lg:block mb-6 border-b py-3">
-						Shopping Cart
-					</h2>
+				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:p-6">
 					<div>
 						{items.length === 0 ? (
-							<div className="text-center text-gray-500 py-16">
-								Your cart is empty.
+							<div className="text-center py-16">
+								<img className="w-44 md:w-64 mx-auto" src={cartImage} alt="" />
+								<p className="text-gray-500 md:text-lg mt-5">
+									Your cart is empty.
+								</p>
+								<Link
+									to="/"
+									className="text-blue-700 hover:text-blue-800 text-sm"
+								>
+									Continue Shopping
+								</Link>
 							</div>
 						) : (
 							items.map((item) => (
@@ -97,7 +105,9 @@ function Cart() {
 				</div>
 				{/* Cart Summary */}
 				<div
-					className="flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 p-6 max-h-fit self-start"
+					className={`${
+						items.length === 0 && "hidden"
+					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 p-6 max-h-fit self-start`}
 					id="order-details-box"
 				>
 					<h3 className="text-lg font-bold mb-2 pt-1 text-[#003049] tracking-wide">
