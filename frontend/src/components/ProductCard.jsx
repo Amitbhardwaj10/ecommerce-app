@@ -1,14 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatCurrencyInr } from "../utils/formatCurrency";
 
 function ProductCard({ productId, productTitle, productPrice, productImage }) {
-	let formatter = new Intl.NumberFormat("en-IN", {
-		style: "currency",
-		currency: "INR",
-		maximumFractionDigits: 0,
-	});
-
-	const priceInInr = formatter.format(productPrice);
+	const priceInInr = formatCurrencyInr(productPrice);
 
 	return (
 		<>

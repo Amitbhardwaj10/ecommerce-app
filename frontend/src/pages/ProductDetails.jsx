@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/api";
+import { formatCurrencyInr } from "../utils/formatCurrency";
 
 function ProductDetails() {
 	const imagesUrl = [
@@ -30,13 +31,7 @@ function ProductDetails() {
 		getProdcutByProductId();
 	}, [productId]);
 
-	let formatter = new Intl.NumberFormat("en-IN", {
-		style: "currency",
-		currency: "INR",
-		maximumFractionDigits: 0,
-	});
-
-	const priceInInr = formatter.format(product.price);
+	const priceInInr = formatCurrencyInr(product.price);
 
 	return (
 		<>

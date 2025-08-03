@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CartItem from "../components/CartItem";
 import cartImage from "../assets/cart.jpg";
 import { Link } from "react-router-dom";
+import { formatCurrencyInr } from "../utils/formatCurrency";
 
 function Cart() {
 	const cartItems = [
@@ -71,11 +72,17 @@ function Cart() {
 	const tax = 14;
 	const total = subtotal - discount + delivery + tax;
 
+	const inrDiscount = formatCurrencyInr(discount);
+	const inrDelivery = formatCurrencyInr(delivery);
+	const inrTax = formatCurrencyInr(tax);
+	const inrTotal = formatCurrencyInr(total);
+	const inrSubtotal = formatCurrencyInr(total);
+
 	return (
 		<div className="h-full flex items-start justify-center bg-gray-100 py-6 md:p-6">
 			<div className="w-full max-w-7xl flex flex-col lg:flex-row gap-5">
 				{/* Cart Items */}
-				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:p-6">
+				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:px-6 py-3">
 					<div>
 						{items.length === 0 ? (
 							<div className="text-center py-16">
@@ -115,32 +122,32 @@ function Cart() {
 					</h3>
 					<div className="flex justify-between">
 						<span>Subtotal</span>
-						<span>${subtotal.toFixed(2)}</span>
+						<span>{inrSubtotal}</span>
 					</div>
 					<div className="flex justify-between">
 						<span>
 							Discount <span className="text-xs text-gray-400">(20%)</span>
 						</span>
-						<span className="text-green-600">- ${discount.toFixed(2)}</span>
+						<span className="text-green-600">- {inrDiscount}</span>
 					</div>
 					<div className="flex justify-between">
 						<span>Delivery</span>
 						<span className="text-gray-500">
-							{delivery === 0 ? "Free" : `$${delivery}`}
+							{delivery === 0 ? "Free" : `${inrDelivery}`}
 						</span>
 					</div>
 					<div className="flex justify-between">
 						<span>Tax</span>
-						<span>+ ${tax.toFixed(2)}</span>
+						<span>+ {inrTax}</span>
 					</div>
 					<div className="border-t mt-2"></div>
 					<div className="flex justify-between text-lg font-bold text-gray-800">
-						<span>Total</span>
-						<span>${total.toFixed(2)}</span>
+						<span>Total Amount</span>
+						<span>{inrTotal}</span>
 					</div>
-					<div className="w-full grid grid-cols-2 lg:grid-cols-1 shadow-[0_-2px_6px_0_rgba(0,0,0,0.16)] lg:shadow-none bg-white px-4 py-2 fixed bottom-0 left-0 md:static">
+					<div className="w-full grid grid-cols-2 lg:grid-cols-1 shadow-[0_-2px_6px_0_rgba(0,0,0,0.16)] lg:shadow-none bg-white px-4 py-2 fixed bottom-0 left-0 lg:static">
 						<div className="visible lg:hidden">
-							<span className="font-semibold">${total.toFixed(2)}</span>
+							<span className="font-semibold">{inrTotal}</span>
 							<a
 								href="#order-details-box"
 								className="text-sky-600 font-medium text-sm scroll-smooth block hover:text-sky-600"
@@ -150,7 +157,7 @@ function Cart() {
 						</div>
 
 						<button
-							className="px-6 py-2 font-semibold rounded-lg bg-[#003049] text-white shadow hover:bg-[#002030] transition"
+							className="px-6 py-2 font-semibold rounded-lg bg-[#003049] text-white shadow md:shadow-non hover:bg-[#002030] transition"
 							disabled={items.length === 0}
 						>
 							Place order

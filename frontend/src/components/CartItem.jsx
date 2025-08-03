@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { HiTrash } from "react-icons/hi2";
-
+import { formatCurrencyInr } from "../utils/formatCurrency";
 function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 	const navigate = useNavigate();
+
+	const inrPrice = formatCurrencyInr(item.price * item.quantity);
+
 	return (
 		<div className="flex items-start gap-4 py-2 lg:py-7 border-b last:border-b-0 relative">
 			<div>
@@ -41,7 +44,7 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 
 				<div className="my-2">
 					<span className="font-semibold text-sm md:text-lg text-gray-800">
-						${(item.price * item.quantity).toFixed(2)}
+						{inrPrice}
 					</span>
 				</div>
 
