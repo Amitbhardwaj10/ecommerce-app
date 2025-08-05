@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/api";
 import { formatCurrencyInr } from "../utils/formatCurrency";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/features/cart/cartSlice";
 
 function ProductDetails() {
 	const imagesUrl = [
@@ -17,6 +19,8 @@ function ProductDetails() {
 	const { productId } = useParams();
 	const [product, setProduct] = useState({});
 	const navigate = useNavigate();
+	const [quantity, setQuantity] = useState(1);
+	const dispatch = useDispatch();
 
 	const getProdcutByProductId = async () => {
 		try {
@@ -32,6 +36,15 @@ function ProductDetails() {
 	}, [productId]);
 
 	const priceInInr = formatCurrencyInr(product.price);
+
+	const item = {
+		id: product.productId,
+		title: product.title,
+		image: product.image,
+		price: product.price,
+		quantity: quantity,
+		status: "in stock",
+	};
 
 	return (
 		<>
@@ -159,13 +172,17 @@ function ProductDetails() {
 								min="1"
 								defaultValue={1}
 								className="w-14 text-center rounded-md border border-gray-600 outline-none shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+								onChange={(e) => setQuantity(Number(e.target.value))}
 							/>
 						</div>
 
 						<div className="flex space-x-4 mb-6">
 							<button
 								className="bg-primary flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2"
-								onClick={() => navigate("/checkout/cart")}
+								onClick={() => {
+									dispatch(addToCart(item));
+									navigate("/checkout/cart");
+								}}
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"

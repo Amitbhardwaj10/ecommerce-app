@@ -2,7 +2,7 @@ import { HiBars3CenterLeft } from "react-icons/hi2";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { HiMiniChevronDown } from "react-icons/hi2";
-
+import { HiOutlineHeart } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
@@ -16,6 +16,7 @@ function Navbar({ onToggleSidebar }) {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const cartItemsQuantity = useSelector((state) => state.cart.cartItems.length);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -37,7 +38,7 @@ function Navbar({ onToggleSidebar }) {
 				<nav className="w-full flex justify-between items-center">
 					<div className="left-div flex items-center">
 						<HiBars3CenterLeft
-							className="menu-icon h-11 w-11 p-1 lg:hidden"
+							className="menu-icon h-8 w-8 md:h-11 md:w-11 p-1 lg:hidden"
 							onClick={() => {
 								onToggleSidebar();
 							}}
@@ -45,7 +46,7 @@ function Navbar({ onToggleSidebar }) {
 
 						<div className="logo-div pl-1 sm:px-3 flex items-center justify-center">
 							{/* <img className="logo" src={logo} alt="logo" /> */}
-							<Link to="/" className="text-xl text-white">
+							<Link to="/" className="sm:text-lg lg:text-xl text-white">
 								Quick Shop
 							</Link>
 						</div>
@@ -96,17 +97,26 @@ function Navbar({ onToggleSidebar }) {
 						</div>
 
 						{/* Hide Wishlist if user is not logged in after login it should be visible then! */}
-						{/* <div className="flex gap-1 items-center cursor-pointer">
-							<HiOutlineHeart className="h-6 w-6" />
-							<small ">Wishlist</small>
-						</div> */}
+						{isLoggedIn && (
+							<div className="flex gap-1 items-center cursor-pointer">
+								<HiOutlineHeart className="h-6 w-6" />
+								<small className="sm:block hidden">Wishlist</small>
+							</div>
+						)}
 
 						<div
-							className="flex gap-1 items-center cursor-pointer"
+							className="flex gap-2 items-center cursor-pointer"
 							onClick={() => navigate("/checkout/cart")}
 						>
-							<HiOutlineShoppingCart className="h-6 w-6" />
-							<small className="sm:block hidden">Cart</small>
+							<div className="relative inline-block">
+								<HiOutlineShoppingCart className="h-6 w-6" />
+								{cartItemsQuantity > 0 && (
+									<span className="absolute w-4 h-4 top-0 right-0 inline-flex items-center justify-center p-1 text-xs font-bold leading-none text-primary bg-white rounded-full transform translate-x-1/2 -translate-y-1/2">
+										{cartItemsQuantity}
+									</span>
+								)}
+							</div>
+							<span className="sm:block hidden">Cart</span>
 						</div>
 					</div>
 				</nav>

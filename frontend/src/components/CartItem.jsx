@@ -2,8 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { HiTrash } from "react-icons/hi2";
 import { formatCurrencyInr } from "../utils/formatCurrency";
-function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
+import { useDispatch, useSelector } from "react-redux";
+import {
+	quantityChange,
+	removeFromCart,
+} from "../store/features/cart/cartSlice";
+
+function CartItem({ item }) {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const inrPrice = formatCurrencyInr(item.price * item.quantity);
 
@@ -12,8 +19,8 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 			<div>
 				<img
 					src={item.image}
-					alt={item.name}
-					className="w-24 md:w-28 h-32 md:h-38 object-cover rounded bg-gray-100 shadow hover:cursor-pointer"
+					alt={item.title}
+					className="w-24 md:w-28 h-32 md:h-38 object-contain mix-blend-darken rounded hover:cursor-pointer"
 					onClick={() => navigate(`/products/${item.id}/product-details`)}
 				/>
 			</div>
@@ -23,7 +30,7 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 					className="line-clamp-2 hover:cursor-pointer hover:text-primary w-full max-w-xl"
 					onClick={() => navigate(`/products/${item.id}/product-details`)}
 				>
-					{item.name}
+					{item.title}
 				</h4>
 
 				<div className="flex flex-wrap gap-2 text-gray-600">
@@ -35,9 +42,9 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 										? "text-green-600"
 										: "text-red-600"
 									: "text-gray-500"
-							} font-medium`}
+							} text-green-600 font-medium text-sm`}
 						>
-							{item.status}
+							In stock
 						</span>
 					)}
 				</div>
@@ -55,7 +62,12 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 								item.quantity > 1 && "bg-secondary text-white"
 							}`}
 							onClick={() =>
-								onQuantityChange(item.id, Math.max(1, item.quantity - 1))
+								dispatch(
+									quantityChange({
+										id: item.id,
+										quantity: Math.max(1, item.quantity - 1),
+									})
+								)
 							}
 						>
 							-
@@ -65,7 +77,11 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 						</span>
 						<button
 							className="text-lg px-2 rounded bg-secondary text-white"
-							onClick={() => onQuantityChange(item.id, item.quantity + 1)}
+							onClick={() =>
+								dispatch(
+									quantityChange({ id: item.id, quantity: item.quantity + 1 })
+								)
+							}
 						>
 							+
 						</button>
@@ -81,7 +97,7 @@ function CartItem({ item, onQuantityChange, onRemove, onWishlist }) {
 
 						<button
 							className="flex items-center gap-1 text-gray-700 hover:text-red-800"
-							onClick={() => onRemove(item.id)}
+							onClick={() => dispatch(removeFromCart({ id: item.id }))}
 						>
 							<HiTrash className="w-4" />
 							<span>Delete</span>

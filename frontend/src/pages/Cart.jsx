@@ -3,65 +3,16 @@ import CartItem from "../components/CartItem";
 import cartImage from "../assets/cart.jpg";
 import { Link } from "react-router-dom";
 import { formatCurrencyInr } from "../utils/formatCurrency";
+import { useSelector } from "react-redux";
 
 function Cart() {
-	const cartItems = [
-		{
-			id: 1,
-			name: "HP Smartchoice Omen, AMD Ryzen 9 7940HS, 8GB RTX 4070 (16GB DDR5, 1TB SSD) FHD, 165Hz, IPS, 300 nits, 16.1''/40.9cm, Black, 2.38kg, xf0100AX, RGB KB, B&O, Tempest Cooling, AI-Powered Gaming Laptop",
-			price: 12.99,
-			status: "In Stock",
-			image:
-				"https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12027418/2022/9/15/b5f7623a-cc63-43b2-bed7-1ad9ab3070921663221186524LevisMenNavyBlueSolidRoundNeckLoungeT-shirts1.jpg",
-			quantity: 1,
-		},
-		{
-			id: 2,
-			name: "Nylon Sports Cap",
-			price: 14.99,
-			status: "Available in 2 days",
-			image:
-				"https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2024/AUGUST/3/nQ8wWI2Z_d76a59ed5bcb41ce963dab37ddc72389.jpg",
-			quantity: 1,
-		},
-		{
-			id: 3,
-			name: "Sneakers",
-			price: 34.99,
-			status: "Out of Stock",
-			image:
-				"https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2025/MAY/10/z68YoJaL_106b7194f4b14b1397aa6b1f01ddbc68.jpg",
-			quantity: 1,
-		},
-		{
-			id: 4,
-			name: "Slim Fit Suit Vest",
-			price: 17.99,
-			status: "In Stock",
-			image:
-				"https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2024/AUGUST/3/nQ8wWI2Z_d76a59ed5bcb41ce963dab37ddc72389.jpg",
-			quantity: 1,
-		},
-	];
+	const items = useSelector((state) => state.cart.cartItems);
 
-	const [items, setItems] = useState(cartItems);
-
-	const handleQuantityChange = (id, qty) => {
-		setItems((prev) =>
-			prev.map((item) => (item.id === id ? { ...item, quantity: qty } : item))
-		);
-	};
-
-	const handleRemove = (id) => {
-		setItems((prev) => prev.filter((item) => item.id !== id));
-	};
-
-	const handleWishlist = (id) => {
-		const item = items.find((item) => item.id === id);
-		if (item) {
-			alert(`"${item.name}" added to wishlist!`);
-		}
-	};
+	// const handleWishlist = (id) => {
+	// 	const item = items.find((item) => item.id === id);
+	// 	if (item) {
+	// 		alert(`"${item.name}" added to wishlist!`);
+	// 	}
 
 	const subtotal = items.reduce(
 		(sum, item) => sum + item.quantity * item.price,
@@ -98,15 +49,7 @@ function Cart() {
 								</Link>
 							</div>
 						) : (
-							items.map((item) => (
-								<CartItem
-									key={item.id}
-									item={item}
-									onQuantityChange={handleQuantityChange}
-									onRemove={handleRemove}
-									onWishlist={handleWishlist}
-								/>
-							))
+							items.map((item) => <CartItem key={item.id} item={item} />)
 						)}
 					</div>
 				</div>
