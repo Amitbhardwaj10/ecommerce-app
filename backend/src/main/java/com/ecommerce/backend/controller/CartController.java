@@ -1,0 +1,28 @@
+package com.ecommerce.backend.controller;
+
+import com.ecommerce.backend.dto.CartItemResponseDto;
+import com.ecommerce.backend.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/cart")
+@CrossOrigin(origins = "http://localhost:5173")
+public class CartController {
+
+    @Autowired
+    private CartService cartService;
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<CartItemResponseDto>> fetchAllCartItems(@PathVariable Long userId) {
+
+        List<CartItemResponseDto> cartItems = cartService.fetchAllCartItems(userId);
+        return ResponseEntity.ok(cartItems);
+    }
+
+//    @PostMapping("/user/{userId}/cart")
+
+}
