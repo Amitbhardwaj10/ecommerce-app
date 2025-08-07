@@ -23,6 +23,6 @@ public class CartController {
         return ResponseEntity.ok(cartItems);
     }
 
-//    @PostMapping("/user/{userId}/cart")
+//    @PostMapping("/{userId}/add")
 
 }
