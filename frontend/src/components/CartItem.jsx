@@ -27,7 +27,7 @@ function CartItem({ item }) {
 
 			<div className="flex-1 text-xs sm:text-base">
 				<h4
-					className="line-clamp-2 hover:cursor-pointer hover:text-primary w-full max-w-xl"
+					className="line-clamp-2 hover:cursor-pointer hover:text-sky-700 w-full max-w-xl"
 					onClick={() => navigate(`/products/${item.id}/product-details`)}
 				>
 					{item.title}
