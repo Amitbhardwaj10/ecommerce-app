@@ -1,6 +1,8 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.CartItemRequestDto;
 import com.ecommerce.backend.dto.CartItemResponseDto;
+import com.ecommerce.backend.dto.UpdateQuantityDto;
 import com.ecommerce.backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,15 @@ public class CartController {
         return ResponseEntity.ok(cartItems);
     }
 
-//    @PostMapping("/{userId}/add")
+    @PostMapping("/{userId}/items")
+    public ResponseEntity<String> addCartItem(@PathVariable Long userId, @RequestBody CartItemRequestDto requestDto) {
+       cartService.addCartItem(userId, requestDto);
+        return ResponseEntity.ok("Item added to cart");
+    }
 
+    @PutMapping("/items/{itemId}")
+    public ResponseEntity<?> updateCartItemQuantity(@PathVariable Long itemId, @RequestBody UpdateQuantityDto dto) {
+        cartService.updateCartItemQuantity(itemId, dto.getQuantity());
+        return ResponseEntity.ok("Cart item Updated successfully");
+    }
 }
