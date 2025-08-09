@@ -10,6 +10,7 @@ import com.ecommerce.backend.repository.CartItemRepository;
 import com.ecommerce.backend.repository.CartRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class CartServiceImpl implements CartService {
                 .id(cartItem.getId())
                 .productId(product.getProductId())
                 .productTitle(product.getTitle())
-                .status("inStock")
+                .status("in stock")
                 .price(product.getPrice())
                 .quantity(cartItem.getQuantity())
                 .image(product.getImage())
@@ -53,7 +54,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addCartItem(Long userId, CartItemRequestDto requestDto) {
+    public ResponseEntity<CartItemResponseDto> addCartItem(Long userId, CartItemRequestDto requestDto) {
 
         Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
             Cart newCart = Cart.builder()
@@ -64,7 +65,9 @@ public class CartServiceImpl implements CartService {
 
         Optional<CartItem> existingItem = cartItemRepository.findByCartAndProduct_ProductId(cart, requestDto.getProductId());
 
-        if(existingItem.isPresent()) return;
+        if (existingItem.isPresent()) {
+            return ResponseEntity.ok(toDto(existingItem.get()));
+        }
 
         Product product = productRepository.findById(requestDto.getProductId()).orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -76,6 +79,8 @@ public class CartServiceImpl implements CartService {
                 .build();
 
         cartItemRepository.save(cartItem);
+
+        return ResponseEntity.ok(toDto(cartItem));
     }
 
     @Override
