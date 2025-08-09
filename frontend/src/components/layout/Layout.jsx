@@ -4,11 +4,15 @@ import Footer from "../Footer";
 import Sidebar from "../Sidebar";
 import { Outlet } from "react-router-dom";
 import SearchBar from "../subComponents/SearchBar";
+import { useSelector } from "react-redux";
+import Toast from "../subComponents/Toast";
 
 function Layout() {
+	const { show } = useSelector((state) => state.toast);
 	const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 	return (
 		<>
+			{show && <Toast />}
 			<Navbar onToggleSidebar={() => setIsSidebarVisible(!isSidebarVisible)} />
 
 			<Sidebar

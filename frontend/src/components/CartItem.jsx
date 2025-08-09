@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { HiTrash } from "react-icons/hi2";
 import { formatCurrencyInr } from "../utils/formatCurrency";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
 	quantityChange,
 	removeFromCart,
@@ -19,25 +19,29 @@ function CartItem({ item }) {
 			<div>
 				<img
 					src={item.image}
-					alt={item.title}
+					alt={item.productTitle}
 					className="w-24 md:w-28 h-32 md:h-38 object-contain mix-blend-darken rounded hover:cursor-pointer"
-					onClick={() => navigate(`/products/${item.id}/product-details`)}
+					onClick={() =>
+						navigate(`/products/${item.productId}/product-details`)
+					}
 				/>
 			</div>
 
 			<div className="flex-1 text-xs sm:text-base">
 				<h4
 					className="line-clamp-2 hover:cursor-pointer hover:text-sky-700 w-full max-w-xl"
-					onClick={() => navigate(`/products/${item.id}/product-details`)}
+					onClick={() =>
+						navigate(`/products/${item.productId}/product-details`)
+					}
 				>
-					{item.title}
+					{item.productTitle}
 				</h4>
 
 				<div className="flex flex-wrap gap-2 text-gray-600">
 					{item.status && (
 						<span
 							className={`${
-								item.status.toLowerCase().includes("stock")
+								item.status.toLowerCase().includes("instock")
 									? item.status.toLowerCase() === "in stock"
 										? "text-green-600"
 										: "text-red-600"

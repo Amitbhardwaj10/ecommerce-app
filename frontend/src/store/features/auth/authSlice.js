@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { clearCart } from "../cart/cartSlice";
 
 const initialState = {
 	isLoggedIn: !!localStorage.getItem("isLoggedIn"),
@@ -16,7 +17,7 @@ export const authSlice = createSlice({
 			localStorage.setItem("user", JSON.stringify(action.payload));
 		},
 
-		logout: (state) => {
+		logoutSuccess: (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
 			localStorage.removeItem("isLoggedIn");
@@ -25,5 +26,11 @@ export const authSlice = createSlice({
 	},
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logoutSuccess } = authSlice.actions;
+
+export const logout = () => (dispatch) => {
+	dispatch(logoutSuccess());
+	dispatch(clearCart());
+};
+
 export default authSlice.reducer;

@@ -11,9 +11,11 @@ export const toastSlice = createSlice({
 	initialState,
 	reducers: {
 		showToast: (state, action) => {
-			state.show = true;
-			state.message = action.payload.message;
-			state.type = action.payload.type || "default";
+			if (action.payload.message) {
+				state.show = true;
+				state.message = action.payload.message;
+				state.type = action.payload.type || "default";
+			}
 		},
 
 		hideToast: (state) => {

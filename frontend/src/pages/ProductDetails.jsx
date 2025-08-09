@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/api";
 import { formatCurrencyInr } from "../utils/formatCurrency";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "../store/features/toast/toastSlice";
+import { checkProductInCart } from "../store/features/cart/cartSlice";
 import { addToCart } from "../store/features/cart/cartSlice";
 
 function ProductDetails() {
@@ -15,12 +17,16 @@ function ProductDetails() {
 
 		"https://images.unsplash.com/photo-1528148343865-51218c4a13e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080",
 	];
+
+	const userId = useSelector((state) => state.auth.user?.id);
 	const [selectedImage, setSelectedImage] = useState(imagesUrl[0]);
 	const { productId } = useParams();
 	const [product, setProduct] = useState({});
 	const navigate = useNavigate();
 	const [quantity, setQuantity] = useState(1);
 	const dispatch = useDispatch();
+	const { isLoggedIn } = useSelector((state) => state.auth);
+	const [inCart, setInCart] = useState(false);
 
 	const getProdcutByProductId = async () => {
 		try {
@@ -32,19 +38,45 @@ function ProductDetails() {
 	};
 
 	useEffect(() => {
+		if (isLoggedIn) {
+			dispatch(checkProductInCart({ userId, productId }))
+				.unwrap()
+				.then((res) => setInCart(res.exists))
+				.catch(() => setInCart(false));
+		}
+	}, [isLoggedIn, userId, productId]);
+
+	async function handleAddToCart() {
+		let toastMessage = {
+			message: "",
+			type: "success",
+		};
+
+		if (!isLoggedIn) {
+			navigate("/auth/login");
+			return;
+		}
+
+		if (!inCart) {
+			dispatch(addToCart({ userId, productId, quantity }))
+				.unwrap()
+				.then((res) => (toastMessage.message = "Added to the cart"))
+				.catch(
+					(err) => (toastMessage.message = err),
+					(toastMessage.type = "error")
+				);
+			setInCart(true);
+			dispatch(showToast(toastMessage));
+		} else {
+			navigate("/checkout/cart");
+		}
+	}
+
+	useEffect(() => {
 		getProdcutByProductId();
 	}, [productId]);
 
 	const priceInInr = formatCurrencyInr(product.price);
-
-	const item = {
-		id: product.productId,
-		title: product.title,
-		image: product.image,
-		price: product.price,
-		quantity: quantity,
-		status: "in stock",
-	};
 
 	return (
 		<>
@@ -161,7 +193,7 @@ function ProductDetails() {
 						<div className="mb-6">
 							<label
 								htmlFor="quantity"
-								className="block text-sm font-medium text-gray-700 mb-2"
+								className="block text-sm font-semibold text-gray-600 mb-2"
 							>
 								Quantity:
 							</label>
@@ -169,8 +201,11 @@ function ProductDetails() {
 								type="number"
 								id="quantity"
 								name="quantity"
-								min="1"
+								min={1}
+								max={8}
 								defaultValue={1}
+								pattern="[0-9]{1,8}"
+								title="Please enter a single digit from 1 to 8"
 								className="w-14 text-center rounded-md border border-gray-600 outline-none shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 								onChange={(e) => setQuantity(Number(e.target.value))}
 							/>
@@ -179,10 +214,7 @@ function ProductDetails() {
 						<div className="flex space-x-4 mb-6">
 							<button
 								className="bg-primary flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2"
-								onClick={() => {
-									dispatch(addToCart(item));
-									navigate("/checkout/cart");
-								}}
+								onClick={handleAddToCart}
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +230,7 @@ function ProductDetails() {
 										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
 									/>
 								</svg>
-								Add to Cart
+								{inCart ? "Go to cart" : "Add to cart"}
 							</button>
 							<button className="bg-gray-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
 								<svg

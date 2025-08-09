@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
-import toastSlice, { showToast } from "../store/features/toast/toastSlice";
-import Toast from "../components/subComponents/Toast";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function Signup() {
 	const navigate = useNavigate();
@@ -14,7 +13,6 @@ function Signup() {
 	});
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-	const show = useSelector((state) => state.toast.show);
 
 	function handleChange(e) {
 		setFormData({
@@ -56,7 +54,6 @@ function Signup() {
 
 	return (
 		<>
-			{show && <Toast />}
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
 					<Link

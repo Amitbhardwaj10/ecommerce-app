@@ -10,11 +10,12 @@ import CategoryPage from "./pages/CategoryPage.jsx";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
 import Cart from "./pages/Cart.jsx";
+import App from "./App.jsx";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Layout />,
+		element: <App />,
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: "products/category/:slug", element: <CategoryPage /> },

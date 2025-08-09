@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CartItem from "../components/CartItem";
 import cartImage from "../assets/cart.jpg";
 import { Link } from "react-router-dom";
@@ -7,12 +7,6 @@ import { useSelector } from "react-redux";
 
 function Cart() {
 	const items = useSelector((state) => state.cart.cartItems);
-
-	// const handleWishlist = (id) => {
-	// 	const item = items.find((item) => item.id === id);
-	// 	if (item) {
-	// 		alert(`"${item.name}" added to wishlist!`);
-	// 	}
 
 	const subtotal = items.reduce(
 		(sum, item) => sum + item.quantity * item.price,
