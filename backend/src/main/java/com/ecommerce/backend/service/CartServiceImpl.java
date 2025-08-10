@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,7 +49,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItemResponseDto> fetchAllCartItems(Long userId) {
-        Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException("Cart not found for user"));
+        Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
+            Cart newCart = Cart.builder()
+                    .userId(userId)
+                    .cartItems(new ArrayList<>())
+                    .build();
+            return cartRepository.save(newCart);
+        });
 
         return cart.getCartItems().stream().map(this::toDto).collect(Collectors.toList());
     }
@@ -58,7 +65,7 @@ public class CartServiceImpl implements CartService {
 
         Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
             Cart newCart = Cart.builder()
-                    .userId(authRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")).getId())
+                    .userId(userId)
                     .build();
             return cartRepository.save(newCart);
         });
