@@ -111,7 +111,7 @@ function Navbar({ onToggleSidebar }) {
 							<div className="relative inline-block">
 								<HiOutlineShoppingCart className="h-6 w-6" />
 								{cartItemsQuantity > 0 && (
-									<span className="absolute w-4 h-4 top-0 right-0 inline-flex items-center justify-center p-1 text-xs font-bold leading-none text-primary bg-white rounded-full transform translate-x-1/2 -translate-y-1/2">
+									<span className="absolute w-[18px] h-[18px] top-0.5 right-0.5 text-center text-[11px] leading-[18px] font-bold text-primary bg-white rounded-[50%] transform translate-x-1/2 -translate-y-1/2 whitespace-nowrap">
 										{cartItemsQuantity}
 									</span>
 								)}

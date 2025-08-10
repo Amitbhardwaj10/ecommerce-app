@@ -12,7 +12,6 @@ export const fetchCart = createAsyncThunk(
 	async (userId, { rejectWithValue }) => {
 		try {
 			const res = await api.get(`cart/${userId}`);
-			console.log(res.data);
 			return res.data;
 		} catch (err) {
 			return rejectWithValue(err.response?.data || "Failed to fetch cart");
@@ -28,22 +27,10 @@ export const addToCart = createAsyncThunk(
 				productId,
 				quantity,
 			});
-
-			console.log(res);
 			return res.data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
 		}
-	}
-);
-
-export const checkProductInCart = createAsyncThunk(
-	"cart/checkProductInCart",
-	async ({ userId, productId }) => {
-		const res = await axios.get(
-			`/api/cart/${userId}/items/${productId}/exists`
-		);
-		return res.data; // { exists: true/false }
 	}
 );
 

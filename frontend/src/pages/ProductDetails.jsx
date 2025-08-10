@@ -4,7 +4,6 @@ import { api } from "../api/api";
 import { formatCurrencyInr } from "../utils/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../store/features/toast/toastSlice";
-import { checkProductInCart } from "../store/features/cart/cartSlice";
 import { addToCart } from "../store/features/cart/cartSlice";
 
 function ProductDetails() {
@@ -20,13 +19,16 @@ function ProductDetails() {
 
 	const userId = useSelector((state) => state.auth.user?.id);
 	const [selectedImage, setSelectedImage] = useState(imagesUrl[0]);
-	const { productId } = useParams();
+	let { productId } = useParams();
 	const [product, setProduct] = useState({});
 	const navigate = useNavigate();
 	const [quantity, setQuantity] = useState(1);
 	const dispatch = useDispatch();
 	const { isLoggedIn } = useSelector((state) => state.auth);
-	const [inCart, setInCart] = useState(false);
+	const cartItems = useSelector((state) => state.cart.cartItems);
+	productId = Number(productId);
+
+	const inCart = cartItems.some((item) => item.productId == productId);
 
 	const getProdcutByProductId = async () => {
 		try {
@@ -37,21 +39,7 @@ function ProductDetails() {
 		}
 	};
 
-	useEffect(() => {
-		if (isLoggedIn) {
-			dispatch(checkProductInCart({ userId, productId }))
-				.unwrap()
-				.then((res) => setInCart(res.exists))
-				.catch(() => setInCart(false));
-		}
-	}, [isLoggedIn, userId, productId]);
-
 	async function handleAddToCart() {
-		let toastMessage = {
-			message: "",
-			type: "success",
-		};
-
 		if (!isLoggedIn) {
 			navigate("/auth/login");
 			return;
@@ -60,13 +48,12 @@ function ProductDetails() {
 		if (!inCart) {
 			dispatch(addToCart({ userId, productId, quantity }))
 				.unwrap()
-				.then((res) => (toastMessage.message = "Added to the cart"))
-				.catch(
-					(err) => (toastMessage.message = err),
-					(toastMessage.type = "error")
-				);
-			setInCart(true);
-			dispatch(showToast(toastMessage));
+				.then(() => {
+					dispatch(showToast({ message: "Added to cart", type: "success" }));
+				})
+				.catch((err) => {
+					dispatch(showToast({ message: err, type: "error" }));
+				});
 		} else {
 			navigate("/checkout/cart");
 		}
