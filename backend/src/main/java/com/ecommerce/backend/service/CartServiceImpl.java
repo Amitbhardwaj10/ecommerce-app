@@ -96,7 +96,7 @@ public class CartServiceImpl implements CartService {
 
         Product product = productRepository.findById(cartItem.getProduct().getProductId()).orElseThrow(() -> new RuntimeException("Product not found!"));
 
-        Long updatedPrice = product.getPrice() * quantity;
+        long updatedPrice = product.getPrice() * quantity;
 
         cartItem.setQuantity(quantity);
         cartItem.setPrice(updatedPrice);
