@@ -21,11 +21,11 @@ function Cart() {
 	const inrDelivery = formatCurrencyInr(delivery);
 	const inrTax = formatCurrencyInr(tax);
 	const inrTotal = formatCurrencyInr(total);
-	const inrSubtotal = formatCurrencyInr(total);
+	const inrSubtotal = formatCurrencyInr(subtotal);
 
 	return (
-		<div className="h-full flex items-start justify-center bg-gray-100 py-6 md:p-6">
-			<div className="w-full max-w-7xl flex flex-col lg:flex-row gap-5">
+		<div className="max-w-h-screen flex items-start justify-center bg-gray-100 py-6 md:p-6">
+			<div className="w-full h-full max-w-7xl flex flex-col lg:flex-row gap-5">
 				{/* Cart Items */}
 				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:px-6 py-3">
 					<div>
@@ -54,34 +54,42 @@ function Cart() {
 					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 p-6 max-h-fit self-start`}
 					id="order-details-box"
 				>
-					<h3 className="text-lg font-bold mb-2 pt-1 text-[#003049] tracking-wide">
-						Order Details
-					</h3>
+					<div className="flex  items-center gap-x-1 mb-2 pt-1 font-[600] text-neutral-500">
+						<h3 className="text-[1.1rem]">PRICE DETAILS</h3>
+						<span>{`(${items.length} items)`}</span>
+					</div>
+
 					<div className="flex justify-between">
-						<span>Subtotal</span>
+						<span>Subtotal </span>
 						<span>{inrSubtotal}</span>
 					</div>
+
 					<div className="flex justify-between">
 						<span>
 							Discount <span className="text-xs text-gray-400">(20%)</span>
 						</span>
 						<span className="text-green-600">- {inrDiscount}</span>
 					</div>
+
 					<div className="flex justify-between">
 						<span>Delivery</span>
 						<span className="text-gray-500">
 							{delivery === 0 ? "Free" : `${inrDelivery}`}
 						</span>
 					</div>
+
 					<div className="flex justify-between">
 						<span>Tax</span>
 						<span>+ {inrTax}</span>
 					</div>
+
 					<div className="border-t mt-2"></div>
+
 					<div className="flex justify-between text-lg font-bold text-gray-800">
 						<span>Total Amount</span>
 						<span>{inrTotal}</span>
 					</div>
+
 					<div className="w-full grid grid-cols-2 lg:grid-cols-1 shadow-[0_-2px_6px_0_rgba(0,0,0,0.16)] lg:shadow-none bg-white px-4 py-2 fixed bottom-0 left-0 lg:static">
 						<div className="visible lg:hidden">
 							<span className="font-semibold">{inrTotal}</span>
@@ -100,12 +108,6 @@ function Cart() {
 							Place order
 						</button>
 					</div>
-					{/* <button
-						className="w-full mt-2 px-6 py-2 rounded border border-[#003049] text-[#003049] font-semibold hover:bg-[#003049] hover:text-white transition"
-						disabled={items.length === 0}
-					>
-						Continue shopping
-					</button> */}
 				</div>
 			</div>
 		</div>

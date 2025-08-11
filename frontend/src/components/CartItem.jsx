@@ -2,17 +2,47 @@ import { useNavigate } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { HiTrash } from "react-icons/hi2";
 import { formatCurrencyInr } from "../utils/formatCurrency";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	quantityChange,
 	removeFromCart,
+	updateCartItemQuantity,
 } from "../store/features/cart/cartSlice";
+import { useRef } from "react";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function CartItem({ item }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const items = useSelector((state) => state.cart.cartItems);
 
 	const inrPrice = formatCurrencyInr(item.price * item.quantity);
+
+	// Debounce function
+	function debounce(func, delay) {
+		let timeoutId;
+
+		return function (...args) {
+			const context = this;
+			clearTimeout(timeoutId); // Clear any existing timer
+
+			timeoutId = setTimeout(() => {
+				func.apply(context, args); // Execute the function after the delay
+			}, delay);
+		};
+	}
+
+	const debouncedUpdate = useRef(
+		debounce((cartItemId, quantity, oldQuantity) => {
+			dispatch(updateCartItemQuantity({ cartItemId, quantity, oldQuantity }));
+		}, 500)
+	).current;
+
+	const handleQuantityChange = (cartItemId, newQuantity) => {
+		const oldQuantity = items.find((it) => it.id === cartItemId)?.quantity;
+		dispatch(quantityChange({ id: cartItemId, quantity: newQuantity }));
+		debouncedUpdate(cartItemId, newQuantity, oldQuantity);
+	};
 
 	return (
 		<div className="flex items-start gap-4 py-2 lg:py-7 border-b last:border-b-0 relative">
@@ -66,12 +96,7 @@ function CartItem({ item }) {
 								item.quantity > 1 && "bg-secondary text-white"
 							}`}
 							onClick={() =>
-								dispatch(
-									quantityChange({
-										id: item.id,
-										quantity: Math.max(1, item.quantity - 1),
-									})
-								)
+								handleQuantityChange(item.id, Math.max(1, item.quantity - 1))
 							}
 						>
 							-
@@ -81,11 +106,7 @@ function CartItem({ item }) {
 						</span>
 						<button
 							className="text-lg px-2 rounded bg-secondary text-white"
-							onClick={() =>
-								dispatch(
-									quantityChange({ id: item.id, quantity: item.quantity + 1 })
-								)
-							}
+							onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
 						>
 							+
 						</button>

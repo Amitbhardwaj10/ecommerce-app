@@ -177,27 +177,6 @@ function ProductDetails() {
 							</div>
 						</div>
 
-						<div className="mb-6">
-							<label
-								htmlFor="quantity"
-								className="block text-sm font-semibold text-gray-600 mb-2"
-							>
-								Quantity:
-							</label>
-							<input
-								type="number"
-								id="quantity"
-								name="quantity"
-								min={1}
-								max={8}
-								defaultValue={1}
-								pattern="[0-9]{1,8}"
-								title="Please enter a single digit from 1 to 8"
-								className="w-14 text-center rounded-md border border-gray-600 outline-none shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-								onChange={(e) => setQuantity(Number(e.target.value))}
-							/>
-						</div>
-
 						<div className="flex space-x-4 mb-6">
 							<button
 								className="bg-primary flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2"

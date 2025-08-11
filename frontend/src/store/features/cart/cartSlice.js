@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../../api/api";
+import { showToast } from "../toast/toastSlice";
 
 const initialState = {
 	cartItems: [],
@@ -34,6 +35,27 @@ export const addToCart = createAsyncThunk(
 	}
 );
 
+export const updateCartItemQuantity = createAsyncThunk(
+	"cart/updateQuantity",
+	async ({ cartItemId, quantity, oldQuantity }, { dispatch }) => {
+		try {
+			await api.put(`/cart/items/${cartItemId}`, { quantity });
+			return { cartItemId, quantity }; // success
+		} catch (err) {
+			// Rollback quantity in Redux state
+			dispatch(quantityChange({ id: cartItemId, quantity: oldQuantity }));
+
+			// Show error toast
+			dispatch(
+				showToast({
+					message: err.response?.data.error || "Failed to update quantity",
+					type: "error",
+				})
+			);
+		}
+	}
+);
+
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
@@ -47,6 +69,7 @@ export const cartSlice = createSlice({
 			.addCase(addToCart.pending, (state) => {
 				state.loading = true;
 			})
+
 			.addCase(addToCart.fulfilled, (state, action) => {
 				state.loading = false;
 				const newItem = action.payload;
@@ -54,9 +77,16 @@ export const cartSlice = createSlice({
 
 				!exists && state.cartItems.push(newItem);
 			})
+
 			.addCase(addToCart.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload;
+			})
+
+			.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
+				const { cartItemId, quantity } = action.payload;
+				const item = state.cartItems.find((it) => it.id === cartItemId);
+				if (item) item.quantity = quantity;
 			});
 	},
 
