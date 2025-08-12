@@ -102,4 +102,11 @@ public class CartServiceImpl implements CartService {
         cartItem.setPrice(updatedPrice);
         cartItemRepository.save(cartItem);
     }
+
+    @Override
+    public void deleteCartItem(Long itemId) {
+        CartItem item = cartItemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Cart item not found"));
+
+        cartItemRepository.deleteById(itemId);
+    }
 }

@@ -34,4 +34,10 @@ public class CartController {
     public void  updateCartItemQuantity(@PathVariable Long itemId, @RequestBody UpdateQuantityDto dto) {
         cartService.updateCartItemQuantity(itemId, dto.getQuantity());
     }
+
+    @DeleteMapping("items/{itemId}")
+    public ResponseEntity<String> deleteCartItem(@PathVariable Long itemId) {
+        cartService.deleteCartItem(itemId);
+        return ResponseEntity.ok("Item deleted Successfully");
+    }
 }

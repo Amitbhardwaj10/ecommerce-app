@@ -12,4 +12,6 @@ public interface CartService {
     public ResponseEntity<CartItemResponseDto> addCartItem(Long userId, CartItemRequestDto requestDto);
 
     public void updateCartItemQuantity(Long cartItemId, int quantity);
+
+   public void deleteCartItem(Long itemId);
 }
