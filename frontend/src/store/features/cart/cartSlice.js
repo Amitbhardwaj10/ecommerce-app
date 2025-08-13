@@ -56,6 +56,19 @@ export const updateCartItemQuantity = createAsyncThunk(
 	}
 );
 
+export const removeFromCart = createAsyncThunk(
+	"cart/deleteFromCart",
+	async ({ cartItemId }, { dispatch, rejectWithValue }) => {
+		try {
+			const res = await api.delete(`cart/items/${cartItemId}`);
+			dispatch(showToast({ message: res.data, type: "success" }));
+			return cartItemId;
+		} catch (err) {
+			return rejectWithValue(err.response?.data);
+		}
+	}
+);
+
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
@@ -87,16 +100,16 @@ export const cartSlice = createSlice({
 				const { cartItemId, quantity } = action.payload;
 				const item = state.cartItems.find((it) => it.id === cartItemId);
 				if (item) item.quantity = quantity;
+			})
+
+			.addCase(removeFromCart.fulfilled, (state, action) => {
+				state.cartItems = state.cartItems.filter(
+					(it) => it.id !== action.payload
+				);
 			});
 	},
 
 	reducers: {
-		removeFromCart: (state, action) => {
-			state.cartItems = state.cartItems.filter(
-				(it) => it.id !== action.payload.id
-			);
-		},
-
 		quantityChange: (state, action) => {
 			const { id, quantity } = action.payload;
 			const item = state.cartItems.find((item) => item.id === id);
@@ -112,5 +125,5 @@ export const cartSlice = createSlice({
 	},
 });
 
-export const { removeFromCart, quantityChange, clearCart } = cartSlice.actions;
+export const { quantityChange, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
