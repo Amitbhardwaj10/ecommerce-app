@@ -20,6 +20,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
+    @Autowired
+    private AuthRepository authRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
 
     public CartItemResponseDto toDto(CartItem cartItem) {
         Product product = cartItem.getProduct();
@@ -34,18 +46,6 @@ public class CartServiceImpl implements CartService {
                 .image(product.getImage())
                 .build();
     }
-
-    @Autowired
-    private AuthRepository authRepository;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private CartItemRepository cartItemRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Override
     public List<CartItemResponseDto> fetchAllCartItems(Long userId) {
