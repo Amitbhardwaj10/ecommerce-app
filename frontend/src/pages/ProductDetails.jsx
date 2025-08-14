@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/api";
 import { formatCurrencyInr } from "../utils/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
-import { showToast } from "../store/features/toast/toastSlice";
 import { addToCart } from "../store/features/cart/cartSlice";
+import useWishlistActions from "../hooks/useWishlistActions";
 
 function ProductDetails() {
 	const imagesUrl = [
@@ -22,11 +22,11 @@ function ProductDetails() {
 	let { productId } = useParams();
 	const [product, setProduct] = useState({});
 	const navigate = useNavigate();
-	const [quantity, setQuantity] = useState(1);
 	const dispatch = useDispatch();
 	const { isLoggedIn } = useSelector((state) => state.auth);
 	const cartItems = useSelector((state) => state.cart.cartItems);
 	productId = Number(productId);
+	const { inWishlist, handleWishlistClick } = useWishlistActions(productId);
 
 	const inCart = cartItems.some((item) => item.productId == productId);
 
@@ -46,14 +46,7 @@ function ProductDetails() {
 		}
 
 		if (!inCart) {
-			dispatch(addToCart({ userId, productId, quantity }))
-				.unwrap()
-				.then(() => {
-					dispatch(showToast({ message: "Added to cart", type: "success" }));
-				})
-				.catch((err) => {
-					dispatch(showToast({ message: err, type: "error" }));
-				});
+			dispatch(addToCart({ userId, productId, quantity: 1 }));
 		} else {
 			navigate("/checkout/cart");
 		}
@@ -206,6 +199,7 @@ function ProductDetails() {
 									strokeWidth="1.5"
 									stroke="currentColor"
 									className="size-6"
+									onClick={handleWishlistClick}
 								>
 									<path
 										strokeLinecap="round"
@@ -213,7 +207,7 @@ function ProductDetails() {
 										d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
 									/>
 								</svg>
-								Wishlist
+								{inWishlist ? "Go to Wishlist" : "Add to Wishlist"}
 							</button>
 						</div>
 

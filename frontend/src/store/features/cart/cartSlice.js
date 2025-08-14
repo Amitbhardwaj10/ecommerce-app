@@ -22,14 +22,16 @@ export const fetchCart = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
 	"cart/addToCart",
-	async ({ userId, productId, quantity }, { rejectWithValue }) => {
+	async ({ userId, productId, quantity }, { rejectWithValue, dispatch }) => {
 		try {
 			const res = await api.post(`/cart/${userId}/items`, {
 				productId,
 				quantity,
 			});
+			dispatch(showToast({ message: "Added to cart", type: "success" }));
 			return res.data;
 		} catch (error) {
+			dispatch(showToast({ message: err, type: "error" }));
 			return rejectWithValue(error.response.data);
 		}
 	}
@@ -74,11 +76,11 @@ export const cartSlice = createSlice({
 	initialState,
 
 	extraReducers: (builder) => {
-		builder.addCase(fetchCart.fulfilled, (state, action) => {
-			state.cartItems = action.payload;
-		});
-
 		builder
+			.addCase(fetchCart.fulfilled, (state, action) => {
+				state.cartItems = action.payload;
+			})
+
 			.addCase(addToCart.pending, (state) => {
 				state.loading = true;
 			})

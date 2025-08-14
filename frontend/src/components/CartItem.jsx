@@ -9,7 +9,6 @@ import {
 	updateCartItemQuantity,
 } from "../store/features/cart/cartSlice";
 import { useRef } from "react";
-import { showToast } from "../store/features/toast/toastSlice";
 
 function CartItem({ item }) {
 	const navigate = useNavigate();
