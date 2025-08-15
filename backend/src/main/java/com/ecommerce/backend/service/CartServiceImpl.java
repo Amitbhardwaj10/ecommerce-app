@@ -42,7 +42,7 @@ public class CartServiceImpl implements CartService {
                 .productTitle(product.getTitle())
                 .status("in stock")
                 .price(product.getPrice())
-                .quantity(cartItem.getQuantity())
+                .quantity(1)
                 .image(product.getImage())
                 .build();
     }
@@ -80,8 +80,7 @@ public class CartServiceImpl implements CartService {
 
         CartItem cartItem = CartItem.builder()
                 .cart(cart)
-                .quantity(requestDto.getQuantity())
-                .price(product.getPrice() * requestDto.getQuantity())
+                .price(product.getPrice())
                 .product(product)
                 .build();
 

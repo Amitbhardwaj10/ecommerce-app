@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CartItemRequestDto {
     private Long productId;
-
-    private Integer quantity;
 }
