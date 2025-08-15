@@ -2,6 +2,7 @@ package com.ecommerce.backend.service;
 
 import com.ecommerce.backend.dto.CartItemRequestDto;
 import com.ecommerce.backend.dto.CartItemResponseDto;
+import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.model.Cart;
 import com.ecommerce.backend.model.CartItem;
 import com.ecommerce.backend.model.Product;
@@ -61,7 +62,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ResponseEntity<CartItemResponseDto> addCartItem(Long userId, CartItemRequestDto requestDto) {
+    public ResponseEntity<CartItemResponseDto> addCartItem(Long userId, Long productId) {
 
         Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
             Cart newCart = Cart.builder()
@@ -70,13 +71,13 @@ public class CartServiceImpl implements CartService {
             return cartRepository.save(newCart);
         });
 
-        Optional<CartItem> existingItem = cartItemRepository.findByCartAndProduct_ProductId(cart, requestDto.getProductId());
+        Optional<CartItem> existingItem = cartItemRepository.findByCartAndProduct_ProductId(cart, productId);
 
         if (existingItem.isPresent()) {
             return ResponseEntity.ok(toDto(existingItem.get()));
         }
 
-        Product product = productRepository.findById(requestDto.getProductId()).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         CartItem cartItem = CartItem.builder()
                 .cart(cart)
@@ -93,7 +94,7 @@ public class CartServiceImpl implements CartService {
     public void updateCartItemQuantity(Long cartItemId, int quantity) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new RuntimeException("Cart item not found"));
 
-        Product product = productRepository.findById(cartItem.getProduct().getProductId()).orElseThrow(() -> new RuntimeException("Product not found!"));
+        Product product = productRepository.findById(cartItem.getProduct().getProductId()).orElseThrow(() -> new ProductNotFoundException("Product not found!"));
 
         long updatedPrice = product.getPrice() * quantity;
 

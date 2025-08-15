@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CartItemRequestDto {
+public class WishlistAddRequestDto {
     @NotNull(message = "Product ID must not be null")
-    private Long productId;
+    private Long ProductId;
 }
