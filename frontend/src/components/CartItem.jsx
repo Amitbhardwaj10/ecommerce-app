@@ -9,12 +9,15 @@ import {
 	updateCartItemQuantity,
 } from "../store/features/cart/cartSlice";
 import { useRef } from "react";
+import useWishlistActions from "../hooks/useWishlistActions";
 
 function CartItem({ item }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const items = useSelector((state) => state.cart.cartItems);
-
+	const { inWishlist, handleWishlistClick } = useWishlistActions(
+		item.productId
+	);
 	const inrPrice = formatCurrencyInr(item.price * item.quantity);
 
 	// Debounce function
@@ -113,7 +116,10 @@ function CartItem({ item }) {
 					<div className="flex gap-2 text-xs md:text-sm">
 						<button
 							className="flex items-center gap-1 hover:text-primary hover:underline underline-offset-2"
-							onClick={() => onWishlist(item.id)}
+							onClick={() => {
+								handleWishlistClick();
+								dispatch(removeFromCart({ cartItemId: item.id }));
+							}}
 						>
 							<HiOutlineHeart className="w-4" />
 							<span>Add to Wishlist</span>

@@ -28,7 +28,7 @@ function Dropdown() {
 
 					<div className="text-sm flex flex-col gap-2">
 						<Link to="/">Orders</Link>
-						<Link to="/">Wishlist</Link>
+						<Link to="/wishlist">Wishlist</Link>
 
 						<a
 							href="#"

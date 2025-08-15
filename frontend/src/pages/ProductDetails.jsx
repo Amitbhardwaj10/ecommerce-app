@@ -45,7 +45,7 @@ function ProductDetails() {
 		}
 
 		if (!inCart) {
-			dispatch(addToCart({ userId, productId, quantity: 1 }));
+			dispatch(addToCart({ userId, productId }));
 		} else {
 			navigate("/checkout/cart");
 		}
@@ -191,9 +191,12 @@ function ProductDetails() {
 								{inCart ? "Go to cart" : "Add to cart"}
 							</button>
 							<button
-								className={`bg-gray-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 ${
-									inWishlist && "bg-primary text-white"
+								className={`bg-gray-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 ${
+									inWishlist
+										? "bg-primary text-white hover:bg cursor-auto"
+										: "hover:bg-gray-300"
 								}`}
+								onClick={handleWishlistClick}
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -202,9 +205,8 @@ function ProductDetails() {
 									strokeWidth="1.5"
 									stroke="currentColor"
 									className={`size-6 ${
-										inWishlist && "fill-rose-700 text-rose-700"
+										inWishlist && "fill-rose-600 text-rose-600"
 									}`}
-									onClick={handleWishlistClick}
 								>
 									<path
 										strokeLinecap="round"

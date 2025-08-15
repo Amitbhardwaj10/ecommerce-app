@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "./components/layout/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Login from "./pages/Login.jsx";

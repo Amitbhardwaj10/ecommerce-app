@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { showToast } from "../toast/toastSlice";
+import { api } from "../../../api/api";
 
 const initialState = {
 	wishlistItems: [],
@@ -7,9 +8,9 @@ const initialState = {
 
 export const fetchWishlist = createAsyncThunk(
 	"wishlist/fetchWishlist",
-	async (userId, { rejectWithValue }) => {
+	async ({ userId }, { rejectWithValue }) => {
 		try {
-			const res = await api.get(`wishlist/${userId}`);
+			const res = await api.get(`/wishlist/${userId}`);
 			return res.data;
 		} catch (err) {
 			return rejectWithValue(err.response?.data || "Failed to fetch wishlist");
@@ -19,15 +20,21 @@ export const fetchWishlist = createAsyncThunk(
 
 export const addToWishlist = createAsyncThunk(
 	"wishlist/addToWishlist",
-	async ({ userId, productId }, { rejectWithValue, dispatch }) => {
+	async ({ userId, productId }, { dispatch, rejectWithValue }) => {
 		try {
-			const res = await api.post(`wishlist/${userId}/items/${productId}`);
-			dispatch(showToast({ message: res.data, type: "success" }));
+			const res = await api.post(`/wishlist/${userId}/items`, { productId });
+			dispatch(
+				showToast({
+					message: "item added to wishlist",
+					type: "success",
+				})
+			);
 			return res.data;
 		} catch (err) {
 			dispatch(
 				showToast({
 					message: err.response?.data || "Failed to add item into wishlist",
+					type: "error",
 				})
 			);
 			return rejectWithValue(
@@ -37,12 +44,11 @@ export const addToWishlist = createAsyncThunk(
 	}
 );
 
-export const removeFromWishtlist = createAsyncThunk(
+export const removeFromWishlist = createAsyncThunk(
 	"wishlist/removeFromWishlist",
 	async (itemId, { dispatch, rejectWithValue }) => {
-		console.log("item removed from wishlist");
 		try {
-			const res = await api.delete(`wishlist/items/${itemId}`);
+			const res = await api.delete(`/wishlist/items/${itemId}`);
 			dispatch(showToast({ message: res.data, type: "success" }));
 			return itemId;
 		} catch (err) {
@@ -60,14 +66,15 @@ export const wishlistSlice = createSlice({
 				state.wishlistItems = action.payload;
 			})
 			.addCase(addToWishlist.fulfilled, (state, action) => {
+				const newItem = action.payload;
 				const exists = state.wishlistItems.find(
-					(item) => item.id == action.payload.id
+					(item) => item.id == newItem.id
 				);
-				!exists && state.wishlistItems.push(action.payload);
+				!exists && state.wishlistItems.push(newItem);
 			})
-			.addCase(removeFromWishtlist.fulfilled, (state, action) => {
+			.addCase(removeFromWishlist.fulfilled, (state, action) => {
 				state.wishlistItems = state.wishlistItems.filter(
-					(item) => item.id !== action.payload
+					(item) => item.id !== action.payload.id
 				);
 			});
 	},

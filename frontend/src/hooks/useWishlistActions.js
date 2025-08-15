@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
 	addToWishlist,
-	removeFromWishtlist,
+	removeFromWishlist,
 } from "../store/features/wishlist/wishlistSlice";
 
 export default function useWishlistActions(productId) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { isLoggedIn, userId } = useSelector((state) => state.auth);
+	const { isLoggedIn } = useSelector((state) => state.auth);
+	const userId = useSelector((state) => state.auth.user?.id);
 	const { wishlistItems } = useSelector((state) => state.wishlist);
 	const inWishlist = wishlistItems.some((item) => item.productId == productId);
 
@@ -20,12 +21,12 @@ export default function useWishlistActions(productId) {
 
 		if (!inWishlist) {
 			dispatch(addToWishlist({ userId, productId }));
-		} else navigate("/wishlist");
+		}
 	};
 
 	const handleRemoveWishlist = () => {
-		dispatch(removeFromWishtlist(productId));
+		dispatch(removeFromWishlist(productId));
 	};
 
-	return { inWishlist, handleWishlistClick, handleRemoveWishlist };
+	return { inWishlist, handleRemoveWishlist, handleWishlistClick };
 }

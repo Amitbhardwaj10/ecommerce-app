@@ -39,8 +39,8 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 				<HiOutlineHeart
 					className={`absolute top-2 right-2 w-5 h-5 ${
 						inWishlist
-							? "fill-rose-700 text-rose-700"
-							: "hover:fill-rose-700 hover:text-rose-700"
+							? "fill-rose-600 text-rose-600"
+							: "hover:fill-rose-600 hover:text-rose-600"
 					}`}
 					onClick={inWishlist ? handleRemoveWishlist : handleWishlistClick}
 				/>

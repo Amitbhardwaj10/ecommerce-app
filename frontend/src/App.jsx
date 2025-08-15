@@ -17,7 +17,7 @@ function App() {
 
 	useEffect(() => {
 		if (userId) {
-			dispatch(fetchWishlist(userId));
+			dispatch(fetchWishlist({ userId }));
 		}
 	}, [dispatch, userId]);
 

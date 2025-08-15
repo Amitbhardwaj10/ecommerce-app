@@ -98,7 +98,10 @@ function Navbar({ onToggleSidebar }) {
 
 						{/* Hide Wishlist if user is not logged in after login it should be visible then! */}
 						{isLoggedIn && (
-							<div className="flex gap-1 items-center cursor-pointer">
+							<div
+								className="flex gap-1 items-center cursor-pointer"
+								onClick={() => navigate("/wishlist")}
+							>
 								<HiOutlineHeart className="h-6 w-6" />
 								<small className="sm:block hidden">Wishlist</small>
 							</div>
