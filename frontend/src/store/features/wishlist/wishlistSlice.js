@@ -46,12 +46,13 @@ export const addToWishlist = createAsyncThunk(
 
 export const removeFromWishlist = createAsyncThunk(
 	"wishlist/removeFromWishlist",
-	async (itemId, { dispatch, rejectWithValue }) => {
+	async ({ itemId }, { dispatch, rejectWithValue }) => {
 		try {
 			const res = await api.delete(`/wishlist/items/${itemId}`);
 			dispatch(showToast({ message: res.data, type: "success" }));
 			return itemId;
 		} catch (err) {
+			dispatch(showToast({ message: err.response?.data, type: "error" }));
 			return rejectWithValue(err.response?.data);
 		}
 	}
@@ -74,7 +75,7 @@ export const wishlistSlice = createSlice({
 			})
 			.addCase(removeFromWishlist.fulfilled, (state, action) => {
 				state.wishlistItems = state.wishlistItems.filter(
-					(item) => item.id !== action.payload.id
+					(item) => item.id !== action.payload
 				);
 			});
 	},
