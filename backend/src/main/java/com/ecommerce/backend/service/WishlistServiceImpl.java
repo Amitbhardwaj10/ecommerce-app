@@ -12,6 +12,7 @@ import com.ecommerce.backend.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -82,5 +83,15 @@ public class WishlistServiceImpl implements WishlistService {
         wishlistItemRepository.save(wishlistItem);
 
         return toDto(wishlistItem);
+    }
+
+    @Override
+    public boolean deleteFromWishlist(Long itemId) {
+        Optional<WishlistItem> wishlistItem = wishlistItemRepository.findById(itemId);
+
+        if (wishlistItem.isEmpty()) return false;
+
+        wishlistItemRepository.deleteById(itemId);
+        return true;
     }
 }

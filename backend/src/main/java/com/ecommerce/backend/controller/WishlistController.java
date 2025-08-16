@@ -33,4 +33,11 @@ public class WishlistController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wishlistItemResponseDto);
     }
+
+    @DeleteMapping("/items/{itemId}")
+    public ResponseEntity<?> deleteFromWishlist(@PathVariable Long itemId) {
+        boolean deleted = wishlistService.deleteFromWishlist(itemId);
+
+       return  deleted ? ResponseEntity.ok("Item removed from wishlist") : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to remove item");
+    }
 }
