@@ -24,8 +24,12 @@ function Cart() {
 	const inrSubtotal = formatCurrencyInr(subtotal);
 
 	return (
-		<div className="max-w-h-screen flex items-start justify-center bg-gray-100 py-6 md:p-6">
-			<div className="w-full h-full max-w-7xl flex flex-col lg:flex-row gap-5">
+		<div
+			className={`max-w-h-screen flex items-start justify-center bg-gray-100 ${
+				items.length > 1 ? "py-6 md:p-6" : "h-screen p-0"
+			}`}
+		>
+			<div className="w-full h-auto max-w-7xl flex flex-col lg:flex-row gap-5">
 				{/* Cart Items */}
 				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:px-6 py-3">
 					<div>
@@ -51,7 +55,7 @@ function Cart() {
 				<div
 					className={`${
 						items.length === 0 && "hidden"
-					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 p-6 max-h-fit self-start`}
+					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 mb-10 p-6 max-h-fit self-start`}
 					id="order-details-box"
 				>
 					<div className="flex  items-center gap-x-1 mb-2 pt-1 font-[600] text-neutral-500">

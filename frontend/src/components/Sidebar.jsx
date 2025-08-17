@@ -38,11 +38,11 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<p href="/login">Login, Signup </p>
 						</div>
 
-						<div className="flex flex-col gap-3 my-5">
+						<div className="flex flex-col gap-3 my-3">
 							<Link to="/auth/signup">
 								<button
 									type="button"
-									className="text-white w-full bg-black hover:bg-slate-900 rounded-md text-lg px-5 py-3 text-center"
+									className="text-white w-full bg-black hover:bg-slate-900 rounded-md sm:text-lg px-4 py-3 text-center"
 									onClick={() => setIsVisible(false)}
 								>
 									Sign up
@@ -51,7 +51,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 							<Link to="/auth/login">
 								<button
 									type="button"
-									className="text-black w-full bg-white hover:bg-neutral-300 rounded-md text-xl px-4 py-3 text-center"
+									className="text-black w-full bg-white hover:bg-neutral-300 rounded-md sm:text-lg px-4 py-3 text-center"
 									onClick={() => setIsVisible(false)}
 								>
 									Log in
@@ -63,7 +63,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 
 				<div className="menuItems mt-5 py-4 px-3">
 					<ul className="px-4 py-3 flex flex-col gap-3">
-						<p className="text-2xl">Categories</p>
+						<p className="text-xl">Shop by category</p>
 						{categories.map((item) => {
 							return (
 								<NavLink
