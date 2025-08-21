@@ -10,6 +10,7 @@ import {
 } from "../store/features/cart/cartSlice";
 import { useRef } from "react";
 import useWishlistActions from "../hooks/useWishlistActions";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function CartItem({ item }) {
 	const navigate = useNavigate();
@@ -44,6 +45,22 @@ function CartItem({ item }) {
 		const oldQuantity = items.find((it) => it.id === cartItemId)?.quantity;
 		dispatch(quantityChange({ id: cartItemId, quantity: newQuantity }));
 		debouncedUpdate(cartItemId, newQuantity, oldQuantity);
+	};
+
+	const handleRemove = (cartItemId) => {
+		dispatch(removeFromCart({ cartItemId }))
+			.unwrap()
+			.then((res) => {
+				dispatch(showToast({ message: res.message, type: "success" }));
+			})
+			.catch((err) => {
+				dispatch(showToast({ message: err, type: "error" }));
+			});
+	};
+
+	const handleMoveToWishlist = (cartItemId) => {
+		handleWishlistClick();
+		dispatch(removeFromCart({ cartItemId }));
 	};
 
 	return (
@@ -116,10 +133,7 @@ function CartItem({ item }) {
 					<div className="flex gap-2 text-xs md:text-sm">
 						<button
 							className="flex items-center gap-1 hover:text-primary hover:underline underline-offset-2"
-							onClick={() => {
-								handleWishlistClick();
-								dispatch(removeFromCart({ cartItemId: item.id }));
-							}}
+							onClick={handleMoveToWishlist(item.id)}
 						>
 							<HiOutlineHeart className="w-4" />
 							<span>Add to Wishlist</span>
@@ -127,7 +141,7 @@ function CartItem({ item }) {
 
 						<button
 							className="flex items-center gap-1 text-gray-700 hover:text-red-800"
-							onClick={() => dispatch(removeFromCart({ cartItemId: item.id }))}
+							onClick={handleRemove}
 						>
 							<HiTrash className="w-4" />
 							<span>Delete</span>

@@ -3,15 +3,31 @@ import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { formatCurrencyInr } from "../utils/formatCurrency";
 import useWishlistActions from "../hooks/useWishlistActions";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromWishlist } from "../store/features/wishlist/wishlistSlice";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function ProductCard({ productId, productTitle, productPrice, productImage }) {
 	const priceInInr = formatCurrencyInr(productPrice);
 	const navigate = useNavigate();
-	const { inWishlist, handleWishlistClick, handleRemoveWishlist } =
-		useWishlistActions(productId);
+	const dispatch = useDispatch();
+	const { inWishlist, handleWishlistClick } = useWishlistActions(productId);
+	const { wishlistItems } = useSelector((state) => state.wishlist);
 
 	const navigateToProductDetails = () => {
 		navigate(`/products/${productId}/product-details`);
+	};
+
+	const handleRemoveWishlist = () => {
+		const itemId = wishlistItems.find((item) => item.productId == productId).id;
+		dispatch(removeFromWishlist({ itemId }))
+			.unwrap()
+			.then((res) => {
+				dispatch(showToast({ message: res.message, type: "success" }));
+			})
+			.catch((err) => {
+				dispatch(showToast({ message: err.response?.data, type: "error" }));
+			});
 	};
 
 	return (

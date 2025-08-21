@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../store/features/wishlist/wishlistSlice";
 import { addToCart } from "../store/features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { showToast } from "../store/features/toast/toastSlice";
 
 function WishlistItem({ item }) {
 	const dispatch = useDispatch();
@@ -15,11 +16,23 @@ function WishlistItem({ item }) {
 	const navigateToProductDetails = () => {
 		navigate(`/products/${item.productId}/product-details`);
 	};
+
+	const handleRemove = () => {
+		dispatch(removeFromWishlist({ itemId: item.id }))
+			.unwrap()
+			.then((res) => {
+				dispatch(showToast({ message: res.message, type: "success" }));
+			})
+			.catch((err) => {
+				dispatch(showToast({ message: err, type: "error" }));
+			});
+	};
+
 	return (
 		<>
 			<div className="relative border bg-white rounded-md hover:text-sky-700 text-gray-700 cursor-pointer">
 				<HiXMark
-					onClick={() => dispatch(removeFromWishlist({ itemId: item.id }))}
+					onClick={handleRemove}
 					className="absolute top-2 right-2 z-[1] w-6 h-6 bg-gray-200 rounded-full p-1"
 				/>
 				<img

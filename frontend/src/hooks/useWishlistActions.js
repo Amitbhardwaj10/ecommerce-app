@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-	addToWishlist,
-	removeFromWishlist,
-} from "../store/features/wishlist/wishlistSlice";
+import { addToWishlist } from "../store/features/wishlist/wishlistSlice";
+import { showToast } from "../store/features/toast/toastSlice";
 
 export default function useWishlistActions(productId) {
 	const dispatch = useDispatch();
@@ -20,13 +18,18 @@ export default function useWishlistActions(productId) {
 		}
 
 		if (!inWishlist) {
-			dispatch(addToWishlist({ userId, productId }));
+			dispatch(addToWishlist({ userId, productId }))
+				.unwrap()
+				.then(() => {
+					dispatch(
+						showToast({ message: "item added to wishlist", type: "success" })
+					);
+				})
+				.catch((err) => {
+					dispatch(showToast({ message: err, type: "error" }));
+				});
 		}
 	};
 
-	const handleRemoveWishlist = () => {
-		dispatch(removeFromWishlist(productId));
-	};
-
-	return { inWishlist, handleRemoveWishlist, handleWishlistClick };
+	return { inWishlist, handleWishlistClick };
 }

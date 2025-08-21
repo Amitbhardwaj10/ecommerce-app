@@ -25,16 +25,16 @@ function Cart() {
 
 	return (
 		<div
-			className={`max-w-h-screen flex items-start justify-center bg-gray-100 ${
-				items.length > 1 ? "py-6 md:p-6" : "h-screen p-0"
+			className={`max-w-h-screen h-screen flex justify-center bg-gray-100 ${
+				items.length > 0 ? "py-6 md:p-6" : "p-0 items-center"
 			}`}
 		>
-			<div className="w-full h-auto max-w-7xl flex flex-col lg:flex-row gap-5">
+			<div className="w-full h-fit max-w-7xl flex flex-col lg:flex-row gap-5">
 				{/* Cart Items */}
 				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:px-6 py-3">
 					<div>
 						{items.length === 0 ? (
-							<div className="text-center py-16">
+							<div className="text-center py-24">
 								<img className="w-44 md:w-64 mx-auto" src={cartImage} alt="" />
 								<p className="text-gray-500 md:text-lg mt-5">
 									Your cart is empty.
