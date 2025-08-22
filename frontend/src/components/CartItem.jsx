@@ -140,7 +140,7 @@ function CartItem({ item }) {
 
 						<button
 							className="flex items-center gap-1 text-gray-700 hover:text-red-800"
-							onClick={handleRemove}
+							onClick={() => handleRemove(item.id)}
 						>
 							<HiTrash className="w-4" />
 							<span>Delete</span>
