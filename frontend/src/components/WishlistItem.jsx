@@ -21,7 +21,12 @@ function WishlistItem({ item }) {
 		dispatch(removeFromWishlist({ itemId: item.id }))
 			.unwrap()
 			.then((res) => {
-				dispatch(showToast({ message: res.message, type: "success" }));
+				dispatch(
+					showToast({
+						message: res.message,
+						type: "success",
+					})
+				);
 			})
 			.catch((err) => {
 				dispatch(showToast({ message: err, type: "error" }));

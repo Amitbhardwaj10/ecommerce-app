@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addToWishlist } from "../store/features/wishlist/wishlistSlice";
+import {
+	addToWishlist,
+	removeFromWishlist,
+} from "../store/features/wishlist/wishlistSlice";
 import { showToast } from "../store/features/toast/toastSlice";
 
-export default function useWishlistActions(productId) {
+export default function useWishlistToggle(productId) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { isLoggedIn } = useSelector((state) => state.auth);
@@ -11,13 +14,34 @@ export default function useWishlistActions(productId) {
 	const { wishlistItems } = useSelector((state) => state.wishlist);
 	const inWishlist = wishlistItems.some((item) => item.productId == productId);
 
-	const handleWishlistClick = () => {
+	const handleToggleWishlist = () => {
 		if (!isLoggedIn) {
 			navigate("/auth/login");
 			return;
 		}
 
-		if (!inWishlist) {
+		if (inWishlist) {
+			// find itemId since API needs it
+			const itemId = wishlistItems.find(
+				(item) => item.productId == productId
+			)?.id;
+
+			if (itemId) {
+				dispatch(removeFromWishlist({ itemId }))
+					.unwrap()
+					.then((res) => {
+						dispatch(
+							showToast({
+								message: res.message,
+								type: "success",
+							})
+						);
+					})
+					.catch((err) => {
+						dispatch(showToast({ message: err, type: "error" }));
+					});
+			}
+		} else {
 			dispatch(addToWishlist({ userId, productId }))
 				.unwrap()
 				.then(() => {
@@ -31,5 +55,5 @@ export default function useWishlistActions(productId) {
 		}
 	};
 
-	return { inWishlist, handleWishlistClick };
+	return { inWishlist, handleToggleWishlist };
 }

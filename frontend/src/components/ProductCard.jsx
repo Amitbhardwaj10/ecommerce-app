@@ -1,33 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi2";
+import { HiHeart } from "react-icons/hi2";
 import { formatCurrencyInr } from "../utils/formatCurrency";
-import useWishlistActions from "../hooks/useWishlistActions";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromWishlist } from "../store/features/wishlist/wishlistSlice";
-import { showToast } from "../store/features/toast/toastSlice";
+import useWishlistToggle from "../hooks/useWishlistToggle";
 
 function ProductCard({ productId, productTitle, productPrice, productImage }) {
 	const priceInInr = formatCurrencyInr(productPrice);
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const { inWishlist, handleWishlistClick } = useWishlistActions(productId);
-	const { wishlistItems } = useSelector((state) => state.wishlist);
+	const { inWishlist, handleToggleWishlist } = useWishlistToggle(productId);
 
 	const navigateToProductDetails = () => {
 		navigate(`/products/${productId}/product-details`);
-	};
-
-	const handleRemoveWishlist = () => {
-		const itemId = wishlistItems.find((item) => item.productId == productId).id;
-		dispatch(removeFromWishlist({ itemId }))
-			.unwrap()
-			.then((res) => {
-				dispatch(showToast({ message: res.message, type: "success" }));
-			})
-			.catch((err) => {
-				dispatch(showToast({ message: err.response?.data, type: "error" }));
-			});
 	};
 
 	return (
@@ -52,14 +36,16 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 					{priceInInr}
 				</p>
 
-				<HiOutlineHeart
-					className={`absolute top-2 right-2 w-5 h-5 ${
-						inWishlist
-							? "fill-rose-600 text-rose-600"
-							: "hover:fill-rose-600 hover:text-rose-600"
-					}`}
-					onClick={inWishlist ? handleRemoveWishlist : handleWishlistClick}
-				/>
+				<button
+					onClick={handleToggleWishlist}
+					className="absolute top-2 right-2"
+				>
+					{inWishlist ? (
+						<HiHeart className="w-5 h-5 text-rose-600" />
+					) : (
+						<HiOutlineHeart className="w-5 h-5 hover:text-rose-600" />
+					)}
+				</button>
 			</Link>
 		</>
 	);
