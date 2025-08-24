@@ -11,7 +11,6 @@ import {
 import { useRef } from "react";
 import useWishlistActions from "../hooks/useWishlistActions";
 import { showToast } from "../store/features/toast/toastSlice";
-import { removeFromWishlist } from "../store/features/wishlist/wishlistSlice";
 
 function CartItem({ item }) {
 	const navigate = useNavigate();

@@ -16,10 +16,34 @@ function Layout() {
 		"/auth/login",
 		"/auth/signup",
 	];
+
+	const pageTitles = {
+		"/wishlist": "Wishlist",
+		"/checkout/cart": "My Cart",
+		"/checkout/payment": "Payment",
+	};
+
+	const showBackButton = location.pathname !== "/";
+	let pageTitle = pageTitles[location.pathname] || "";
+
+	const categoryPrefix = "/products/category/";
+	if (location.pathname.startsWith(categoryPrefix)) {
+		const categoryName = location.pathname.slice(categoryPrefix.length);
+		const formattedName = categoryName
+			.split("-")
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(" ");
+		pageTitle = formattedName;
+	}
+
 	return (
 		<>
 			{show && <Toast />}
-			<Navbar onToggleSidebar={() => setIsSidebarVisible(!isSidebarVisible)} />
+			<Navbar
+				onToggleSidebar={() => setIsSidebarVisible(!isSidebarVisible)}
+				showBackButton={showBackButton}
+				pageTitle={pageTitle}
+			/>
 
 			<Sidebar
 				isVisible={isSidebarVisible}

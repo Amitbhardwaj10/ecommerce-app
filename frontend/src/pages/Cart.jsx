@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import CartItem from "../components/CartItem";
 import cartImage from "../assets/cart.jpg";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 function Cart() {
 	const items = useSelector((state) => state.cart.cartItems);
+	const orderRef = useRef();
 
 	const subtotal = items.reduce(
 		(sum, item) => sum + item.quantity * item.price,
@@ -23,9 +24,13 @@ function Cart() {
 	const inrTotal = formatCurrencyInr(total);
 	const inrSubtotal = formatCurrencyInr(subtotal);
 
+	const handleScroll = () => {
+		orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+
 	return (
 		<div
-			className={`max-w-h-screen h-screen flex justify-center bg-gray-100 ${
+			className={`min-h-screen flex justify-center bg-gray-100 ${
 				items.length > 0 ? "py-6 md:p-6" : "p-0 items-center"
 			}`}
 		>
@@ -51,14 +56,15 @@ function Cart() {
 						)}
 					</div>
 				</div>
+
 				{/* Cart Summary */}
 				<div
 					className={`${
 						items.length === 0 && "hidden"
-					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 mb-10 p-6 max-h-fit self-start`}
-					id="order-details-box"
+					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 mb-16 p-6 max-h-fit self-start`}
+					ref={orderRef}
 				>
-					<div className="flex  items-center gap-x-1 mb-2 pt-1 font-[600] text-neutral-500">
+					<div className="flex  items-center gap-x-1 pt-1 font-[600] text-neutral-500">
 						<h3 className="text-[1.1rem]">PRICE DETAILS</h3>
 						<span>{`(${items.length} items)`}</span>
 					</div>
@@ -97,12 +103,12 @@ function Cart() {
 					<div className="w-full grid grid-cols-2 lg:grid-cols-1 shadow-[0_-2px_6px_0_rgba(0,0,0,0.16)] lg:shadow-none bg-white px-4 py-2 fixed bottom-0 left-0 lg:static">
 						<div className="visible lg:hidden">
 							<span className="font-semibold">{inrTotal}</span>
-							<a
-								href="#order-details-box"
+							<Link
 								className="text-sky-600 font-medium text-sm scroll-smooth block hover:text-sky-600"
+								onClick={handleScroll}
 							>
 								View details
-							</a>
+							</Link>
 						</div>
 
 						<button
