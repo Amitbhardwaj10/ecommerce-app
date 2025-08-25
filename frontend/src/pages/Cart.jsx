@@ -36,7 +36,7 @@ function Cart() {
 		>
 			<div className="w-full h-fit max-w-7xl flex flex-col lg:flex-row gap-5">
 				{/* Cart Items */}
-				<div className="h-full bg-white shadow rounded-lg flex-1 p-2 md:px-6 py-3">
+				<div className="h-full bg-white shadow rounded-sm flex-1 p-2 md:px-6 py-3">
 					<div>
 						{items.length === 0 ? (
 							<div className="text-center py-24">
@@ -61,7 +61,7 @@ function Cart() {
 				<div
 					className={`${
 						items.length === 0 && "hidden"
-					} flex flex-col gap-1 md:gap-3 bg-white rounded-lg w-full lg:w-96 mb-16 p-6 max-h-fit self-start`}
+					} flex flex-col gap-1 md:gap-3 bg-white rounded-sm w-full lg:w-96 mb-16 p-6 max-h-fit self-start`}
 					ref={orderRef}
 				>
 					<div className="flex  items-center gap-x-1 pt-1 font-[600] text-neutral-500">
@@ -100,7 +100,7 @@ function Cart() {
 						<span>{inrTotal}</span>
 					</div>
 
-					<div className="w-full grid grid-cols-2 lg:grid-cols-1 shadow-[0_-2px_6px_0_rgba(0,0,0,0.16)] lg:shadow-none bg-white px-4 py-2 fixed bottom-0 left-0 lg:static">
+					<div className="w-full grid grid-cols-2 lg:grid-cols-1 shadow-[0_-2px_6px_0_rgba(0,0,0,0.16)] lg:shadow-none bg-white px-4 lg:px-0 py-2 fixed bottom-0 left-0 lg:static">
 						<div className="visible lg:hidden">
 							<span className="font-semibold">{inrTotal}</span>
 							<Link
@@ -112,7 +112,7 @@ function Cart() {
 						</div>
 
 						<button
-							className="px-6 py-2 font-semibold rounded-lg bg-[#003049] text-white shadow md:shadow-non hover:bg-[#002030] transition"
+							className="px-6 py-2 font-semibold rounded-sm bg-[#003049] text-white shadow md:shadow-non hover:bg-[#002030] transition"
 							disabled={items.length === 0}
 						>
 							Place order

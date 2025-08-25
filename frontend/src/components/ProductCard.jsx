@@ -41,9 +41,9 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 					className="absolute top-2 right-2"
 				>
 					{inWishlist ? (
-						<HiHeart className="w-5 h-5 text-rose-600" />
+						<HiHeart className="w-4 h-4 text-rose-500" />
 					) : (
-						<HiOutlineHeart className="w-5 h-5 hover:text-rose-600" />
+						<HiOutlineHeart className="w-4 h-4 hover:text-rose-500" />
 					)}
 				</button>
 			</Link>

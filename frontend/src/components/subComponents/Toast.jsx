@@ -106,26 +106,16 @@ const Toast = () => {
 
 	return (
 		<div
-			className="flex items-center w-fit fixed z-50 px-4 py-3 text-xs md:text-base text-black bg-white border border-white/20 rounded-lg shadow-lg shadow-blue-800/40 backdrop-blur-md animate-pop
+			className="flex items-center w-fit fixed z-50 px-4 py-3 text-xs md:text-base text-white bg-gray-900 border border-white/20 rounded-md shadow-lg shadow-blue-800/40 backdrop-blur-md animate-pop
 			inset-x-4 bottom-12
-			sm:inset-x-auto sm:left-auto sm:right-3 sm:top-[9%] sm:bottom-auto mx-auto sm:mx-0 text-center"
+			sm:inset-x-auto sm:left-auto sm:right-3 sm:top-[11%] sm:bottom-auto mx-auto sm:mx-0 text-center"
 			role="alert"
 		>
 			<div className="flex items-center justify-center w-4 h-4 md:w-6 md:h-6">
 				{getIcon(type)}
 			</div>
 
-			<div
-				className={`ms-2 font-medium pointer-events-auto ${
-					type == "success"
-						? "text-green-700"
-						: type == "error"
-						? "text-red-500"
-						: "text-sky-500"
-				}`}
-			>
-				{message}
-			</div>
+			<div className={`ms-2 font-medium pointer-events-auto`}>{message}</div>
 		</div>
 	);
 };

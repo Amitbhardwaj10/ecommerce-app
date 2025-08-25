@@ -19,11 +19,11 @@ function Products() {
 
 	return (
 		<>
-			<div className="mx-auto xl:max-w-7xl">
-				<h2 className="my-10 mx-auto w-fit text-3xl font-medium text-center stylish-line-after stylish-line">
+			<div className="mx-auto pt-5 pb-16 xl:max-w-7xl">
+				{/* <h2 className="my-10 mx-auto w-fit text-3xl font-medium text-center stylish-line-after stylish-line">
 					PRODUCTS
-				</h2>
-				<div className="grid my-11 grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+				</h2> */}
+				<div className="grid grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 					{products.map((product) => {
 						return (
 							<ProductCard

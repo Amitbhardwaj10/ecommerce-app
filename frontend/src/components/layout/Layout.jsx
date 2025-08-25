@@ -50,7 +50,7 @@ function Layout() {
 				setIsVisible={setIsSidebarVisible}
 			/>
 
-			<main>
+			<main className="max-w-[1680px] mx-auto">
 				<Outlet />
 			</main>
 

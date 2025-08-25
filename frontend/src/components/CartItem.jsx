@@ -62,7 +62,7 @@ function CartItem({ item }) {
 	};
 
 	return (
-		<div className="flex items-start gap-4 py-2 lg:py-7 border-b last:border-b-0 relative">
+		<div className="flex items-start gap-x-8 py-2 lg:py-3 border-b last:border-b-0 relative">
 			<div>
 				<img
 					src={item.image}

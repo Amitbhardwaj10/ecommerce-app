@@ -39,6 +39,8 @@
 	line-height: 1.5;
 	font-weight: 400;
 
+	--primary-color: #02466a;
+
 	/* color: #ffffffde; */
 	color: black;
 	background-color: #ffffff;

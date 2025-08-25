@@ -36,7 +36,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 
 	return (
 		<>
-			<header className="sticky top-0 z-10 w-full h-16 bg-primary text-[#ffffffde] shadow-sm flex items-center">
+			<header className="sticky top-0 z-40 w-full h-16 bg-primary text-[#ffffffde] shadow-sm flex items-center">
 				<nav className="w-full mx-auto px-2 sm:px-4 flex justify-between items-center">
 					{/* Left: Hamburger, Logo, Nav Links */}
 					<div className="flex items-center min-w-0">
