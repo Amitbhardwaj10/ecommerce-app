@@ -130,7 +130,7 @@ function CartItem({ item }) {
 					</div>
 					<div className="flex gap-2 text-xs md:text-sm">
 						<button
-							className="flex items-center gap-1 hover:text-primary hover:underline underline-offset-2"
+							className="flex items-center gap-1 hover:text-sky-700 hover:underline underline-offset-2"
 							onClick={() => handleMoveToWishlist(item.id)}
 						>
 							<HiOutlineHeart className="w-4" />
@@ -138,7 +138,7 @@ function CartItem({ item }) {
 						</button>
 
 						<button
-							className="flex items-center gap-1 text-gray-700 hover:text-red-800"
+							className="flex items-center gap-1 text-gray-700 hover:text-red-700"
 							onClick={() => handleRemove(item.id)}
 						>
 							<HiTrash className="w-4" />

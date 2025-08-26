@@ -4,6 +4,10 @@ import { api } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/features/auth/authSlice";
 import { showToast } from "../store/features/toast/toastSlice";
+import {
+	startLoading,
+	stopLoading,
+} from "../store/features/loading/loadingSlice";
 
 function Login() {
 	const [formData, setFormData] = useState({
@@ -24,6 +28,7 @@ function Login() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		dispatch(startLoading());
 		try {
 			const res = await api.post("/auth/login", formData);
 			setFormData({
@@ -44,6 +49,8 @@ function Login() {
 				errorMessage = "No response from server. Try again later.";
 			}
 			dispatch(showToast({ message: errorMessage, type: "error" }));
+		} finally {
+			dispatch(stopLoading());
 		}
 	};
 

@@ -4,13 +4,13 @@ import FilterSidebar from "../components/FilterSidebar";
 
 function Home() {
 	const filterOptions = {
-		categories: [
+		categoriesArr: [
 			{ label: "T-Shirts", value: "tshirt", count: 20 },
 			{ label: "Women-T-Shirts", value: "womenTshirts", count: 44 },
 		],
-		brands: [{ label: "Nike", value: "nike", count: 8 }],
-		colors: [{ label: "Blue", value: "blue", count: 12 }],
-		priceRange: [500, 10000],
+		brandsArr: [{ label: "Nike", value: "nike", count: 8 }],
+		colorsArr: [{ label: "Blue", value: "blue", count: 12 }],
+		priceRangeArr: [500, 10000],
 	};
 
 	return (

@@ -5,6 +5,10 @@ import { formatCurrencyInr } from "../utils/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/features/cart/cartSlice";
 import useWishlistActions from "../hooks/useWishlistActions";
+import {
+	startLoading,
+	stopLoading,
+} from "../store/features/loading/loadingSlice";
 
 function ProductDetails() {
 	const imagesUrl = [
@@ -30,15 +34,18 @@ function ProductDetails() {
 	const inCart = cartItems.some((item) => item.productId == productId);
 
 	const getProdcutByProductId = async () => {
+		dispatch(startLoading());
 		try {
 			const res = await api.get(`/products/${productId}`);
 			setProduct(res.data);
 		} catch (error) {
 			console.log("while fetching the product By id: ", error);
+		} finally {
+			dispatch(stopLoading());
 		}
 	};
 
-	async function handleAddToCart() {
+	function handleAddToCart() {
 		if (!isLoggedIn) {
 			navigate("/auth/login");
 			return;

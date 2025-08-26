@@ -1,21 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../../api/api";
 import { showToast } from "../toast/toastSlice";
+import { startLoading, stopLoading } from "../loading/loadingSlice";
 
 const initialState = {
 	cartItems: [],
-	loading: false,
-	error: null,
 };
 
 export const fetchCart = createAsyncThunk(
 	"cart/fetchCart",
-	async (userId, { rejectWithValue }) => {
+	async (userId, { dispatch, rejectWithValue }) => {
+		dispatch(startLoading());
 		try {
 			const res = await api.get(`cart/${userId}`);
 			return res.data;
 		} catch (err) {
 			return rejectWithValue(err.response?.data || "Failed to fetch cart");
+		} finally {
+			dispatch(stopLoading());
 		}
 	}
 );
@@ -23,6 +25,7 @@ export const fetchCart = createAsyncThunk(
 export const addToCart = createAsyncThunk(
 	"cart/addToCart",
 	async ({ userId, productId }, { rejectWithValue, dispatch }) => {
+		dispatch(startLoading());
 		try {
 			const res = await api.post(`/cart/${userId}/items`, {
 				productId,
@@ -32,6 +35,8 @@ export const addToCart = createAsyncThunk(
 		} catch (error) {
 			dispatch(showToast({ message: err, type: "error" }));
 			return rejectWithValue(error.response.data);
+		} finally {
+			dispatch(stopLoading());
 		}
 	}
 );
@@ -39,6 +44,7 @@ export const addToCart = createAsyncThunk(
 export const updateCartItemQuantity = createAsyncThunk(
 	"cart/updateQuantity",
 	async ({ cartItemId, quantity, oldQuantity }, { dispatch }) => {
+		dispatch(startLoading());
 		try {
 			await api.put(`/cart/items/${cartItemId}`, { quantity });
 			return { cartItemId, quantity }; // success
@@ -53,18 +59,23 @@ export const updateCartItemQuantity = createAsyncThunk(
 					type: "error",
 				})
 			);
+		} finally {
+			dispatch(stopLoading());
 		}
 	}
 );
 
 export const removeFromCart = createAsyncThunk(
 	"cart/deleteFromCart",
-	async ({ cartItemId }, { rejectWithValue }) => {
+	async ({ cartItemId }, { dispatch, rejectWithValue }) => {
+		dispatch(startLoading());
 		try {
 			const res = await api.delete(`cart/items/${cartItemId}`);
 			return { cartItemId, message: res.data };
 		} catch (err) {
 			return rejectWithValue(err.response?.data);
+		} finally {
+			dispatch(stopLoading());
 		}
 	}
 );

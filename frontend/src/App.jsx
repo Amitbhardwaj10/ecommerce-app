@@ -4,6 +4,7 @@ import Layout from "./components/layout/Layout";
 import { useEffect } from "react";
 import { fetchCart } from "./store/features/cart/cartSlice";
 import { fetchWishlist } from "./store/features/wishlist/wishlistSlice";
+import GlobalLoader from "./components/GlobalLoader";
 
 function App() {
 	const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
 
 	return (
 		<>
+			<GlobalLoader />
 			<Layout />
 		</>
 	);

@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../api/api";
 import ProductCard from "../components/ProductCard";
+import { useDispatch } from "react-redux";
+import {
+	startLoading,
+	stopLoading,
+} from "../store/features/loading/loadingSlice";
 
 function Products() {
 	const [products, setProducts] = useState([]);
+	const dispatch = useDispatch();
+
 	const fetchProducts = async () => {
+		dispatch(startLoading());
 		try {
 			const res = await api.get("/products");
 			setProducts(res.data);
 		} catch (error) {
 			console.log("while fetching all products: ", error);
+		} finally {
+			dispatch(stopLoading());
 		}
 	};
 
