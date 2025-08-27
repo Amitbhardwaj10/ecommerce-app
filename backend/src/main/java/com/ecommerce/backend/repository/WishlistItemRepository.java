@@ -1,7 +1,7 @@
 package com.ecommerce.backend.repository;
 
-import com.ecommerce.backend.model.Wishlist;
-import com.ecommerce.backend.model.WishlistItem;
+import com.ecommerce.backend.entity.Wishlist;
+import com.ecommerce.backend.entity.WishlistItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

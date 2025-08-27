@@ -1,10 +1,11 @@
 package com.ecommerce.backend.service;
 
+import com.ecommerce.backend.dto.FilterOptionsResponseDto;
 import com.ecommerce.backend.dto.ProductRequestDto;
 import com.ecommerce.backend.dto.ProductResponseDto;
 import com.ecommerce.backend.error.ProductNotFoundException;
-import com.ecommerce.backend.model.Category;
-import com.ecommerce.backend.model.Product;
+import com.ecommerce.backend.entity.Category;
+import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.repository.CategoryRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,9 +77,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getAllProducts() {
+    public List<ProductResponseDto> getFilteredProducts(Map<String, List<String>> filters) {
         List<Product> products = productRepository.findAll();
         return products.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public FilterOptionsResponseDto getAvailableFilterOptions() {
+
     }
 
     @Override

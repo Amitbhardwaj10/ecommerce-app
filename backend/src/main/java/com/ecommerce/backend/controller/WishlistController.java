@@ -3,8 +3,6 @@ package com.ecommerce.backend.controller;
 
 import com.ecommerce.backend.dto.WishlistAddRequestDto;
 import com.ecommerce.backend.dto.WishlistItemResponseDto;
-import com.ecommerce.backend.error.ProductNotFoundException;
-import com.ecommerce.backend.model.WishlistItem;
 import com.ecommerce.backend.service.WishlistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

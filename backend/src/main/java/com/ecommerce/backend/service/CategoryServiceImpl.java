@@ -2,8 +2,8 @@ package com.ecommerce.backend.service;
 
 import com.ecommerce.backend.dto.CategoryDto;
 import com.ecommerce.backend.dto.ProductResponseDto;
-import com.ecommerce.backend.model.Category;
-import com.ecommerce.backend.model.Product;
+import com.ecommerce.backend.entity.Category;
+import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.repository.CategoryRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

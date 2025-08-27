@@ -1,7 +1,7 @@
 package com.ecommerce.backend.config;
 
-import com.ecommerce.backend.model.Category;
-import com.ecommerce.backend.model.Product;
+import com.ecommerce.backend.entity.Category;
+import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.repository.CategoryRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;

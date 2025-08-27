@@ -2,9 +2,9 @@ package com.ecommerce.backend.service;
 
 import com.ecommerce.backend.dto.WishlistItemResponseDto;
 import com.ecommerce.backend.error.ProductNotFoundException;
-import com.ecommerce.backend.model.Product;
-import com.ecommerce.backend.model.Wishlist;
-import com.ecommerce.backend.model.WishlistItem;
+import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.entity.Wishlist;
+import com.ecommerce.backend.entity.WishlistItem;
 import com.ecommerce.backend.repository.AuthRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import com.ecommerce.backend.repository.WishlistItemRepository;

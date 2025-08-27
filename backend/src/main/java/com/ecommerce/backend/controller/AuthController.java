@@ -1,7 +1,7 @@
 package com.ecommerce.backend.controller;
 
 import com.ecommerce.backend.dto.LoginResponseDto;
-import com.ecommerce.backend.model.User;
+import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.repository.AuthRepository;
 import com.ecommerce.backend.service.AuthService;
 import jakarta.validation.Valid;

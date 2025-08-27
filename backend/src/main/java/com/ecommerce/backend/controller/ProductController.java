@@ -1,13 +1,16 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.FilterOptionsResponseDto;
 import com.ecommerce.backend.dto.ProductRequestDto;
 import com.ecommerce.backend.dto.ProductResponseDto;
 import com.ecommerce.backend.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
@@ -23,13 +26,18 @@ public class ProductController {
     }
 
     @PostMapping("/bulk")
-    public ResponseEntity<String> createMultipleProducts(@RequestBody List<ProductRequestDto> productDtos) {
+    public ResponseEntity<String> createMultipleProducts(@Valid @RequestBody List<ProductRequestDto> productDtos) {
         return productService.saveAllProducts(productDtos);
     }
 
     @GetMapping
-    public List<ProductResponseDto> getAllProducts() {
-        return productService.getAllProducts();
+    public List<ProductResponseDto> getAllProducts(@RequestParam Map<String,List<String>> filters) {
+        return productService.getFilteredProducts(filters);
+    }
+
+    @GetMapping("/filters")
+    public FilterOptionsResponseDto getFilterOptions() {
+        return productService.getAvailableFilterOptions();
     }
 
     @GetMapping("/{productId}")
