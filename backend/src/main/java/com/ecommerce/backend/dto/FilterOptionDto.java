@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FilterOptionDto {
     private String label;
-    private String value;
+    private Long value;
     private Long count;
 }

@@ -15,5 +15,8 @@ public class ProductResponseDto {
     private String description;
     private Long price;
     private String image;
+    private Boolean inStock;
+    private String brand;
+    private String color;
     private String categoryName;
 }
