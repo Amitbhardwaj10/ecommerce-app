@@ -11,15 +11,13 @@ import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    Optional<Category> findByCategory(String categoryName);
+    public Optional<Category> findByName(String categoryName);
 
-    Optional<Category> findBySlug(String slug);
+    public Optional<Category> findBySlug(String slug);
 
-    boolean existsByCategory(String name);
-
-    @Query("SELECT c.id AS value, c.category AS label, COUNT(p) AS count " +
+    @Query("SELECT c.id AS value, c.name AS label, COUNT(p) AS count " +
             "FROM Category c JOIN Product p ON p.category = c " +
-            "GROUP BY c.id, c.category")
-    List<FilterOptionProjection> findCategoryFilterOptions();
+            "GROUP BY c.id, c.name")
+    public List<FilterOptionProjection> findCategoryFilterOptions();
 
 }

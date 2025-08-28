@@ -16,7 +16,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String category;
+    String name;
 
     @Column(unique = true)
     private String slug;
@@ -24,8 +24,8 @@ public class Category {
     @PrePersist
     @PreUpdate
     public void generateSlug() {
-        if (this.category != null && (this.slug == null || this.slug.isEmpty())) {
-            String trimmed = category.trim().toLowerCase();
+        if (this.name != null && (this.slug == null || this.slug.isEmpty())) {
+            String trimmed = name.trim().toLowerCase();
             this.slug = trimmed.replaceAll("[^a-z0-9]+", "-").replaceAll("(^-|-$)", "");
         }
     }

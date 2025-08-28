@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class FilterOptionsResponseDto {
-    List<FilterOptionDto> categories;
-    List<FilterOptionDto> brands;
-    List<FilterOptionDto> colors;
+    private List<FilterOptionDto> categories;
+    private List<FilterOptionDto> brands;
+    private List<FilterOptionDto> colors;
 
     private Long minPrice;
     private Long maxPrice;

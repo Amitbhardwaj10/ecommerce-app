@@ -2,10 +2,10 @@ package com.ecommerce.backend.service;
 
 import com.ecommerce.backend.dto.*;
 import com.ecommerce.backend.entity.Brand;
-import com.ecommerce.backend.entity.Color;
-import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.entity.Category;
+import com.ecommerce.backend.entity.Color;
 import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.repository.BrandRepository;
 import com.ecommerce.backend.repository.CategoryRepository;
 import com.ecommerce.backend.repository.ColorRepository;
@@ -44,17 +44,17 @@ public class ProductServiceImpl implements ProductService {
                 .brand(product.getBrand().getName())
                 .color(product.getColor().getName())
                 .inStock(product.getInStock())
-                .categoryName(product.getCategory().getCategory())
+                .categoryName(product.getCategory().getName())
                 .build();
         return dto;
     }
 
     private List<FilterOptionDto> mapToFilterOptionDto(List<FilterOptionProjection> projections) {
-       return  projections.stream().map((proj) -> FilterOptionDto.builder()
-               .label(proj.getLabel())
-               .value(proj.getValue())
-               .count(proj.getCount())
-               .build()).collect(Collectors.toList());
+        return projections.stream().map((proj) -> FilterOptionDto.builder()
+                .label(proj.getLabel())
+                .value(proj.getValue())
+                .count(proj.getCount())
+                .build()).collect(Collectors.toList());
     }
 
     @Override
@@ -96,7 +96,6 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found"));
 
 
-
             Product product = Product.builder()
                     .title(dto.getTitle())
                     .description(dto.getDescription())
@@ -124,9 +123,10 @@ public class ProductServiceImpl implements ProductService {
         List<FilterOptionProjection> brandFilters = brandRepository.findBrandFilterOptions();
         List<FilterOptionProjection> colorFilters = colorRepository.findColorFilterOptions();
         List<FilterOptionProjection> categoryFilters = categoryRepository.findCategoryFilterOptions();
-        Object[] minMaxResult = productRepository.findMinMaxPrice();
-        Long minPrice = (Long) minMaxResult[0];
-        Long maxPrice = (Long) minMaxResult[1];
+
+        MinMaxPrice result = productRepository.findMinMaxPrice();
+        Long minPrice = result != null ? result.getMinPrice() : 0L;
+        Long maxPrice = result != null ? result.getMaxPrice() : 0L;
 
         List<FilterOptionDto> brands = mapToFilterOptionDto(brandFilters);
         List<FilterOptionDto> colors = mapToFilterOptionDto(colorFilters);
@@ -148,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getprodutsByCategory(String slug) {
+    public List<ProductResponseDto> getProdutsByCategory(String slug) {
         Category category = categoryRepository.findBySlug(slug.toLowerCase())
                 .orElseThrow(() -> new RuntimeException("Category not found with slug: " + slug));
         List<Product> products = productRepository.findByCategory_Id(category.getId());

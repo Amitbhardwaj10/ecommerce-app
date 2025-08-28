@@ -47,7 +47,7 @@ public class ProductController {
 
     @GetMapping("/category/{slug}")
     public List<ProductResponseDto> getProductsBySlug(@PathVariable String slug) {
-        return productService.getprodutsByCategory(slug);
+        return productService.getProdutsByCategory(slug);
     }
 
 //    PUT /products/{id} → Edit product

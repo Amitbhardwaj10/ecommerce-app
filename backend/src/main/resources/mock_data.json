@@ -1,0 +1,642 @@
+[
+  {
+    "title": "Dell UltraSharp U2723QE 27-inch 4K USB-C Hub Monitor",
+    "description": "Experience stunning 4K clarity with this 27-inch IPS monitor featuring USB-C connectivity, 95% DCI-P3 color coverage, and built-in KVM switch for seamless multi-device workflow.",
+    "price": 49999,
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Dell"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Logitech MX Master 3S Wireless Mouse",
+    "description": "Advanced wireless mouse with MagSpeed electromagnetic scrolling, 8000 DPI darkfield sensor, and multi-device connectivity. Perfect for productivity and creative work.",
+    "price": 8299,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Logitech"
+    },
+    "color": {
+      "name": "Graphite"
+    }
+  },
+  {
+    "title": "Keychron K8 Wireless Mechanical Keyboard",
+    "description": "Compact 87-key wireless mechanical keyboard with hot-swappable switches, RGB backlighting, and Mac/Windows compatibility. Perfect for both gaming and productivity.",
+    "price": 7499,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Keychron"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Sony WH-1000XM5 Wireless Noise Canceling Headphones",
+    "description": "Industry-leading noise cancellation with exceptional sound quality. 30-hour battery life, multipoint connection, and crystal-clear call quality.",
+    "price": 33299,
+    "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Sony"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Logitech C920 HD Pro Webcam",
+    "description": "Full HD 1080p video calling and recording with auto-focus and built-in dual stereo mics. Perfect for streaming, video calls, and content creation.",
+    "price": 6599,
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Logitech"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "ASUS ProArt Display PA278QV 27-inch Monitor",
+    "description": "Professional 27-inch WQHD monitor with 100% sRGB color gamut, hardware calibration, and factory pre-calibration for accurate colors.",
+    "price": 27499,
+    "image": "https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "ASUS"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Razer DeathAdder V3 Gaming Mouse",
+    "description": "Ergonomic gaming mouse with Focus Pro 30K sensor, 90-hour battery life, and ultra-lightweight design at 59g for competitive gaming.",
+    "price": 8299,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": false,
+    "brand": {
+      "name": "Razer"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Apple Magic Keyboard with Numeric Keypad",
+    "description": "Wireless keyboard with extended layout, scissor mechanism for comfortable typing, and rechargeable battery that lasts for about a month.",
+    "price": 10799,
+    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Apple"
+    },
+    "color": {
+      "name": "White"
+    }
+  },
+  {
+    "title": "Audio-Technica ATH-M50x Professional Studio Headphones",
+    "description": "Professional monitor headphones with exceptional clarity and deep, accurate bass response. Collapsible design with detachable cables.",
+    "price": 12499,
+    "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Audio-Technica"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Elgato Facecam 1080p60 Webcam",
+    "description": "Premium webcam designed for streamers with uncompressed 1080p60 capture, advanced image sensor, and professional streaming software integration.",
+    "price": 16699,
+    "image": "https://images.unsplash.com/photo-1613589449306-3bf3b8ca8de9?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Elgato"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "LG 34WN80C-B 34-inch UltraWide Monitor",
+    "description": "34-inch curved UltraWide QHD monitor with USB-C connectivity, HDR10 support, and 21:9 aspect ratio for immersive productivity and gaming.",
+    "price": 37599,
+    "image": "https://images.unsplash.com/photo-1592839435050-ad5ad8f8e659?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "LG"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Microsoft Surface Mouse",
+    "description": "Sleek wireless mouse with precise tracking, comfortable design, and up to 12 months of battery life. Perfect companion for Surface devices.",
+    "price": 4099,
+    "image": "https://images.unsplash.com/photo-1615662644159-f5478ba01e78?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Microsoft"
+    },
+    "color": {
+      "name": "Platinum"
+    }
+  },
+  {
+    "title": "Corsair K95 RGB Platinum XT Mechanical Gaming Keyboard",
+    "description": "Premium gaming keyboard with Cherry MX switches, dedicated macro keys, per-key RGB lighting, and durable aluminum frame.",
+    "price": 16699,
+    "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Corsair"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "SteelSeries Arctis 7P Wireless Gaming Headset",
+    "description": "Premium wireless gaming headset with lossless 2.4GHz connection, 24-hour battery life, and award-winning audio quality.",
+    "price": 12499,
+    "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "SteelSeries"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Razer Kiyo Pro Ultra 4K Webcam",
+    "description": "Professional 4K webcam with large 1/1.2 sensor, advanced auto-focus, and superior low-light performance for content creators.",
+    "price": 25099,
+    "image": "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": false,
+    "brand": {
+      "name": "Razer"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Samsung Odyssey G7 32-inch Curved Gaming Monitor",
+    "description": "32-inch 1440p curved gaming monitor with 240Hz refresh rate, 1ms response time, and QLED technology for vivid colors.",
+    "price": 50099,
+    "image": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Samsung"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Apple Magic Mouse 2",
+    "description": "Multi-touch wireless mouse with rechargeable battery and seamless gestures for Mac users. Sleek, modern design with precision tracking.",
+    "price": 6599,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Apple"
+    },
+    "color": {
+      "name": "White"
+    }
+  },
+  {
+    "title": "Das Keyboard 4 Professional Mechanical Keyboard",
+    "description": "Premium mechanical keyboard with Cherry MX Brown switches, media controls, and oversized volume knob for professional use.",
+    "price": 14199,
+    "image": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Das Keyboard"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Beyerdynamic DT 770 Pro Studio Headphones",
+    "description": "Closed-back studio headphones with balanced sound signature, comfortable velour ear pads, and robust construction for professional use.",
+    "price": 15099,
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Beyerdynamic"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Logitech Brio 4K Ultra HD Webcam",
+    "description": "Ultra HD 4K webcam with 5x digital zoom, auto-light correction, and Windows Hello facial recognition support.",
+    "price": 16699,
+    "image": "https://images.unsplash.com/photo-1585087787512-6ca5a7c8d6af?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Logitech"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Alienware AW3423DWF 34-inch QD-OLED Gaming Monitor",
+    "description": "Revolutionary 34-inch QD-OLED ultrawide gaming monitor with infinite contrast, 165Hz refresh rate, and stunning HDR performance.",
+    "price": 100599,
+    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": false,
+    "brand": {
+      "name": "Alienware"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Logitech G Pro X Superlight Gaming Mouse",
+    "description": "Ultra-lightweight wireless gaming mouse at 63g with Hero 25K sensor, 70-hour battery life, and pro-grade performance.",
+    "price": 12499,
+    "image": "https://images.unsplash.com/photo-1615662644159-f5478ba01e78?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Logitech"
+    },
+    "color": {
+      "name": "White"
+    }
+  },
+  {
+    "title": "Ducky One 3 TKL Mechanical Keyboard",
+    "description": "Premium tenkeyless mechanical keyboard with double-shot PBT keycaps, Cherry MX switches, and customizable RGB lighting.",
+    "price": 11699,
+    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Ducky"
+    },
+    "color": {
+      "name": "White"
+    }
+  },
+  {
+    "title": "HyperX Cloud II Wireless Gaming Headset",
+    "description": "Wireless gaming headset with 7.1 surround sound, memory foam ear cushions, and 30-hour battery life for extended gaming sessions.",
+    "price": 12499,
+    "image": "https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "HyperX"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "OBSBOT Tiny 4K AI-Powered Webcam",
+    "description": "AI-powered 4K webcam with auto-tracking, gesture control, and professional-grade image quality for streamers and content creators.",
+    "price": 22599,
+    "image": "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "OBSBOT"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "BenQ PD3220U 32-inch 4K Designer Monitor",
+    "description": "32-inch 4K monitor designed for designers with 95% P3 color space, KVM switch, and USB-C docking functionality.",
+    "price": 75399,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "BenQ"
+    },
+    "color": {
+      "name": "Gray"
+    }
+  },
+  {
+    "title": "Glorious Model D Wireless Gaming Mouse",
+    "description": "Ergonomic wireless gaming mouse with honeycomb shell design, 69g weight, and 71-hour battery life for competitive gaming.",
+    "price": 6599,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Glorious"
+    },
+    "color": {
+      "name": "Matte Black"
+    }
+  },
+  {
+    "title": "HHKB Professional Hybrid Type-S Keyboard",
+    "description": "Premium compact mechanical keyboard with Topre switches, Bluetooth connectivity, and legendary typing feel favored by programmers.",
+    "price": 27599,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": false,
+    "brand": {
+      "name": "Happy Hacking Keyboard"
+    },
+    "color": {
+      "name": "White"
+    }
+  },
+  {
+    "title": "Sennheiser HD 600 Open-Back Headphones",
+    "description": "Reference-quality open-back headphones with neutral sound signature, hand-selected matched drivers, and legendary comfort.",
+    "price": 33399,
+    "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Sennheiser"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Anker PowerConf C200 2K Webcam",
+    "description": "Compact 2K webcam with auto-focus, noise-reducing microphones, and privacy shutter for professional video calls.",
+    "price": 5799,
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Anker"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "AOC CU34G2X 34-inch Curved Gaming Monitor",
+    "description": "Affordable 34-inch curved ultrawide gaming monitor with 144Hz refresh rate, 1ms response time, and immersive 1500R curvature.",
+    "price": 33499,
+    "image": "https://images.unsplash.com/photo-1592839435050-ad5ad8f8e659?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "AOC"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "SteelSeries Rival 650 Wireless Gaming Mouse",
+    "description": "Dual-sensor gaming mouse with customizable weight system, fast wireless charging, and TrueMove3+ sensor technology.",
+    "price": 13399,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "SteelSeries"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Leopold FC750R PD Mechanical Keyboard",
+    "description": "High-quality tenkeyless mechanical keyboard with Cherry MX switches, sound dampening, and excellent build quality.",
+    "price": 9999,
+    "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Leopold"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Philips Fidelio X2HR Open-Back Headphones",
+    "description": "Premium open-back headphones with self-adjusting headband, comfortable velour ear pads, and detailed soundstage.",
+    "price": 12499,
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Philips"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Creative Live! Cam Sync 1080p Webcam",
+    "description": "Full HD webcam with wide-angle lens, built-in privacy shutter, and plug-and-play compatibility for video conferencing.",
+    "price": 3299,
+    "image": "https://images.unsplash.com/photo-1613589449306-3bf3b8ca8de9?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Creative"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "ViewSonic VP2768-4K 27-inch 4K Professional Monitor",
+    "description": "27-inch 4K professional monitor with 100% sRGB coverage, hardware calibration, and ergonomic stand for color-critical work.",
+    "price": 41799,
+    "image": "https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Monitors"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "ViewSonic"
+    },
+    "color": {
+      "name": "Black"
+    }
+  },
+  {
+    "title": "Roccat Kone Pro Air Wireless Gaming Mouse",
+    "description": "Ultra-lightweight wireless gaming mouse with translucent shell, Owl-Eye 19K sensor, and stellar wireless performance.",
+    "price": 10899,
+    "image": "https://images.unsplash.com/photo-1615662644159-f5478ba01e78?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Mice"
+    },
+    "inStock": false,
+    "brand": {
+      "name": "Roccat"
+    },
+    "color": {
+      "name": "White"
+    }
+  },
+  {
+    "title": "Varmilo VA87M Sakura Mechanical Keyboard",
+    "description": "Beautiful mechanical keyboard with cherry blossom theme, dye-sublimated PBT keycaps, and premium Cherry MX switches.",
+    "price": 13399,
+    "image": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Keyboards"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Varmilo"
+    },
+    "color": {
+      "name": "Pink"
+    }
+  },
+  {
+    "title": "Focal Clear MG Professional Headphones",
+    "description": "High-end open-back headphones with magnesium drivers, exceptional clarity, and comfortable design for extended listening sessions.",
+    "price": 100599,
+    "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Headphones"
+    },
+    "inStock": false,
+    "brand": {
+      "name": "Focal"
+    },
+    "color": {
+      "name": "Gray"
+    }
+  },
+  {
+    "title": "Microsoft LifeCam HD-3000 Webcam",
+    "description": "Budget-friendly HD webcam with auto-focus, noise-reducing microphone, and universal attachment base for versatile placement.",
+    "price": 2499,
+    "image": "https://images.unsplash.com/photo-1585087787512-6ca5a7c8d6af?w=800&h=600&fit=crop",
+    "category": {
+      "name": "Webcams"
+    },
+    "inStock": true,
+    "brand": {
+      "name": "Microsoft"
+    },
+    "color": {
+      "name": "Black"
+    }
+  }
+]

@@ -5,7 +5,6 @@ import com.ecommerce.backend.dto.ProductResponseDto;
 import com.ecommerce.backend.entity.Category;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.repository.CategoryRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,28 +17,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @PostConstruct
-    public void initCategories() {
-        saveCategoryIfNotExists("Laptops");
-        saveCategoryIfNotExists("Monitors");
-        saveCategoryIfNotExists("Keyboards");
-        saveCategoryIfNotExists("Mouses");
-    }
-
-    private void saveCategoryIfNotExists(String name) {
-        if (!categoryRepository.existsByCategory(name)) {
-            Category category = new Category();
-            category.setCategory(name);
-            categoryRepository.save(category); // Triggers @PrePersist and slug generation
-        }
-    }
-
     private CategoryDto mapToCategoryDto(Category category) {
         List<ProductResponseDto> productDtos = category.getProducts().stream().map(this::mapToProductDto).collect(Collectors.toList());
 
         return CategoryDto.builder()
                 .id(category.getId())
-                .category(category.getCategory())
+                .category(category.getName())
                 .slug(category.getSlug())
                 .products(productDtos)
                 .build();
