@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDto> getAllProducts(@RequestParam Map<String,List<String>> filters) {
+    public List<ProductResponseDto> getAllProducts(@RequestParam  Map<String, String> filters) {
         return productService.getFilteredProducts(filters);
     }
 

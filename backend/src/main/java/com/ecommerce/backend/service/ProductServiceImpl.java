@@ -10,11 +10,14 @@ import com.ecommerce.backend.repository.BrandRepository;
 import com.ecommerce.backend.repository.CategoryRepository;
 import com.ecommerce.backend.repository.ColorRepository;
 import com.ecommerce.backend.repository.ProductRepository;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -113,8 +116,46 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getFilteredProducts(Map<String, List<String>> filters) {
-        List<Product> products = productRepository.findAll();
+    public List<ProductResponseDto> getFilteredProducts(Map<String, String> filters) {
+        Specification<Product> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            filters.forEach((key, value) -> {
+                switch (key) {
+                    case "brand":
+                        List<String> brands = Arrays.asList(value.split(","));
+                        predicates.add(root.get("brand").get("name").in(brands));
+                        break;
+                    case "category":
+                        List<String> categories = Arrays.asList(value.split(","));
+                        predicates.add(root.get("category").get("name").in(categories));
+                        break;
+                    case "color":
+                        List<String> colors = Arrays.asList(value.split(","));
+                        predicates.add(root.get("color").get("name").in(colors));
+                        break;
+                    case "priceRange":
+                        String[] prices = value.split(",");
+                        if (prices.length == 2) {
+                            try {
+                                Long minPrice = Long.parseLong(prices[0]);
+                                Long maxPrice = Long.parseLong(prices[1]);
+                                predicates.add(cb.between(root.get("price"), minPrice, maxPrice));
+                            } catch (NumberFormatException e) {
+                                System.err.println("Invalid number format for price range filter: " + e.getMessage());
+                            }
+                        }
+                        break;
+                    case "inStock":
+                        boolean inStockBoolean = Boolean.parseBoolean(value);
+                        predicates.add(cb.equal(root.get("inStock"), inStockBoolean));
+                        break;
+                }
+            });
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+        List<Product> products = productRepository.findAll(spec);
         return products.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
