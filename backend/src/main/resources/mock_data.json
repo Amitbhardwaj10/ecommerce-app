@@ -7,7 +7,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Dell"
     },
@@ -23,7 +23,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Logitech"
     },
@@ -39,7 +39,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Keychron"
     },
@@ -55,7 +55,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Sony"
     },
@@ -71,7 +71,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Logitech"
     },
@@ -87,7 +87,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "ASUS"
     },
@@ -103,7 +103,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": false,
+    "inStock": 0,
     "brand": {
       "name": "Razer"
     },
@@ -119,7 +119,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Apple"
     },
@@ -135,7 +135,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Audio-Technica"
     },
@@ -151,7 +151,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Elgato"
     },
@@ -167,7 +167,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "LG"
     },
@@ -183,7 +183,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Microsoft"
     },
@@ -199,7 +199,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Corsair"
     },
@@ -215,7 +215,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "SteelSeries"
     },
@@ -231,7 +231,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": false,
+    "inStock": 0,
     "brand": {
       "name": "Razer"
     },
@@ -247,7 +247,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Samsung"
     },
@@ -263,7 +263,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Apple"
     },
@@ -279,7 +279,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Das Keyboard"
     },
@@ -295,7 +295,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Beyerdynamic"
     },
@@ -311,7 +311,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Logitech"
     },
@@ -327,7 +327,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": false,
+    "inStock": 0,
     "brand": {
       "name": "Alienware"
     },
@@ -343,7 +343,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Logitech"
     },
@@ -359,7 +359,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Ducky"
     },
@@ -375,7 +375,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "HyperX"
     },
@@ -391,7 +391,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "OBSBOT"
     },
@@ -407,7 +407,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "BenQ"
     },
@@ -423,7 +423,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Glorious"
     },
@@ -439,7 +439,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": false,
+    "inStock": 0,
     "brand": {
       "name": "Happy Hacking Keyboard"
     },
@@ -455,7 +455,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Sennheiser"
     },
@@ -471,7 +471,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Anker"
     },
@@ -487,7 +487,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "AOC"
     },
@@ -503,7 +503,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "SteelSeries"
     },
@@ -519,7 +519,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Leopold"
     },
@@ -535,7 +535,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Philips"
     },
@@ -551,7 +551,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Creative"
     },
@@ -567,7 +567,7 @@
     "category": {
       "name": "Monitors"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "ViewSonic"
     },
@@ -583,7 +583,7 @@
     "category": {
       "name": "Mice"
     },
-    "inStock": false,
+    "inStock": 0,
     "brand": {
       "name": "Roccat"
     },
@@ -599,7 +599,7 @@
     "category": {
       "name": "Keyboards"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Varmilo"
     },
@@ -615,7 +615,7 @@
     "category": {
       "name": "Headphones"
     },
-    "inStock": false,
+    "inStock": 0,
     "brand": {
       "name": "Focal"
     },
@@ -631,7 +631,7 @@
     "category": {
       "name": "Webcams"
     },
-    "inStock": true,
+    "inStock": 1,
     "brand": {
       "name": "Microsoft"
     },

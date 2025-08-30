@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
                 .image(product.getImage())
                 .brand(product.getBrand().getName())
                 .color(product.getColor().getName())
-                .inStock(product.getInStock())
+                .inStock(product.getInStock() != null && product.getInStock() == 1)
                 .categoryName(product.getCategory().getName())
                 .build();
         return dto;
@@ -134,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
                         List<String> colors = Arrays.asList(value.split(","));
                         predicates.add(root.get("color").get("name").in(colors));
                         break;
-                    case "priceRange":
+                    case "price":
                         String[] prices = value.split(",");
                         if (prices.length == 2) {
                             try {
@@ -147,13 +147,24 @@ public class ProductServiceImpl implements ProductService {
                         }
                         break;
                     case "inStock":
-                        boolean inStockBoolean = Boolean.parseBoolean(value);
-                        predicates.add(cb.equal(root.get("inStock"), inStockBoolean));
+                        List<String> inStockValues = Arrays.asList(value.split(","));
+
+                        List<Integer> inStockInts = inStockValues.stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList());
+
+                        if (inStockInts.size() != 2) {
+                            predicates.add(root.get("inStock").in(inStockInts));
+                        }
                         break;
                 }
             });
 
-            return cb.and(predicates.toArray(new Predicate[0]));
+            if (!predicates.isEmpty()) {
+                return cb.and(predicates.toArray(new Predicate[0]));
+            } else {
+                return cb.conjunction(); // no filtering predicate - return all products
+            }
         };
         List<Product> products = productRepository.findAll(spec);
         return products.stream().map(this::mapToDto).collect(Collectors.toList());

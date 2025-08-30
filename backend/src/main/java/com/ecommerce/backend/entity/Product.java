@@ -28,8 +28,7 @@ public class Product {
 
     private String image;
 
-    @Column(nullable = false)
-    private Boolean inStock;
+    private Integer inStock;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
