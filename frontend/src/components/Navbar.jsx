@@ -54,7 +54,11 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 									<h1 className="text-lg truncate lg:hidden">{pageTitle}</h1>
 								)}
 
-								{!pageTitle && <div className="lg:hidden">{Logo}</div>}
+								{!pageTitle && (
+									<div className="lg:hidden" onClick={() => navigate("/")}>
+										{Logo}
+									</div>
+								)}
 
 								<div className="hidden lg:flex pl-1 sm:px-3 items-center justify-center min-w-0">
 									<Link
@@ -88,7 +92,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 								{categories.map((item) => (
 									<NavLink
 										key={item.id}
-										to={`/products/category/${item.category.toLowerCase()}`}
+										to={"/products"}
 										className={({ isActive }) =>
 											`relative px-4 py-8 whitespace-nowrap before:w-full before:h-[3px] before:absolute before:bottom-3 before:left-1/2 before:-translate-x-1/2 before:bg-current transition-all ease-in hover:text-cyan-400 ${
 												isActive

@@ -68,7 +68,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 							return (
 								<NavLink
 									key={item.id}
-									to={`products/category/${item.category.toLowerCase()}`}
+									to="/products"
 									onClick={() => {
 										setTimeout(() => {
 											setIsVisible(false);

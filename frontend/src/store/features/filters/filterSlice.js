@@ -5,7 +5,8 @@ const initialState = {
 		categories: [],
 		brands: [],
 		colors: [],
-		price: [500, 10000], // [min, max]
+		price: [], // [min, max]
+		inStock: [],
 	},
 };
 
@@ -13,6 +14,15 @@ const filterSlice = createSlice({
 	name: "filters",
 	initialState,
 	reducers: {
+		toggleFilter: (state, action) => {
+			const { key, value } = action.payload;
+			const currentValues = state.selected[key];
+			if (currentValues.includes(value)) {
+				state.selected[key] = currentValues.filter((v) => v !== value);
+			} else {
+				state.selected[key].push(value);
+			}
+		},
 		setCategory: (state, action) => {
 			state.selected.categories = action.payload;
 		},
@@ -25,12 +35,22 @@ const filterSlice = createSlice({
 		setPrice: (state, action) => {
 			state.selected.price = action.payload;
 		},
+		setInStock: (state, action) => {
+			state.selected.inStock = action.payload;
+		},
 		clearFilters: (state) => {
 			state.selected = initialState.selected;
 		},
 	},
 });
 
-export const { setCategory, setBrand, setColor, setPrice, clearFilters } =
-	filterSlice.actions;
+export const {
+	toggleFilter,
+	setCategory,
+	setBrand,
+	setColor,
+	setPrice,
+	setInStock,
+	clearFilters,
+} = filterSlice.actions;
 export default filterSlice.reducer;

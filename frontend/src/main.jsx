@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import Cart from "./pages/Cart.jsx";
 import App from "./App.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
+import Products from "./pages/Products.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -18,9 +19,9 @@ const router = createBrowserRouter([
 		element: <App />,
 		children: [
 			{ index: true, element: <Home /> },
-			{ path: "products/category/:slug", element: <CategoryPage /> },
+			{ path: "/products", element: <Products /> },
 			{
-				path: "products/:productId/product-details",
+				path: "/products/:productId/product-details",
 				element: <ProductDetails />,
 			},
 			{ path: "/checkout/cart", element: <Cart /> },

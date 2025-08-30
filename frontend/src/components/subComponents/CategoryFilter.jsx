@@ -1,21 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../../store/features/filters/filterSlice";
 
-const CategoryFilter = ({ options }) => {
-	const selected = useSelector((state) => state.filters.selected.categories);
-	const dispatch = useDispatch();
-
-	const toggle = (value) => {
-		dispatch(
-			setCategory(
-				selected.includes(value)
-					? selected.filter((v) => v !== value)
-					: [...selected, value]
-			)
-		);
-	};
-
+const CategoryFilter = ({ options, selected, onToggle }) => {
 	return (
 		<div className="border-t py-3 px-5">
 			<h3 className="font-semibold mb-4 text-sm text-gray-800">CATEGORIES</h3>
@@ -24,8 +9,8 @@ const CategoryFilter = ({ options }) => {
 					<label key={opt.value} className="flex items-center cursor-pointer">
 						<input
 							type="checkbox"
-							checked={selected.includes(opt.value)}
-							onChange={() => toggle(opt.value)}
+							checked={selected.includes(opt.label)}
+							onChange={() => onToggle(opt.label)}
 							className="accent-[var(--primary-color)] w-4 h-4"
 						/>
 						<span className="ml-2 text-sm">{opt.label}</span>

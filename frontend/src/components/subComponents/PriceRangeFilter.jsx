@@ -15,7 +15,7 @@ const PriceRangeFilter = ({ min, max }) => {
 		<div className="border-t py-3 px-5">
 			<h3 className="font-semibold mb-2 text-sm text-gray-800">PRICE</h3>
 			<Slider
-				value={value}
+				value={!value.length ? [min, max] : value}
 				onChange={handleChange}
 				min={min}
 				step={100}
@@ -35,9 +35,9 @@ const PriceRangeFilter = ({ min, max }) => {
 				}}
 			/>
 			<div className="mt-2 flex space-x-2 text-sm">
-				<span>₹{value[0]}</span>
+				<span>₹{value[0] ? value[0] : min}</span>
 				<span>–</span>
-				<span>₹{value[1]}</span>
+				<span>₹{value[1] ? value[1] : max}</span>
 			</div>
 		</div>
 	);

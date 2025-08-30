@@ -4,19 +4,23 @@ import BrandFilter from "./subComponents/BrandFilter";
 import ColorFilter from "./subComponents/ColorFilter";
 import PriceRangeFilter from "./subComponents/PriceRangeFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFilters } from "../store/features/filters/filterSlice";
+import {
+	clearFilters,
+	toggleFilter,
+} from "../store/features/filters/filterSlice";
+import AvailabilityFilter from "./subComponents/AvailabilityFilter";
 
 const FilterSidebar = ({ filterOptions }) => {
 	const dispatch = useDispatch();
-	const { categoriesArr, brandsArr, colorsArr, priceRangeArr } =
+	const { categories, brands, colors, minPrice, maxPrice } =
 		filterOptions || {};
 	const { selected } = useSelector((state) => state.filters);
 
-	const minPrice = priceRangeArr[0];
-	const maxPrice = priceRangeArr[1];
+	const handleToggle = (key, value) => {
+		dispatch(toggleFilter({ key, value }));
+	};
 
 	const isFilterActive = Object.values(selected).some((value) => {
-		// Custom check for the price array
 		if (value.length === 2 && typeof value[0] === "number") {
 			return value[0] > minPrice || value[1] < maxPrice;
 		}
@@ -25,7 +29,7 @@ const FilterSidebar = ({ filterOptions }) => {
 	});
 
 	return (
-		<div className="w-full bg-white md:sticky md:top-20">
+		<div className="w-full bg-white md:sticky md:top-20 scroll-my-6">
 			<div className="flex items-center justify-between py-3 px-5">
 				<h2 className="font-bold text-lg">FILTERS</h2>
 				<button
@@ -39,14 +43,34 @@ const FilterSidebar = ({ filterOptions }) => {
 			</div>
 
 			<div>
-				{categoriesArr?.length > 0 && (
-					<CategoryFilter options={categoriesArr} />
+				{categories?.length > 0 && (
+					<CategoryFilter
+						options={categories}
+						selected={selected.categories}
+						onToggle={(value) => handleToggle("categories", value)}
+					/>
 				)}
-				{brandsArr?.length > 0 && <BrandFilter options={brandsArr} />}
-				{priceRangeArr && (
-					<PriceRangeFilter min={priceRangeArr[0]} max={priceRangeArr[1]} />
+				{brands?.length > 0 && (
+					<BrandFilter
+						options={brands}
+						selected={selected.brands}
+						onToggle={(value) => handleToggle("brands", value)}
+					/>
 				)}
-				{colorsArr?.length > 0 && <ColorFilter options={colorsArr} />}
+				{colors?.length > 0 && (
+					<ColorFilter
+						options={colors}
+						selected={selected.colors}
+						onToggle={(value) => handleToggle("colors", value)}
+					/>
+				)}
+				{minPrice && maxPrice && (
+					<PriceRangeFilter min={minPrice} max={maxPrice} />
+				)}
+				<AvailabilityFilter
+					selected={selected.inStock}
+					onToggle={(value) => handleToggle("inStock", value)}
+				/>
 			</div>
 		</div>
 	);

@@ -18,21 +18,21 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 		<>
 			<Link
 				key={productId}
-				className="relative transition-shadow bg-white ease-in hover:shadow-lg hover:shadow-neutral-300 rounded-md py-2 px-3 hover:text-sky-700 text-gray-700"
+				className="relative transition-shadow bg-white ease-in hover:shadow-lg hover:shadow-neutral-300 rounded-md hover:text-sky-700 text-gray-700"
 			>
 				<img
 					onClick={navigateToProductDetails}
 					alt="image not found"
 					src={productImage}
-					className="aspect-square w-full rounded-lg mix-blend-darken object-contain object-center group-hover:opacity-75 xl:aspect-7/8"
+					className="aspect-square w-full rounded-t-lg object-cover object-center group-hover:opacity-75 xl:aspect-7/8"
 				/>
 				<h3
-					className="mt-4 text-xs sm:text-sm line-clamp-3"
+					className="mt-4 text-xs sm:text-sm text-pretty line-clamp-2 px-2"
 					onClick={navigateToProductDetails}
 				>
 					{productTitle}
 				</h3>
-				<p className="mt-1 text-sm md:text-lg font-medium text-gray-900">
+				<p className="mt-1 mb-2 text-sm md:text-lg font-medium text-gray-900 px-2">
 					{priceInInr}
 				</p>
 
@@ -43,7 +43,7 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 					{inWishlist ? (
 						<HiHeart className="w-4 h-4 text-rose-500" />
 					) : (
-						<HiOutlineHeart className="w-4 h-4 hover:text-rose-500" />
+						<HiHeart className="w-4 h-4 hover:text-rose-500 text-gray-300" />
 					)}
 				</button>
 			</Link>
