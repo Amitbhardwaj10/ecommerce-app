@@ -36,14 +36,16 @@ public class CartServiceImpl implements CartService {
     public CartItemResponseDto toDto(CartItem cartItem) {
         Product product = cartItem.getProduct();
 
+        boolean status = product.getInStock() == 1;
+
         return CartItemResponseDto.builder()
                 .id(cartItem.getId())
                 .productId(product.getProductId())
                 .productTitle(product.getTitle())
-                .status("in stock")
                 .price(product.getPrice())
                 .quantity(1)
                 .image(product.getImage())
+                .stockStatus(status)
                 .build();
     }
 
