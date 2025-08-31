@@ -8,13 +8,14 @@ import {
 } from "../store/features/loading/loadingSlice";
 import FilterSidebar from "../components/FilterSidebar";
 import {
+	clearFilters,
 	setBrand,
 	setCategory,
 	setColor,
 	setInStock,
 	setPrice,
 } from "../store/features/filters/filterSlice";
-import { useSearchParams } from "react-router-dom";
+import { replace, useSearchParams } from "react-router-dom";
 
 function Products() {
 	const [filterOptions, setFilterOptions] = useState({});
@@ -71,7 +72,7 @@ function Products() {
 		) {
 			params.price = `${selectedFilters.price[0]},${selectedFilters.price[1]}`;
 		}
-		setSearchParams(params);
+		setSearchParams(params, { replace: true });
 	}, [selectedFilters, setSearchParams]);
 
 	// Fetch products whenever filters in Redux change

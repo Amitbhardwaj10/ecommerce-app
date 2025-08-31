@@ -29,7 +29,7 @@ const FilterSidebar = ({ filterOptions }) => {
 	});
 
 	return (
-		<div className="w-full bg-white md:sticky md:top-20 scroll-my-6">
+		<div className="w-full bg-white md:sticky md:top-20">
 			<div className="flex items-center justify-between py-3 px-5">
 				<h2 className="font-bold text-lg">FILTERS</h2>
 				<button

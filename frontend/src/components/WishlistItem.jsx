@@ -35,7 +35,7 @@ function WishlistItem({ item }) {
 
 	return (
 		<>
-			<div className="relative border bg-white rounded-md hover:text-sky-700 text-gray-700 cursor-pointer">
+			<div className="relative border bg-white hover:text-sky-700 text-gray-700 cursor-pointer max-w-60 max-h-[425px]">
 				<HiXMark
 					onClick={handleRemove}
 					className="absolute top-2 right-2 z-[1] w-6 h-6 bg-gray-200 rounded-full p-1"
@@ -43,11 +43,11 @@ function WishlistItem({ item }) {
 				<img
 					alt="image not found"
 					src={item.image}
-					className="aspect-square sm:min-h-64 w-full rounded-lg mix-blend-darken object-contain object-center group-hover:opacity-75 xl:aspect-7/8"
+					className="aspect-square sm:min-h-64 w-full mix-blend-darken object-cover object-center group-hover:opacity-75 xl:aspect-7/8"
 					onClick={navigateToProductDetails}
 				/>
 				<h3
-					className="mt-3 text-xs sm:text-sm line-clamp-2 px-3"
+					className="mt-3 text-xs sm:text-sm line-clamp-1 px-3"
 					onClick={navigateToProductDetails}
 				>
 					{item.productTitle}
@@ -56,7 +56,7 @@ function WishlistItem({ item }) {
 					{priceInInr}
 				</p>
 				<button
-					className="border-t text-teal-800 py-3 mt-2 font-semibold text-center mx-auto w-full"
+					className="border-t text-teal-800 py-3 mt-2 text-sm font-semibold text-center mx-auto w-full"
 					onClick={() => {
 						dispatch(addToCart({ userId, productId: item.productId }));
 						dispatch(removeFromWishlist({ itemId: item.id }));

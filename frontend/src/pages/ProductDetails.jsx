@@ -24,12 +24,12 @@ function ProductDetails() {
 	const userId = useSelector((state) => state.auth.user?.id);
 	const [selectedImage, setSelectedImage] = useState(imagesUrl[0]);
 	let { productId } = useParams();
+	productId = Number(productId);
 	const [product, setProduct] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { isLoggedIn } = useSelector((state) => state.auth);
 	const cartItems = useSelector((state) => state.cart.cartItems);
-	productId = Number(productId);
 	const { inWishlist, handleWishlistClick } = useWishlistActions(productId);
 	const inCart = cartItems.some((item) => item.productId == productId);
 
@@ -72,7 +72,7 @@ function ProductDetails() {
 						<img
 							src={product.image}
 							alt="Product"
-							className="w-full h-96 object-contain rounded-lg shadow-md mb-4"
+							className="w-full h-96 object-cover rounded-lg shadow-md mb-4"
 							id="mainImage"
 						/>
 						<div className="flex gap-4 py-4 justify-center overflow-x-auto">
@@ -163,12 +163,29 @@ function ProductDetails() {
 						</div>
 
 						<div>
-							<h3 className="text-lg font-semibold mb-2">Description:</h3>
-							<p className="text-gray-700 mb-6">{product.description}</p>
+							<h3 className="text-lg text-gray-800 font-semibold mb-2">
+								Description:
+							</h3>
+							<p className="text-gray-700">{product.description}</p>
+						</div>
+
+						<div className="my-2  inline-flex items-center gap-3">
+							<h3 className="text-lg text-gray-800 font-semibold">
+								Availability:{" "}
+							</h3>
+							<p
+								className={`${
+									product.inStock ? "text-green-700" : "text-red-700"
+								}`}
+							>
+								{product.inStock ? "In Stock" : "Out Of Stock"}
+							</p>
 						</div>
 
 						<div className="mb-6">
-							<h3 className="text-lg font-semibold mb-2">Color:</h3>
+							<h3 className="text-lg text-gray-800 font-semibold mb-2">
+								Color:
+							</h3>
 							<div className="flex space-x-2">
 								<button className="w-8 h-8 bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"></button>
 								<button className="w-8 h-8 bg-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"></button>
@@ -226,7 +243,9 @@ function ProductDetails() {
 						</div>
 
 						<div>
-							<h3 className="text-lg font-semibold mb-2">Key Features:</h3>
+							<h3 className="text-lg text-gray-800 font-semibold mb-2">
+								Key Features:
+							</h3>
 							<ul className="list-disc list-inside text-gray-700">
 								<li>Industry-leading noise cancellation</li>
 								<li>30-hour battery life</li>

@@ -9,10 +9,10 @@ function Wishlist() {
 	const { wishlistItems } = useSelector((state) => state.wishlist);
 
 	return (
-		<div className="mx-auto xl:max-w-7xl">
+		<div className="mx-auto xl:max-w-7xl px-5">
 			{wishlistItems.length > 0 && (
 				<div>
-					<h2 className="mt-10 inline-block w-fit text-2xl ms-3 text-neutral-700 font-semibold">
+					<h2 className="mt-10 inline-block w-fit text-2xl text-neutral-700 font-semibold">
 						My Wishlist
 					</h2>
 					<span className="mx-2 text-lg">{`${wishlistItems.length} ${
@@ -20,7 +20,7 @@ function Wishlist() {
 					}`}</span>
 				</div>
 			)}
-			<div className="grid my-11 grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 md:gap-x-16 xl:grid-cols-4 px-auto">
+			<div className="grid my-11 grid-cols-2 gap-x-1 sm:gap-x-3 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-x-16 xl:grid-cols-4 px-auto">
 				{wishlistItems.map((item) => (
 					<WishlistItem key={item.id} item={item} />
 				))}

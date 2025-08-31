@@ -10,16 +10,21 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 import userImage from "../assets/user.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "./subComponents/SearchBar";
 import Dropdown from "./subComponents/Dropdown";
+import { setCategory } from "../store/features/filters/filterSlice";
 
 function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 	const { categories } = useCategories();
 	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef();
+	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const cartItemsQuantity = useSelector((state) => state.cart.cartItems.length);
+	const selectedCategories = useSelector(
+		(state) => state.filters.selected.categories
+	);
 	const navigate = useNavigate();
 	const Logo = "Quick Shop";
 
@@ -92,14 +97,11 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 								{categories.map((item) => (
 									<NavLink
 										key={item.id}
-										to={"/products"}
-										className={({ isActive }) =>
-											`relative px-4 py-8 whitespace-nowrap before:w-full before:h-[3px] before:absolute before:bottom-3 before:left-1/2 before:-translate-x-1/2 before:bg-current transition-all ease-in hover:text-cyan-400 ${
-												isActive
-													? "before:opacity-100 text-cyan-400 font-semibold"
-													: "before:opacity-0"
-											}`
-										}
+										to={`/products`}
+										onClick={(e) => {
+											dispatch(setCategory([item.category]));
+										}}
+										className="relative px-4 py-8 whitespace-nowrap hover:text-sky-400"
 									>
 										{item.category}
 									</NavLink>

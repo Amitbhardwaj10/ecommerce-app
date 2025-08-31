@@ -51,6 +51,20 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	::-webkit-scrollbar {
+		width: 6px;
+		scroll-behavior: smooth;
+	}
+
+	::-webkit-scrollbar-track {
+		border-radius: 10px;
+		background-color: #d7d7d7;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background-color: #909090;
+	}
 }
 
 .logo {

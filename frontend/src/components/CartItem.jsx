@@ -67,16 +67,16 @@ function CartItem({ item }) {
 				<img
 					src={item.image}
 					alt={item.productTitle}
-					className="w-24 md:w-28 h-32 md:h-38 object-contain mix-blend-darken rounded hover:cursor-pointer"
+					className="w-24 md:w-28 h-32 md:h-38 object-cover mix-blend-darken rounded hover:cursor-pointer"
 					onClick={() =>
 						navigate(`/products/${item.productId}/product-details`)
 					}
 				/>
 			</div>
 
-			<div className="flex-1 text-xs sm:text-base">
+			<div className="flex flex-col text-xs sm:text-base">
 				<h4
-					className="line-clamp-2 hover:cursor-pointer hover:text-sky-700 w-full max-w-xl"
+					className="line-clamp-2 mb-1 hover:cursor-pointer hover:text-sky-700 w-full max-w-xl"
 					onClick={() =>
 						navigate(`/products/${item.productId}/product-details`)
 					}
@@ -84,33 +84,23 @@ function CartItem({ item }) {
 					{item.productTitle}
 				</h4>
 
-				<div className="flex flex-wrap gap-2 text-gray-600">
-					{item.status && (
-						<span
-							className={`${
-								item.status.toLowerCase().includes("instock")
-									? item.status.toLowerCase() === "in stock"
-										? "text-green-600"
-										: "text-red-600"
-									: "text-gray-500"
-							} text-green-600 font-medium text-sm`}
-						>
-							In stock
-						</span>
-					)}
-				</div>
+				<span
+					className={`${
+						item.stockStatus ? "text-green-700" : "text-red-700"
+					} text-sm`}
+				>
+					{item.stockStatus ? "In Stock" : "Out of stock"}
+				</span>
 
-				<div className="my-2">
-					<span className="font-semibold text-sm md:text-lg text-gray-800">
-						{inrPrice}
-					</span>
-				</div>
+				<span className="font-semibold text-sm md:text-lg text-gray-800">
+					{inrPrice}
+				</span>
 
 				<div className="flex flex-col md:flex-row md:items-center mt-3 gap-2">
 					<div>
 						<button
 							className={`text-lg px-2 rounded bg-gray-200 ${
-								item.quantity > 1 && "bg-secondary text-white"
+								item.quantity > 1 && "bg-[var(--primary-color)] text-white"
 							}`}
 							onClick={() =>
 								handleQuantityChange(item.id, Math.max(1, item.quantity - 1))
@@ -122,7 +112,7 @@ function CartItem({ item }) {
 							{item.quantity}
 						</span>
 						<button
-							className="text-lg px-2 rounded bg-secondary text-white"
+							className="text-lg px-2 rounded bg-[var(--primary-color)] text-white"
 							onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
 						>
 							+
@@ -130,7 +120,7 @@ function CartItem({ item }) {
 					</div>
 					<div className="flex gap-2 text-xs md:text-sm">
 						<button
-							className="flex items-center gap-1 hover:text-sky-700 hover:underline underline-offset-2"
+							className="flex items-center gap-1 hover:text-sky-700"
 							onClick={() => handleMoveToWishlist(item.id)}
 						>
 							<HiOutlineHeart className="w-4" />

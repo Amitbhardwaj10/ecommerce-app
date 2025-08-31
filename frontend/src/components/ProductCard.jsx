@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HiOutlineHeart } from "react-icons/hi2";
 import { HiHeart } from "react-icons/hi2";
 import { formatCurrencyInr } from "../utils/formatCurrency";
 import useWishlistToggle from "../hooks/useWishlistToggle";
@@ -24,10 +23,10 @@ function ProductCard({ productId, productTitle, productPrice, productImage }) {
 					onClick={navigateToProductDetails}
 					alt="image not found"
 					src={productImage}
-					className="aspect-square w-full rounded-t-lg object-cover object-center group-hover:opacity-75 xl:aspect-7/8"
+					className="aspect-square w-full rounded-t-lg object-cover mix-blend-darken object-center group-hover:opacity-75 xl:aspect-7/8"
 				/>
 				<h3
-					className="mt-4 text-xs sm:text-sm text-pretty line-clamp-2 px-2"
+					className="mt-4 text-xs sm:text-sm line-clamp-2 px-2"
 					onClick={navigateToProductDetails}
 				>
 					{productTitle}
