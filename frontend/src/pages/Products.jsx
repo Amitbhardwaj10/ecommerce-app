@@ -8,14 +8,13 @@ import {
 } from "../store/features/loading/loadingSlice";
 import FilterSidebar from "../components/FilterSidebar";
 import {
-	clearFilters,
 	setBrand,
 	setCategory,
 	setColor,
 	setInStock,
 	setPrice,
 } from "../store/features/filters/filterSlice";
-import { replace, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function Products() {
 	const [filterOptions, setFilterOptions] = useState({});
@@ -122,13 +121,7 @@ function Products() {
 					<div className="pt-5 pb-16 px-3 xl:max-w-7xl">
 						<div className="grid grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 							{products.map((product) => (
-								<ProductCard
-									key={product.productId}
-									productId={product.productId}
-									productTitle={product.title}
-									productImage={product.image}
-									productPrice={product.price}
-								/>
+								<ProductCard key={product.productId} {...product} />
 							))}
 						</div>
 					</div>

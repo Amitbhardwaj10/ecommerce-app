@@ -22,9 +22,6 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const cartItemsQuantity = useSelector((state) => state.cart.cartItems.length);
-	const selectedCategories = useSelector(
-		(state) => state.filters.selected.categories
-	);
 	const navigate = useNavigate();
 	const Logo = "Quick Shop";
 
@@ -81,7 +78,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 									onClick={onToggleSidebar}
 									aria-label="Toggle sidebar menu"
 								/>
-								<div className="logo-div pl-1 sm:px-3 flex items-center justify-center min-w-0">
+								<div className="logo-div md:mr-4 sm:px-3 flex items-center justify-center min-w-0">
 									<Link
 										to="/"
 										className="truncate font-bold sm:text-lg lg:text-xl text-white"
@@ -93,15 +90,15 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 						)}
 
 						<div className="items-div min-w-0 flex-1 hidden lg:block">
-							<ul className="flex flex-wrap items-center xl-gap-2 overflow-x-auto max-w-full">
+							<ul className="flex flex-wrap items-center overflow-x-auto max-w-full">
 								{categories.map((item) => (
 									<NavLink
 										key={item.id}
 										to={`/products`}
-										onClick={(e) => {
+										onClick={() => {
 											dispatch(setCategory([item.category]));
 										}}
-										className="relative px-4 py-8 whitespace-nowrap hover:text-sky-400"
+										className="px-2 py-8 whitespace-nowrap hover:text-sky-400"
 									>
 										{item.category}
 									</NavLink>
@@ -117,7 +114,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 
 					{/* Right: Profile, Wishlist, Cart */}
 					<div
-						className="right-div flex mr-4 md:mx-4 gap-5 items-center justify-between"
+						className="right-div flex mr-4 md:mx-4 gap-x-4 items-center justify-between"
 						ref={dropdownRef}
 					>
 						<div

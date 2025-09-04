@@ -75,7 +75,7 @@ function ProductDetails() {
 							className="w-full h-96 object-cover rounded-lg shadow-md mb-4"
 							id="mainImage"
 						/>
-						<div className="flex gap-4 py-4 justify-center overflow-x-auto">
+						{/* <div className="flex gap-4 py-4 justify-center overflow-x-auto">
 							{imagesUrl.map((url, index) => (
 								<img
 									key={index}
@@ -89,77 +89,16 @@ function ProductDetails() {
 									onClick={() => setSelectedImage(url)}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 
 					<div className="w-full md:w-1/2 px-4">
 						<h3 className="text-xl mb-2">{product.title}</h3>
 						<div className="mb-4">
-							<span className="text-2xl font-bold mr-2">{priceInInr}</span>
+							<span className="text-xl sm:text-3xl font-semibold mr-2 text-gray-900">
+								{priceInInr}
+							</span>
 							<span className="text-gray-500 line-through">₹1,99,000</span>
-						</div>
-						<div className="flex items-center mb-4">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								className="size-6 text-yellow-500"
-							>
-								<path
-									fillRule="evenodd"
-									d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-									clipRule="evenodd"
-								/>
-							</svg>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								className="size-6 text-yellow-500"
-							>
-								<path
-									fillRule="evenodd"
-									d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-									clipRule="evenodd"
-								/>
-							</svg>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								className="size-6 text-yellow-500"
-							>
-								<path
-									fillRule="evenodd"
-									d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-									clipRule="evenodd"
-								/>
-							</svg>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								className="size-6 text-yellow-500"
-							>
-								<path
-									fillRule="evenodd"
-									d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-									clipRule="evenodd"
-								/>
-							</svg>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								className="size-6 text-yellow-500"
-							>
-								<path
-									fillRule="evenodd"
-									d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-									clipRule="evenodd"
-								/>
-							</svg>
-							<span className="ml-2 text-gray-600">4.5 (120 reviews)</span>
 						</div>
 
 						<div>
@@ -169,7 +108,7 @@ function ProductDetails() {
 							<p className="text-gray-700">{product.description}</p>
 						</div>
 
-						<div className="my-2  inline-flex items-center gap-3">
+						<div className="my-2 flex items-center gap-x-3">
 							<h3 className="text-lg text-gray-800 font-semibold">
 								Availability:{" "}
 							</h3>
@@ -182,15 +121,15 @@ function ProductDetails() {
 							</p>
 						</div>
 
-						<div className="mb-6">
-							<h3 className="text-lg text-gray-800 font-semibold mb-2">
-								Color:
-							</h3>
-							<div className="flex space-x-2">
+						<div className="flex gap-x-3 items-center mb-5">
+							<h3 className="text-lg text-gray-800 font-semibold">Color:</h3>
+
+							<span>{product.color}</span>
+							{/* <div className="flex space-x-2">
 								<button className="w-8 h-8 bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"></button>
 								<button className="w-8 h-8 bg-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"></button>
 								<button className="w-8 h-8 bg-blue-500 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"></button>
-							</div>
+							</div> */}
 						</div>
 
 						<div className="flex space-x-4 mb-6">

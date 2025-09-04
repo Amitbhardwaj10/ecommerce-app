@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPrice } from "../../store/features/filters/filterSlice";
 import { Slider } from "@mui/material";
@@ -6,8 +6,19 @@ import { Slider } from "@mui/material";
 const PriceRangeFilter = ({ min, max }) => {
 	const value = useSelector((state) => state.filters.selected.price);
 	const dispatch = useDispatch();
+	const [localValue, setLocalValue] = useState(
+		!value.length ? [min, max] : value
+	);
+
+	useEffect(() => {
+		setLocalValue(!value.length ? [min, max] : value);
+	}, [value, min, max]);
 
 	const handleChange = (_, newValue) => {
+		setLocalValue(newValue);
+	};
+
+	const handleChangeCommitted = (_, newValue) => {
 		dispatch(setPrice(newValue));
 	};
 
@@ -15,8 +26,9 @@ const PriceRangeFilter = ({ min, max }) => {
 		<div className="border-t py-3 px-5">
 			<h3 className="font-semibold mb-2 text-sm text-gray-800">PRICE</h3>
 			<Slider
-				value={!value.length ? [min, max] : value}
+				value={localValue}
 				onChange={handleChange}
+				onChangeCommitted={handleChangeCommitted}
 				min={min}
 				step={100}
 				max={max}

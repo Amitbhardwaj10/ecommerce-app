@@ -5,7 +5,6 @@ import Home from "./pages/Home.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
-import CategoryPage from "./pages/CategoryPage.jsx";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
 import Cart from "./pages/Cart.jsx";
