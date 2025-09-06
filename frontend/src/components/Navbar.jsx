@@ -23,7 +23,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const cartItemsQuantity = useSelector((state) => state.cart.cartItems.length);
 	const navigate = useNavigate();
-	const Logo = "Quick Shop";
+	const Logo = "TechStore";
 
 	// function to hide dropdown if clicks anywhere
 	useEffect(() => {
@@ -53,11 +53,16 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 								</button>
 
 								{pageTitle && (
-									<h1 className="text-lg truncate lg:hidden">{pageTitle}</h1>
+									<h2 className="truncate font-bold sm:text-lg lg:text-xl text-white">
+										{pageTitle}
+									</h2>
 								)}
 
 								{!pageTitle && (
-									<div className="lg:hidden" onClick={() => navigate("/")}>
+									<div
+										className="truncate font-bold sm:text-lg lg:text-xl text-white lg:hidden"
+										onClick={() => navigate("/")}
+									>
 										{Logo}
 									</div>
 								)}
@@ -74,7 +79,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 						) : (
 							<>
 								<HiBars3CenterLeft
-									className="menu-icon h-8 w-8 md:h-11 md:w-11 p-1 lg:hidden cursor-pointer"
+									className="menu-icon h-8 w-8 md:h-11 md:w-11 p-1 mr-1 lg:hidden cursor-pointer"
 									onClick={onToggleSidebar}
 									aria-label="Toggle sidebar menu"
 								/>

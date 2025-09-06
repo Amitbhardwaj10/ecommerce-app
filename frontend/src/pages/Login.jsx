@@ -68,7 +68,7 @@ function Login() {
 						to={"/"}
 						className="text-2xl text-primary border-black font-bold stylish-line-after stylish-line"
 					>
-						Quick Shop
+						TechStore
 					</Link>
 					<h2 className="mt-10 text-2xl/9 font-bold tracking-tight text-gray-900">
 						Sign in to your account

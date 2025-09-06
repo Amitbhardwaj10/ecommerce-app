@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { HiUser } from "react-icons/hi2";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useCategories from "../hooks/useCategories";
 import userImage from "../assets/user.png";
-
 import { HiXMark } from "react-icons/hi2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../store/features/filters/filterSlice";
 
 function Sidebar({ isVisible, setIsVisible }) {
 	const [translate, setTranslate] = useState("-translate-x-full");
 	const { categories } = useCategories();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const user = useSelector((state) => state.auth.user);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (isVisible) {
@@ -24,7 +26,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 	return (
 		<>
 			<aside
-				className={`side-bar w-3/4 sm:w-80 text-[#ffffffde] bg-primary h-screen fixed top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-all duration-500 ${translate} ease-in-out`}
+				className={`side-bar w-3/4 sm:w-80 text-[#ffffffde] bg-gray-900 h-screen fixed top-0 left-0 shadow-neutral-800 shadow-xl z-50 transition-all duration-500 ${translate} ease-in-out`}
 			>
 				{isLoggedIn ? (
 					<div className="flex gap-4 items-center bg-secondary p-2">
@@ -66,22 +68,16 @@ function Sidebar({ isVisible, setIsVisible }) {
 						<p className="text-xl">Shop by category</p>
 						{categories.map((item) => {
 							return (
-								<NavLink
+								<li
 									key={item.id}
-									to="/products"
 									onClick={() => {
-										setTimeout(() => {
-											setIsVisible(false);
-										}, 100);
+										dispatch(setCategory([item.category]));
+										navigate("/products");
+										setIsVisible(false);
 									}}
-									className={({ isActive }) =>
-										`block px-4 py-2 ${
-											isActive ? "text-cyan-400 font-semibold" : ""
-										}`
-									}
 								>
 									{item.category}
-								</NavLink>
+								</li>
 							);
 						})}
 					</ul>

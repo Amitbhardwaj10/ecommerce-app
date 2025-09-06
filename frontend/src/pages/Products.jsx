@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api } from "../api/api";
 import ProductCard from "../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import {
 	setPrice,
 } from "../store/features/filters/filterSlice";
 import { useSearchParams } from "react-router-dom";
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 
 function Products() {
 	const [filterOptions, setFilterOptions] = useState({});
@@ -22,6 +23,7 @@ function Products() {
 	const dispatch = useDispatch();
 	const selectedFilters = useSelector((state) => state.filters.selected);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const ref = useRef();
 
 	useEffect(() => {
 		const categories = searchParams.get("category")?.split(",") || [];
@@ -110,15 +112,42 @@ function Products() {
 
 	return (
 		<>
-			<div className="w-full flex flex-col md:flex-row border-t gap-x-4 border-collapse">
+			<div className="w-full py-3 md:py-0 flex flex-col md:flex-row border-t gap-x-4 overflow-x-hidden">
 				{/* Filter Sidebar */}
-				<div className="md:w-80 w-full border-r">
+				<div
+					ref={ref}
+					className="md:w-80 w-full md:border-r z-50 md:z-auto fixed overflow-y-auto inset-0 md:static  hidden md:block overflow-x-hidden"
+				>
 					<FilterSidebar filterOptions={filterOptions} />
+
+					<button
+						className="sticky bottom-0 mt-auto w-full bg-primary text-white py-3 block md:hidden"
+						onClick={() => (ref.current.style.display = "none")}
+					>
+						Apply
+					</button>
 				</div>
 
 				{/* Products Grid */}
-				<div className="lg:w-full w-full border-b border-separate">
-					<div className="pt-5 pb-16 px-3 xl:max-w-7xl">
+				<div className="lg:w-full w-full mt-4">
+					<div className="flex items-center justify-between border-b px-3 pb-1">
+						<div>
+							<h2 className="inline-block text-2xl">PRODUCTS</h2>
+							<span className="text-gray-400 text-lg mx-2 font-semibold">
+								({products.length})
+							</span>
+						</div>
+
+						{/* Filter button to Show filters on small screens */}
+						<button
+							className="my-2 py-2 px-2  gap-x-2 flex md:hidden items-center"
+							onClick={() => (ref.current.style.display = "block")}
+						>
+							<HiOutlineAdjustmentsHorizontal className="w-6 h-6 text-gray-600" />
+							<h2 className="text-lg">Filters</h2>
+						</button>
+					</div>
+					<div className="pt-5 pb-16 px-3 pr-5 xl:max-w-7xl border-b">
 						<div className="grid grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-1 sm:gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 							{products.map((product) => (
 								<ProductCard key={product.productId} {...product} />

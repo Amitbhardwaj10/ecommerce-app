@@ -5,48 +5,70 @@ import useCategories from "../hooks/useCategories";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setBrand, setCategory } from "../store/features/filters/filterSlice";
+import {
+	HiChevronLeft,
+	HiChevronRight,
+	HiChevronDoubleDown,
+} from "react-icons/hi2";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import heroImg1 from "../assets/heroImg1.jpeg";
+import heroImg2 from "../assets/heroImg2.jpeg";
+import heroImg3 from "../assets/heroImg3.jpeg";
 
-const slides = [
-	{
-		title: "Premium Mechanical Keyboards",
-		description:
-			"Upgrade your workspace or battlestation with tactile, durable keyboards for productivity and gaming.",
-		image:
-			"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=cover&w=900&q=80",
-	},
-	{
-		title: "4K UltraWide Monitors",
-		description:
-			"Experience immersive visuals and crisp, ultra-high definition color for every workflow.",
-		image:
-			"https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=cover&w=900&q=80",
-	},
-	{
-		title: "Studio-Grade Headsets",
-		description:
-			"Hear every detail in meetings, gaming, or creativity—without distraction or compromise.",
-		image:
-			"https://images.unsplash.com/photo-1516387938699-a93567ec168e?auto=format&fit=cover&w=900&q=80",
-	},
-	{
-		title: "Precision Gaming Mice",
-		description:
-			"Command accuracy and customizability at your fingertips with our wireless gaming mice.",
-		image:
-			"https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=cover&w=900&q=80",
-	},
-];
+const heroImages = [heroImg1, heroImg2, heroImg3];
 
-export default function HomePage() {
+function ScrollIndicator() {
+	const handleScroll = () => {
+		window.scrollBy({
+			top: window.innerHeight * 0.9,
+			left: 0,
+			behavior: "smooth",
+		});
+	};
+
+	return (
+		<button
+			onClick={handleScroll}
+			className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center focus:outline-none"
+		>
+			<p className="text-sm text-gray-700 mb-2">Scroll</p>
+			<HiChevronDoubleDown className="w-6 h-6 text-gray-700 animate-bounce" />
+		</button>
+	);
+}
+
+function NextArrow({ onClick }) {
+	return (
+		<button
+			type="button"
+			onClick={onClick}
+			className="absolute right-5 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 focus:outline-none border-2"
+		>
+			<HiChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-gray-700" />
+		</button>
+	);
+}
+
+function PrevArrow({ onClick }) {
+	return (
+		<button
+			type="button"
+			onClick={onClick}
+			className="absolute left-5 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 focus:outline-none border-2"
+		>
+			<HiChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-gray-700" />
+		</button>
+	);
+}
+
+export default function Home() {
 	const [products, setProducts] = useState([]);
 	const { categories } = useCategories();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const settings = {
-		dots: true,
 		infinite: true,
 		autoplay: true,
 		autoplaySpeed: 3500,
@@ -54,7 +76,10 @@ export default function HomePage() {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		arrows: true,
+		dots: false,
 		pauseOnHover: false,
+		nextArrow: <NextArrow />,
+		prevArrow: <PrevArrow />,
 	};
 
 	// Fetch a few trending products
@@ -73,40 +98,29 @@ export default function HomePage() {
 	return (
 		<div className="bg-white text-gray-900">
 			{/* Hero Section */}
-			<section className="relative w-full mb-5 h-screen bg-white flex items-center  transition-all duration-500">
+			<section className="relative w-full mb-5 h-[70vh] lg:h-screen bg-white transition-all duration-500">
 				<Slider {...settings} className="w-full h-full">
-					{slides.map((slide, idx) => (
-						<div
-							key={idx}
-							className="relative w-full h-screen flex items-center justify-center"
-						>
-							{/* Background Image */}
+					{heroImages.map((img, idx) => (
+						<div key={idx} className="w-full h-full">
 							<img
-								src={slide.image}
-								alt={slide.title}
-								className="absolute inset-0 w-full h-full object-cover opacity-60"
-								style={{ zIndex: 0 }}
+								src={img}
+								alt="hero-image"
+								draggable="false"
+								className="w-full h-full object-cover select-none pointer-events-none focus:outline-none"
 							/>
-							{/* Content */}
-							<div className="z-20 mx-auto text-center max-w-2xl relative">
-								<h1 className="text-5xl font-extrabold text-gray-900 mb-7 drop-shadow-lg">
-									{slide.title}
-								</h1>
-								<p className="text-xl text-gray-700 mb-10 drop-shadow">
-									{slide.description}
-								</p>
-								<button className="inline-block px-8 py-3 bg-blue-600 text-white text-lg rounded-lg font-semibold hover:bg-blue-700 shadow transition">
-									Shop Now
-								</button>
-							</div>
 						</div>
 					))}
 				</Slider>
+
+				{/* Scroll indicator always centered at bottom */}
+				<div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+					<ScrollIndicator />
+				</div>
 			</section>
 
 			{/* Categories Section */}
 			<section className="py-10 px-6 max-w-6xl mx-auto rounded-2xl bg-black">
-				<h2 className="text-4xl text-white font-bold mb-12 text-center">
+				<h2 className="text-xl sm:text-4xl text-white font-bold mb-12 text-center">
 					SHOP BY CATEGORY
 				</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -143,8 +157,8 @@ export default function HomePage() {
 			</section>
 
 			{/* Featured Brands */}
-			<section className="py-10 px-6 max-w-6xl  mx-auto bg-black mt-5 rounded-2xl">
-				<h2 className="text-4xl font-bold mb-12 text-white text-center">
+			<section className="py-10 px-3 sm:px-6 max-w-6xl  mx-auto bg-black mt-5 rounded-2xl">
+				<h2 className="text-xl sm:text-4xl font-bold mb-12 text-white text-center">
 					FEATURED BRANDS
 				</h2>
 				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
@@ -167,12 +181,12 @@ export default function HomePage() {
 			</section>
 
 			{/* Trending Products Section */}
-			<section className="py-10 px-6 bg-black max-w-6xl mx-auto flex flex-col items-center justify-center text-white my-5 rounded-2xl">
-				<h2 className="text-4xl font-bold mb-12 text-center">
+			<section className="py-10 px-1 sm:px-6 bg-black max-w-6xl mx-auto flex flex-col items-center justify-center text-white my-5 rounded-2xl">
+				<h2 className="text-xl sm:text-4xl font-bold mb-12 text-center">
 					TRENDING PRODUCTS
 				</h2>
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-7xl mx-auto">
-					{products.slice(0, 8).map((product) => (
+				<div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 max-w-7xl mx-auto">
+					{products.slice(0, 7).map((product) => (
 						<div
 							key={product.productId}
 							className="cursor-pointer rounded-md bg-white"
@@ -191,13 +205,13 @@ export default function HomePage() {
 
 			{/* CTA Section */}
 			<section className="py-20 bg-blue-800 text-center text-white">
-				<h2 className="text-4xl font-bold mb-6">
+				<h2 className="text-xl sm:text-4xl font-bold mb-6">
 					Ready to Build Your Dream Setup?
 				</h2>
-				<p className="text-lg mb-8">
+				<p className="sm:text-lg mb-8">
 					Subscribe to get the latest deals on cameras, audio gear, and more.
 				</p>
-				<div className="flex justify-center gap-4">
+				<div className="flex flex-col items-center sm:flex-row justify-center gap-4">
 					<input
 						type="email"
 						placeholder="Enter your email"
@@ -208,11 +222,6 @@ export default function HomePage() {
 					</button>
 				</div>
 			</section>
-
-			{/* Footer */}
-			<footer className="py-8 bg-gray-100 text-center text-gray-600 text-sm">
-				© {new Date().getFullYear()} ElectroStore. All rights reserved.
-			</footer>
 		</div>
 	);
 }
