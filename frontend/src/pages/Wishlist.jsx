@@ -27,7 +27,7 @@ function Wishlist() {
 			</div>
 			<div>
 				{wishlistItems.length === 0 && (
-					<div className="text-center">
+					<div className="text-center h-screen">
 						<p className="text-lg md:text-xl text-gray-800 font-semibold">
 							YOUR WISHLIST IS EMPTY
 						</p>

@@ -53,7 +53,7 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 								</button>
 
 								{pageTitle && (
-									<h2 className="truncate font-bold sm:text-lg lg:text-xl text-white">
+									<h2 className="truncate lg:hidden font-bold sm:text-lg lg:text-xl text-white">
 										{pageTitle}
 									</h2>
 								)}

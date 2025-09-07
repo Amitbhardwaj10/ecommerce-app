@@ -100,7 +100,7 @@ function CartItem({ item }) {
 					<div>
 						<button
 							className={`text-lg px-2 rounded bg-gray-200 ${
-								item.quantity > 1 && "bg-[var(--primary-color)] text-white"
+								item.quantity > 1 && "bg-secondary text-white"
 							}`}
 							onClick={() =>
 								handleQuantityChange(item.id, Math.max(1, item.quantity - 1))

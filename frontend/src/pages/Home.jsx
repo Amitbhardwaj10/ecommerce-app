@@ -13,11 +13,27 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import heroImg1 from "../assets/heroImg1.jpeg";
-import heroImg2 from "../assets/heroImg2.jpeg";
-import heroImg3 from "../assets/heroImg3.jpeg";
+import heroImg1 from "../assets/heroImg1.png";
+import heroImg2 from "../assets/heroImg2.png";
+import heroImg3 from "../assets/heroImg3.png";
 
-const heroImages = [heroImg1, heroImg2, heroImg3];
+const slides = [
+	{
+		title: "Ultimate Destination for Computer Peripherals and Components",
+		desc: "Explore a vast selection of high-quality keyboards, mice, laptops, and all the essential components to build the dream PC. We bring you the latest in technology and performance.",
+		img: heroImg1,
+	},
+	{
+		title: "Level Up Your Setup",
+		desc: "Discover the perfect synergy of gear. From responsive keyboards and precise mice to powerful laptops, find everything you need for peak performance and immersive gaming.",
+		img: heroImg2,
+	},
+	{
+		title: "TYPE. GAME. CONQUER.",
+		desc: "Unleash peak performance with our cutting-edge mechanical keyboards. Experience swappable switches, customizable backlighting, and ergonomic designs built for precision typing and immersive gaming.",
+		img: heroImg3,
+	},
+];
 
 function ScrollIndicator() {
 	const handleScroll = () => {
@@ -31,9 +47,10 @@ function ScrollIndicator() {
 	return (
 		<button
 			onClick={handleScroll}
-			className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center focus:outline-none"
+			className="flex flex-col items-center focus:outline-none"
+			aria-label="Scroll down"
 		>
-			<p className="text-sm text-gray-700 mb-2">Scroll</p>
+			<span className="text-sm text-gray-700 mb-1 hidden sm:block">Scroll</span>
 			<HiChevronDoubleDown className="w-6 h-6 text-gray-700 animate-bounce" />
 		</button>
 	);
@@ -98,22 +115,41 @@ export default function Home() {
 	return (
 		<div className="bg-white text-gray-900">
 			{/* Hero Section */}
-			<section className="relative w-full mb-5 h-[70vh] lg:h-screen bg-white transition-all duration-500">
+			<section className="mb-5 border-b relative w-full h-full lg:h-[90vh] pb-5 lg-pb-0 bg-white">
 				<Slider {...settings} className="w-full h-full">
-					{heroImages.map((img, idx) => (
-						<div key={idx} className="w-full h-full">
-							<img
-								src={img}
-								alt="hero-image"
-								draggable="false"
-								className="w-full h-full object-cover select-none pointer-events-none focus:outline-none"
-							/>
+					{slides.map((slide, idx) => (
+						<div key={idx} className="h-full lg:mt-8">
+							<div className="flex flex-col-reverse lg:flex-row items-center justify-between w-full h-full max-w-7xl mx-auto mt-5 gap-5 px-2 lg:px-12">
+								<div className="w-full lg:w-1/2 flex flex-col justify-center h-full text-center lg:text-left space-y-4 lg:space-y-6">
+									<h2 className="text-2xl lg:text-5xl font-bold text-gray-900 leading-tight">
+										{slide.title}
+									</h2>
+									<p className="text-sm lg:text-lg text-gray-700 max-w-xl mx-auto lg:mx-0">
+										{slide.desc}
+									</p>
+									<button
+										className="mt-4 px-6 py-3 bg-blue-800 text-white rounded-lg text-base hover:bg-blue-700 transition w-fit mx-auto lg:mx-0"
+										onClick={() => navigate("/products")}
+									>
+										Shop Now
+									</button>
+								</div>
+
+								<div className="w-full lg:w-2/5 flex items-center justify-center h-full mt-8 lg:mt-0">
+									<img
+										src={slide.img}
+										alt={slide.title}
+										draggable="false"
+										className="max-h-[60vh] lg:max-h-[80vh] w-auto object-contain select-none flex-shrink-0"
+									/>
+								</div>
+							</div>
 						</div>
 					))}
 				</Slider>
 
-				{/* Scroll indicator always centered at bottom */}
-				<div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+				{/* Scroll Indicator */}
+				<div className="mt-6 lg:mt-0 lg:absolute lg:bottom-5 lg:left-1/2 lg:-translate-x-1/2 z-20 flex justify-center w-full lg:w-auto">
 					<ScrollIndicator />
 				</div>
 			</section>
@@ -204,7 +240,7 @@ export default function Home() {
 			</section>
 
 			{/* CTA Section */}
-			<section className="py-20 bg-blue-800 text-center text-white">
+			{/* <section className="py-20 bg-blue-800 text-center text-white">
 				<h2 className="text-xl sm:text-4xl font-bold mb-6">
 					Ready to Build Your Dream Setup?
 				</h2>
@@ -221,7 +257,7 @@ export default function Home() {
 						Subscribe
 					</button>
 				</div>
-			</section>
+			</section> */}
 		</div>
 	);
 }
