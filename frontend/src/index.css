@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Assistant&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -44,8 +46,6 @@
 	/* color: #ffffffde; */
 	color: black;
 	background-color: #ffffff;
-	font-family: "Play", sans-serif;
-	font-weight: 400;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -65,6 +65,22 @@
 		border-radius: 10px;
 		background-color: #909090;
 	}
+}
+
+h1,
+h2,
+h3 {
+	font-family: "Play", sans-serif;
+	font-weight: 400;
+}
+
+a,
+li,
+p {
+	font-family: "Assistant", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
 }
 
 .logo {

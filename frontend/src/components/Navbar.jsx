@@ -5,6 +5,7 @@ import {
 	HiMiniChevronDown,
 	HiOutlineHeart,
 	HiOutlineArrowLeft,
+	HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -112,11 +113,6 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 						</div>
 					</div>
 
-					{/* SearchBar */}
-					<div className="hidden md:flex flex-1 justify-center mx-4 min-w-0">
-						<SearchBar />
-					</div>
-
 					{/* Right: Profile, Wishlist, Cart */}
 					<div
 						className="right-div flex mr-4 md:mx-4 gap-x-4 items-center justify-between"
@@ -143,18 +139,18 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 							<HiMiniChevronDown className="sm:block hidden h-6 w-6" />
 							{showDropdown && <Dropdown />}
 						</div>
-						{isLoggedIn && (
-							<div
-								className="flex gap-1 items-center cursor-pointer"
-								onClick={() => navigate("/wishlist")}
-								role="button"
-								tabIndex={0}
-								aria-label="Go to wishlist"
-							>
-								<HiOutlineHeart className="h-6 w-6" />
-								<small className="sm:block hidden">Wishlist</small>
-							</div>
-						)}
+
+						<div
+							className="flex gap-1 items-center cursor-pointer"
+							onClick={() => navigate("/wishlist")}
+							role="button"
+							tabIndex={0}
+							aria-label="Go to wishlist"
+						>
+							<HiOutlineHeart className="h-6 w-6" />
+							<small className="sm:block hidden">Wishlist</small>
+						</div>
+
 						<div
 							className="flex gap-2 items-center cursor-pointer relative"
 							onClick={() => navigate("/checkout/cart")}

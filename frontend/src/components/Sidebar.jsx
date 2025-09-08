@@ -27,7 +27,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 	const navigate = useNavigate();
 
 	// Collapsible state
-	const [categoriesOpen, setCategoriesOpen] = useState(true);
+	const [categoriesOpen, setCategoriesOpen] = useState(false);
 	const [showAll, setShowAll] = useState(false);
 
 	useEffect(() => {

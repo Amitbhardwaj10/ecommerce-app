@@ -31,23 +31,28 @@ function Cart() {
 	return (
 		<div
 			className={`min-h-screen flex justify-center bg-gray-100 ${
-				items.length > 0 ? "py-6 md:p-6" : "p-0 items-center"
+				items.length > 0 ? "py-6 md:p-6" : "p-0 h-screen items-center"
 			}`}
 		>
-			<div className="w-full h-fit max-w-7xl flex flex-col lg:flex-row gap-5">
+			<div
+				className={`w-full ${
+					items.length < 1 ? "h-full" : "h-fit max-w-6xl"
+				}  flex flex-col lg:flex-row gap-5`}
+			>
 				{/* Cart Items */}
-				<div className="h-full bg-white shadow rounded-sm flex-1 p-2 md:px-6 py-3">
+				<div
+					className={`h-full w-full ${
+						items.length === 0 && "grid place-items-center"
+					} bg-white shadow rounded-sm p-2 md:px-6 py-3`}
+				>
 					<div>
 						{items.length === 0 ? (
-							<div className="text-center py-24">
-								<img className="w-44 md:w-64 mx-auto" src={cartImage} alt="" />
-								<p className="text-gray-500 md:text-lg mt-5">
+							<div className="text-center">
+								<img className="w-64 md:w-72 mx-auto" src={cartImage} alt="" />
+								<p className="text-gray-600 text-lg md:text-xl mt-5">
 									Your cart is empty.
 								</p>
-								<Link
-									to="/"
-									className="text-blue-700 hover:text-blue-800 text-sm"
-								>
+								<Link to="/" className="text-sky-600 hover:text-sky-700 ">
 									Continue Shopping
 								</Link>
 							</div>
@@ -61,7 +66,7 @@ function Cart() {
 				<div
 					className={`${
 						items.length === 0 && "hidden"
-					} flex flex-col gap-1 md:gap-3 bg-white rounded-sm w-full lg:w-96 mb-16 p-6 max-h-fit self-start`}
+					} flex flex-col gap-1 md:gap-3 bg-white rounded-sm w-full lg:w-96 mb-16 p-6 max-h-fit`}
 					ref={orderRef}
 				>
 					<div className="flex  items-center gap-x-1 pt-1 font-[600] text-neutral-500">

@@ -115,7 +115,7 @@ export default function Home() {
 	return (
 		<div className="bg-white text-gray-900">
 			{/* Hero Section */}
-			<section className="mb-5 border-b relative w-full h-full lg:h-[90vh] pb-5 lg-pb-0 bg-white">
+			<section className="mb-5 relative w-full h-full lg:h-[90vh] pb-5 lg-pb-0 bg-white">
 				<Slider {...settings} className="w-full h-full">
 					{slides.map((slide, idx) => (
 						<div key={idx} className="h-full lg:mt-8">
