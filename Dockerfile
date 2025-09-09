@@ -1,8 +1,15 @@
 # Build Stage
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
+
+# Copy backend files
 COPY backend/ .
-RUN mvn clean package -DskipTests
+
+# Make mvnw executable
+RUN chmod +x ./mvnw
+
+# Build using Maven wrapper
+RUN ./mvnw clean package -DskipTests
 
 # Run Stage
 FROM eclipse-temurin:21-jdk
