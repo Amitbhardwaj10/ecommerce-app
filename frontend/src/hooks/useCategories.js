@@ -1,21 +1,40 @@
 import { useEffect, useState } from "react";
 import { api } from "../api/api";
+import { useDispatch } from "react-redux";
+import {
+	startLoading,
+	stopLoading,
+} from "../store/features/loading/loadingSlice";
+
+let cache = null;
+let pending = null;
 
 export default function useCategories() {
-	// Fetching categories from backend
-	const [categories, setCategories] = useState([]);
-
-	const fetchCategories = async () => {
-		try {
-			const res = await api.get("/categories");
-			setCategories(res.data);
-		} catch (error) {
-			console.log("while fetching categories: ", error);
-		}
-	};
+	const [categories, setCategories] = useState(cache || []);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		fetchCategories();
+		if (cache) return;
+
+		if (!pending) {
+			dispatch(startLoading());
+			pending = api
+				.get("/categories")
+				.then((res) => (cache = res.data))
+				.catch((err) => {
+					throw err;
+				})
+				.finally(() => {
+					pending = null;
+					dispatch(stopLoading());
+				});
+		}
+
+		pending
+			.then((data) => setCategories(data))
+			.catch((err) => {
+				throw err;
+			});
 	}, []);
 
 	return { categories };
