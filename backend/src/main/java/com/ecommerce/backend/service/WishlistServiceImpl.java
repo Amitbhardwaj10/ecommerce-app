@@ -46,7 +46,7 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public List<WishlistItemResponseDto> fetchWishlist(Long userId) {
-        Wishlist wishlist = wishlistRepository.findByUserId(userId).orElseGet(() -> {
+        Wishlist wishlist = wishlistRepository.findWithItemsByUserId(userId).orElseGet(() -> {
             Wishlist newWishlist = Wishlist.builder()
                     .userId(userId)
                     .wishlistItems(new ArrayList<>())
@@ -61,7 +61,7 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public WishlistItemResponseDto  addToWishlist(Long userId, Long productId) {
-        Wishlist wishlist = wishlistRepository.findByUserId(userId).orElseGet(() -> {
+        Wishlist wishlist = wishlistRepository.findWithItemsByUserId(userId).orElseGet(() -> {
             Wishlist newWishlist = new Wishlist();
             newWishlist.setUserId(userId);
             wishlistRepository.save(newWishlist);

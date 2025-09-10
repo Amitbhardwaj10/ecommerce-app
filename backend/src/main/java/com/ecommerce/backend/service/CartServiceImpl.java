@@ -51,7 +51,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItemResponseDto> fetchAllCartItems(Long userId) {
-        Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
+        Cart cart = cartRepository.findWithItemsByUserId(userId).orElseGet(() -> {
             Cart newCart = Cart.builder()
                     .userId(userId)
                     .cartItems(new ArrayList<>())
@@ -65,7 +65,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public ResponseEntity<CartItemResponseDto> addCartItem(Long userId, Long productId) {
 
-        Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
+        Cart cart = cartRepository.findWithItemsByUserId(userId).orElseGet(() -> {
             Cart newCart = Cart.builder()
                     .userId(userId)
                     .build();

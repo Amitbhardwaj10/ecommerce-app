@@ -155,7 +155,7 @@ export default function Home() {
 			</section>
 
 			{/* Categories Section */}
-			<section className="py-10 px-6 max-w-6xl mx-auto rounded-2xl bg-black">
+			<section className="py-10 px-6 max-w-6xl mx-auto rounded-lg lg:rounded-2xl bg-black">
 				<h2 className="text-xl sm:text-4xl text-white font-bold mb-12 text-center">
 					SHOP BY CATEGORY
 				</h2>
@@ -193,7 +193,7 @@ export default function Home() {
 			</section>
 
 			{/* Featured Brands */}
-			<section className="py-10 px-3 sm:px-6 max-w-6xl  mx-auto bg-black mt-5 rounded-2xl">
+			<section className="py-10 px-3 sm:px-6 max-w-6xl  mx-auto bg-black mt-5 rounded-lg lg:rounded-2xl">
 				<h2 className="text-xl sm:text-4xl font-bold mb-12 text-white text-center">
 					FEATURED BRANDS
 				</h2>
@@ -217,7 +217,7 @@ export default function Home() {
 			</section>
 
 			{/* Trending Products Section */}
-			<section className="py-10 px-1 sm:px-6 bg-black max-w-6xl mx-auto flex flex-col items-center justify-center text-white my-5 rounded-2xl">
+			<section className="py-10 px-1 sm:px-6 bg-black max-w-6xl mx-auto flex flex-col items-center justify-center text-white my-5 rounded-lg lg:rounded-2xl">
 				<h2 className="text-xl sm:text-4xl font-bold mb-12 text-center">
 					TRENDING PRODUCTS
 				</h2>
