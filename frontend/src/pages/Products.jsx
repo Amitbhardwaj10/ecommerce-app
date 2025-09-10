@@ -26,12 +26,15 @@ function Products() {
 	const ref = useRef();
 
 	useEffect(() => {
-		const categories = searchParams.get("category")?.split(",") || [];
-		const brands = searchParams.get("brand")?.split(",") || [];
-		const colors = searchParams.get("color")?.split(",") || [];
+		const categories =
+			searchParams.get("category")?.split(",").filter(Boolean) || [];
+		const brands = searchParams.get("brand")?.split(",").filter(Boolean) || [];
+		const colors = searchParams.get("color")?.split(",").filter(Boolean) || [];
 		const price = searchParams.get("price")?.split(",") || [];
-		const inStock = searchParams.get("inStock")?.split(",") || [];
+		const inStock =
+			searchParams.get("inStock")?.split(",").filter(Boolean) || [];
 
+		// Dispatch filters from URL only if they exist
 		if (categories.length) dispatch(setCategory(categories));
 		if (brands.length) dispatch(setBrand(brands));
 		if (colors.length) dispatch(setColor(colors));
@@ -40,7 +43,7 @@ function Products() {
 			const [min, max] = price.map(Number);
 			dispatch(setPrice([min, max]));
 		}
-	}, []);
+	}, [searchParams, dispatch]);
 
 	// Fetch filter options once
 	useEffect(() => {
@@ -76,7 +79,6 @@ function Products() {
 		setSearchParams(params, { replace: true });
 	}, [selectedFilters, setSearchParams]);
 
-	// Fetch products whenever filters in Redux change
 	useEffect(() => {
 		const fetchFilteredProducts = async () => {
 			const params = {};
@@ -93,8 +95,9 @@ function Products() {
 				selectedFilters.price.length === 2 &&
 				selectedFilters.price[0] != null &&
 				selectedFilters.price[1] != null
-			)
+			) {
 				params.price = `${selectedFilters.price[0]},${selectedFilters.price[1]}`;
+			}
 
 			dispatch(startLoading());
 			try {
@@ -107,8 +110,14 @@ function Products() {
 			}
 		};
 
-		fetchFilteredProducts();
-	}, [selectedFilters, dispatch]);
+		// Only fetch if filters have been restored OR query params exist
+		if (
+			searchParams.toString() ||
+			Object.values(selectedFilters).some((arr) => arr.length)
+		) {
+			fetchFilteredProducts();
+		}
+	}, [selectedFilters, searchParams, dispatch]);
 
 	return (
 		<>

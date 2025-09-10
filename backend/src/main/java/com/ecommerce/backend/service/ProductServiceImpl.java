@@ -117,58 +117,55 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductResponseDto> getFilteredProducts(Map<String, String> filters) {
-        Specification<Product> spec = (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
+        List<Product> products;
 
-            filters.forEach((key, value) -> {
-                switch (key) {
-                    case "brand":
-                        List<String> brands = Arrays.asList(value.split(","));
-                        predicates.add(root.get("brand").get("name").in(brands));
-                        break;
-                    case "category":
-                        List<String> categories = Arrays.asList(value.split(","));
-                        predicates.add(root.get("category").get("name").in(categories));
-                        break;
-                    case "color":
-                        List<String> colors = Arrays.asList(value.split(","));
-                        predicates.add(root.get("color").get("name").in(colors));
-                        break;
-                    case "price":
-                        String[] prices = value.split(",");
-                        if (prices.length == 2) {
-                            try {
-                                Long minPrice = Long.parseLong(prices[0]);
-                                Long maxPrice = Long.parseLong(prices[1]);
-                                predicates.add(cb.between(root.get("price"), minPrice, maxPrice));
-                            } catch (NumberFormatException e) {
-                                System.err.println("Invalid number format for price range filter: " + e.getMessage());
+        if (filters == null || filters.isEmpty()) {
+            // No filters → optimized fetch join query
+            products = productRepository.findAllWithRelations();
+        } else {
+            // Apply filters dynamically
+            Specification<Product> spec = (root, query, cb) -> {
+                List<Predicate> predicates = new ArrayList<>();
+
+                filters.forEach((key, value) -> {
+                    switch (key) {
+                        case "brand":
+                            predicates.add(root.get("brand").get("name").in(Arrays.asList(value.split(","))));
+                            break;
+                        case "category":
+                            predicates.add(root.get("category").get("name").in(Arrays.asList(value.split(","))));
+                            break;
+                        case "color":
+                            predicates.add(root.get("color").get("name").in(Arrays.asList(value.split(","))));
+                            break;
+                        case "price":
+                            String[] prices = value.split(",");
+                            if (prices.length == 2) {
+                                try {
+                                    Long min = Long.parseLong(prices[0]);
+                                    Long max = Long.parseLong(prices[1]);
+                                    predicates.add(cb.between(root.get("price"), min, max));
+                                } catch (NumberFormatException ignored) {}
                             }
-                        }
-                        break;
-                    case "inStock":
-                        List<String> inStockValues = Arrays.asList(value.split(","));
+                            break;
+                        case "inStock":
+                            List<Integer> inStockValues = Arrays.stream(value.split(","))
+                                    .map(Integer::valueOf)
+                                    .collect(Collectors.toList());
+                            predicates.add(root.get("inStock").in(inStockValues));
+                            break;
+                    }
+                });
 
-                        List<Integer> inStockInts = inStockValues.stream()
-                                .map(Integer::valueOf)
-                                .collect(Collectors.toList());
+                return predicates.isEmpty() ? cb.conjunction() : cb.and(predicates.toArray(new Predicate[0]));
+            };
 
-                        if (inStockInts.size() != 2) {
-                            predicates.add(root.get("inStock").in(inStockInts));
-                        }
-                        break;
-                }
-            });
+            products = productRepository.findAll(spec);
+        }
 
-            if (!predicates.isEmpty()) {
-                return cb.and(predicates.toArray(new Predicate[0]));
-            } else {
-                return cb.conjunction(); // no filtering predicate - return all products
-            }
-        };
-        List<Product> products = productRepository.findAll(spec);
         return products.stream().map(this::mapToDto).collect(Collectors.toList());
     }
+
 
     @Override
     public FilterOptionsResponseDto getAvailableFilterOptions() {
@@ -200,7 +197,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getProdutsByCategory(String slug) {
+    public List<ProductResponseDto> getProductsByCategory(String slug) {
         Category category = categoryRepository.findBySlug(slug.toLowerCase())
                 .orElseThrow(() -> new RuntimeException("Category not found with slug: " + slug));
         List<Product> products = productRepository.findByCategory_Id(category.getId());

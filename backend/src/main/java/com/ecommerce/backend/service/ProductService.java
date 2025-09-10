@@ -19,5 +19,5 @@ public interface ProductService {
 
     public ResponseEntity<String> saveAllProducts(List<ProductRequestDto> productDtos);
 
-    public List<ProductResponseDto> getProdutsByCategory(String slug);
+    public List<ProductResponseDto> getProductsByCategory(String slug);
 }
