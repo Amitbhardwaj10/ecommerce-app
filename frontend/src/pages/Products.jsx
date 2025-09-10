@@ -23,27 +23,33 @@ function Products() {
 	const dispatch = useDispatch();
 	const selectedFilters = useSelector((state) => state.filters.selected);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [filtersInitialized, setFiltersInitialized] = useState(false); // NEW
 	const ref = useRef();
 
+	// Only initialize Redux filter state from URL ONCE (on mount)
 	useEffect(() => {
-		const categories =
-			searchParams.get("category")?.split(",").filter(Boolean) || [];
-		const brands = searchParams.get("brand")?.split(",").filter(Boolean) || [];
-		const colors = searchParams.get("color")?.split(",").filter(Boolean) || [];
-		const price = searchParams.get("price")?.split(",") || [];
-		const inStock =
-			searchParams.get("inStock")?.split(",").filter(Boolean) || [];
+		if (!filtersInitialized) {
+			const categories =
+				searchParams.get("category")?.split(",").filter(Boolean) || [];
+			const brands =
+				searchParams.get("brand")?.split(",").filter(Boolean) || [];
+			const colors =
+				searchParams.get("color")?.split(",").filter(Boolean) || [];
+			const price = searchParams.get("price")?.split(",") || [];
+			const inStock =
+				searchParams.get("inStock")?.split(",").filter(Boolean) || [];
 
-		// Dispatch filters from URL only if they exist
-		if (categories.length) dispatch(setCategory(categories));
-		if (brands.length) dispatch(setBrand(brands));
-		if (colors.length) dispatch(setColor(colors));
-		if (inStock.length) dispatch(setInStock(inStock));
-		if (price.length === 2) {
-			const [min, max] = price.map(Number);
-			dispatch(setPrice([min, max]));
+			if (categories.length) dispatch(setCategory(categories));
+			if (brands.length) dispatch(setBrand(brands));
+			if (colors.length) dispatch(setColor(colors));
+			if (inStock.length) dispatch(setInStock(inStock));
+			if (price.length === 2) {
+				const [min, max] = price.map(Number);
+				dispatch(setPrice([min, max]));
+			}
+			setFiltersInitialized(true);
 		}
-	}, [searchParams, dispatch]);
+	}, [filtersInitialized, searchParams, dispatch]);
 
 	// Fetch filter options once
 	useEffect(() => {
@@ -60,6 +66,7 @@ function Products() {
 
 	// Update URL query params whenever Redux filter state changes
 	useEffect(() => {
+		if (!filtersInitialized) return; // Prevent premature param update
 		const params = {};
 		if (selectedFilters.categories.length)
 			params.category = selectedFilters.categories.join(",");
@@ -77,12 +84,13 @@ function Products() {
 			params.price = `${selectedFilters.price[0]},${selectedFilters.price[1]}`;
 		}
 		setSearchParams(params, { replace: true });
-	}, [selectedFilters, setSearchParams]);
+	}, [selectedFilters, setSearchParams, filtersInitialized]);
 
+	// Fetch filtered products only when Redux filters change
 	useEffect(() => {
+		if (!filtersInitialized) return; // Don't fetch until filters are set
 		const fetchFilteredProducts = async () => {
 			const params = {};
-
 			if (selectedFilters.categories.length)
 				params.category = selectedFilters.categories.join(",");
 			if (selectedFilters.brands.length)
@@ -110,14 +118,8 @@ function Products() {
 			}
 		};
 
-		// Only fetch if filters have been restored OR query params exist
-		if (
-			searchParams.toString() ||
-			Object.values(selectedFilters).some((arr) => arr.length)
-		) {
-			fetchFilteredProducts();
-		}
-	}, [selectedFilters, searchParams, dispatch]);
+		fetchFilteredProducts();
+	}, [selectedFilters, dispatch, filtersInitialized]);
 
 	return (
 		<>
