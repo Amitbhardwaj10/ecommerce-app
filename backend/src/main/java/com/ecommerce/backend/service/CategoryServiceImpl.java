@@ -7,6 +7,7 @@ import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
 
