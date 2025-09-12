@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
     public Optional<Wishlist> findByUserId(Long userId);
 
-    @EntityGraph(attributePaths = {"wishlistItems"})
+    @EntityGraph(attributePaths = {"wishlistItems", "wishlistItems.product"})
     Optional<Wishlist> findWithItemsByUserId(Long userId);
 }

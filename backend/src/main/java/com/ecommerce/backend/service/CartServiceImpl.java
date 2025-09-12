@@ -12,6 +12,7 @@ import com.ecommerce.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CartItemResponseDto> fetchAllCartItems(Long userId) {
         Cart cart = cartRepository.findWithItemsByUserId(userId).orElseGet(() -> {
             Cart newCart = Cart.builder()

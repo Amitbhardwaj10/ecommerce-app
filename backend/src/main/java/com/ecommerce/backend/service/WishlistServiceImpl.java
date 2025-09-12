@@ -11,6 +11,7 @@ import com.ecommerce.backend.repository.WishlistItemRepository;
 import com.ecommerce.backend.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<WishlistItemResponseDto> fetchWishlist(Long userId) {
         Wishlist wishlist = wishlistRepository.findWithItemsByUserId(userId).orElseGet(() -> {
             Wishlist newWishlist = Wishlist.builder()
