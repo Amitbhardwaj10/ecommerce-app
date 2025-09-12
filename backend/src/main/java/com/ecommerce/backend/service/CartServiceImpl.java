@@ -44,7 +44,8 @@ public class CartServiceImpl implements CartService {
                 .productId(product.getProductId())
                 .productTitle(product.getTitle())
                 .price(product.getPrice())
-                .quantity(1)
+                .quantity(cartItem.getQuantity())
+                .totalPrice(cartItem.getQuantity() * product.getPrice())
                 .image(product.getImage())
                 .stockStatus(status)
                 .build();
@@ -84,8 +85,8 @@ public class CartServiceImpl implements CartService {
 
         CartItem cartItem = CartItem.builder()
                 .cart(cart)
-                .price(product.getPrice())
                 .product(product)
+                .quantity(1)
                 .build();
 
         cartItemRepository.save(cartItem);
@@ -97,12 +98,7 @@ public class CartServiceImpl implements CartService {
     public void updateCartItemQuantity(Long cartItemId, int quantity) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new RuntimeException("Cart item not found"));
 
-        Product product = productRepository.findById(cartItem.getProduct().getProductId()).orElseThrow(() -> new ProductNotFoundException("Product not found!"));
-
-        long updatedPrice = product.getPrice() * quantity;
-
         cartItem.setQuantity(quantity);
-        cartItem.setPrice(updatedPrice);
         cartItemRepository.save(cartItem);
     }
 
