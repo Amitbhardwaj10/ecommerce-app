@@ -5,7 +5,7 @@ import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.entity.Wishlist;
 import com.ecommerce.backend.entity.WishlistItem;
-import com.ecommerce.backend.repository.AuthRepository;
+import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import com.ecommerce.backend.repository.WishlistItemRepository;
 import com.ecommerce.backend.repository.WishlistRepository;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class WishlistServiceImpl implements WishlistService {
 
     @Autowired
-    private AuthRepository authRepository;
+    private UserRepository authRepository;
 
     @Autowired
     private WishlistRepository wishlistRepository;

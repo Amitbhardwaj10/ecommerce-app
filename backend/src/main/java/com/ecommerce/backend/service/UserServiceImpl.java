@@ -3,7 +3,7 @@ package com.ecommerce.backend.service;
 import com.ecommerce.backend.dto.LoginResponseDto;
 import com.ecommerce.backend.dto.UserDto;
 import com.ecommerce.backend.entity.User;
-import com.ecommerce.backend.repository.AuthRepository;
+import com.ecommerce.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    private AuthRepository authRepository;
+    private UserRepository userRepository;
 
     @Override
     public ResponseEntity<String> saveNewUser(User user) {
-        if (authRepository.findByUsername(user.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists!");
         }
 
-        authRepository.save(user);
+        userRepository.save(user);
         return ResponseEntity.ok("User registered successfully!");
     }
 
     @Override
     public ResponseEntity<LoginResponseDto> userLogin(User loginRequest) {
-        Optional<User> user = authRepository.findByUsername(loginRequest.getUsername());
+        Optional<User> user = userRepository.findByUsername(loginRequest.getUsername());
 
         if (user.isPresent()) {
             User foundUser = user.get();

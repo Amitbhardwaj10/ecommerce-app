@@ -5,7 +5,7 @@ import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.entity.Cart;
 import com.ecommerce.backend.entity.CartItem;
 import com.ecommerce.backend.entity.Product;
-import com.ecommerce.backend.repository.AuthRepository;
+import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.repository.CartItemRepository;
 import com.ecommerce.backend.repository.CartRepository;
 import com.ecommerce.backend.repository.ProductRepository;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired
-    private AuthRepository authRepository;
+    private UserRepository authRepository;
 
     @Autowired
     private CartRepository cartRepository;
