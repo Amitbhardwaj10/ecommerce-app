@@ -1,6 +1,6 @@
 package com.ecommerce.backend.security.service;
 
-import com.amit.security.entity.User;
+import com.ecommerce.backend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

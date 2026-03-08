@@ -1,6 +1,6 @@
 package com.ecommerce.backend.security.config;
 
-import com.amit.security.service.JwtService;
+import com.ecommerce.backend.security.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

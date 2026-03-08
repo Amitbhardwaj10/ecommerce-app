@@ -1,13 +1,12 @@
 package com.ecommerce.backend.security.controller;
 
-import com.ecommerce.backend.security.repository.RefreshTokenRepository;
+import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.security.dto.request.LoginRequest;
 import com.ecommerce.backend.security.dto.response.LoginResponse;
-import com.ecommerce.backend.entity.User;
-import com.ecommerce.backend.repository.UserRepository;
-import com.ecommerce.backend.security.service.RefreshTokenService;
+import com.ecommerce.backend.security.repository.RefreshTokenRepository;
 import com.ecommerce.backend.security.service.AuthService;
 import com.ecommerce.backend.security.service.AuthServiceImpl;
+import com.ecommerce.backend.security.service.RefreshTokenService;
 import com.ecommerce.backend.security.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
@@ -21,21 +20,22 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-public class UserController {
+@CrossOrigin(origins = {"http://localhost:5173", "https://tech-store-ts.vercel.app"})
+public class AuthController {
 
     private final AuthService authService;
 
     private final RefreshTokenService refreshTokenService;
 
-    public UserController(UserRepository userRepository, AuthServiceImpl authService, RefreshTokenService refreshTokenService, RefreshTokenRepository refreshTokenRepository) {
+    public AuthController(UserRepository userRepository, AuthServiceImpl authService, RefreshTokenService refreshTokenService, RefreshTokenRepository refreshTokenRepository) {
         this.authService = authService;
         this.refreshTokenService = refreshTokenService;
     }
 
-    @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return authService.register(user);
-    }
+//    @PostMapping("/register")
+//    public User register(@RequestBody User user) {
+//        return authService.register(user);
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {

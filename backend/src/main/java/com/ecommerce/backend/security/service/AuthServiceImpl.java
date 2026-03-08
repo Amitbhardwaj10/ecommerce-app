@@ -1,10 +1,10 @@
 package com.ecommerce.backend.security.service;
 
+import com.ecommerce.backend.entity.User;
+import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.security.dto.request.LoginRequest;
 import com.ecommerce.backend.security.dto.response.LoginResponse;
-import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.security.repository.RefreshTokenRepository;
-import com.ecommerce.backend.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
     private final AuthenticationManager authenticationManager;
@@ -27,24 +25,10 @@ public class AuthServiceImpl implements AuthService {
                            JwtService jwtService,
                            RefreshTokenService refreshTokenService,
                            AuthenticationManager authenticationManager, RefreshTokenRepository refreshTokenRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.refreshTokenService = refreshTokenService;
         this.authenticationManager = authenticationManager;
         this.refreshTokenRepository = refreshTokenRepository;
-    }
-
-    @Override
-    public User register(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            throw new RuntimeException("Username already exists");
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User savedUser = userRepository.save(user);
-        savedUser.setPassword(null);
-        return savedUser;
     }
 
     @Override
