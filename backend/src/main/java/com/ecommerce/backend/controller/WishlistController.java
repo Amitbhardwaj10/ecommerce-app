@@ -1,8 +1,8 @@
 package com.ecommerce.backend.controller;
 
 
-import com.ecommerce.backend.dto.WishlistAddRequestDto;
-import com.ecommerce.backend.dto.WishlistItemResponseDto;
+import com.ecommerce.backend.dto.request.WishlistAddRequestDto;
+import com.ecommerce.backend.dto.response.WishlistItemResponseDto;
 import com.ecommerce.backend.service.WishlistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

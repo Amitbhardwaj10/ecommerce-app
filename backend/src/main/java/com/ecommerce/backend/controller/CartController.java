@@ -1,7 +1,7 @@
 package com.ecommerce.backend.controller;
 
-import com.ecommerce.backend.dto.CartItemRequestDto;
-import com.ecommerce.backend.dto.CartItemResponseDto;
+import com.ecommerce.backend.dto.request.CartItemRequestDto;
+import com.ecommerce.backend.dto.response.CartItemResponseDto;
 import com.ecommerce.backend.dto.UpdateQuantityDto;
 import com.ecommerce.backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.ecommerce.backend.service;
 
+import com.ecommerce.backend.dto.request.RegisterRequestDto;
 import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +19,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String register(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+    public String register(RegisterRequestDto requestDto) {
+        if (userRepository.findByUsername(requestDto.getUsername()).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        var user = User.builder()
+                .fullname(requestDto.getFullname())
+                .username(requestDto.getUsername())
+                .password(passwordEncoder.encode(requestDto.getPassword()))
+                .build();
         userRepository.save(user);
         return "User registered Successfully";
     }

@@ -1,6 +1,9 @@
 package com.ecommerce.backend.service;
 
 import com.ecommerce.backend.dto.*;
+import com.ecommerce.backend.dto.request.ProductRequestDto;
+import com.ecommerce.backend.dto.response.FilterOptionsResponseDto;
+import com.ecommerce.backend.dto.response.ProductResponseDto;
 import com.ecommerce.backend.entity.Brand;
 import com.ecommerce.backend.entity.Category;
 import com.ecommerce.backend.entity.Color;

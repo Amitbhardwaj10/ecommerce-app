@@ -1,7 +1,7 @@
 package com.ecommerce.backend.service;
 
-import com.ecommerce.backend.dto.CategoryDto;
-import com.ecommerce.backend.dto.ProductResponseDto;
+import com.ecommerce.backend.dto.response.CategoryDto;
+import com.ecommerce.backend.dto.response.ProductResponseDto;
 import com.ecommerce.backend.entity.Category;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.repository.CategoryRepository;

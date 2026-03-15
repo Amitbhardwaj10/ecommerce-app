@@ -1,8 +1,7 @@
 package com.ecommerce.backend.service;
 
-import com.ecommerce.backend.entity.User;
-import org.springframework.http.ResponseEntity;
+import com.ecommerce.backend.dto.request.RegisterRequestDto;
 
 public interface UserService {
-    public String register(User user);
+    public String register(RegisterRequestDto registerRequestDto);
 }

@@ -1,4 +1,4 @@
-package com.ecommerce.backend.dto;
+package com.ecommerce.backend.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

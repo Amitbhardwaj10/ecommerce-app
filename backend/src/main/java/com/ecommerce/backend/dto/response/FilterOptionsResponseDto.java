@@ -1,5 +1,6 @@
-package com.ecommerce.backend.dto;
+package com.ecommerce.backend.dto.response;
 
+import com.ecommerce.backend.dto.FilterOptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

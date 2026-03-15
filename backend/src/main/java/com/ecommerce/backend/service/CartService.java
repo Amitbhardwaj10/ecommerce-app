@@ -1,7 +1,6 @@
 package com.ecommerce.backend.service;
 
-import com.ecommerce.backend.dto.CartItemRequestDto;
-import com.ecommerce.backend.dto.CartItemResponseDto;
+import com.ecommerce.backend.dto.response.CartItemResponseDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

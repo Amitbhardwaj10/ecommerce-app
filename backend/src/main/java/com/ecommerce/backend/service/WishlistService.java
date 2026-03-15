@@ -1,7 +1,7 @@
 package com.ecommerce.backend.service;
 
 
-import com.ecommerce.backend.dto.WishlistItemResponseDto;
+import com.ecommerce.backend.dto.response.WishlistItemResponseDto;
 
 import java.util.List;
 

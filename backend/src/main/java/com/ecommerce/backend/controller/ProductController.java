@@ -1,8 +1,8 @@
 package com.ecommerce.backend.controller;
 
-import com.ecommerce.backend.dto.FilterOptionsResponseDto;
-import com.ecommerce.backend.dto.ProductRequestDto;
-import com.ecommerce.backend.dto.ProductResponseDto;
+import com.ecommerce.backend.dto.response.FilterOptionsResponseDto;
+import com.ecommerce.backend.dto.request.ProductRequestDto;
+import com.ecommerce.backend.dto.response.ProductResponseDto;
 import com.ecommerce.backend.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

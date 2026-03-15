@@ -1,4 +1,4 @@
-package com.ecommerce.backend.dto;
+package com.ecommerce.backend.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WishlistAddRequestDto {
+public class CartItemRequestDto {
     @NotNull(message = "Product ID must not be null")
-    private Long ProductId;
+    private Long productId;
 }

@@ -1,9 +1,5 @@
-package com.ecommerce.backend.entity;
+package com.ecommerce.backend.dto.request;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,19 +7,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class RegisterRequestDto {
+    @NotBlank(message = "Fullname is required")
     private String fullname;
 
+    @NotBlank(message = "Username is required")
     private String username;
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 16, message = "Password must be 6-16 characters")
     private String password;
 }

@@ -1,6 +1,6 @@
 package com.ecommerce.backend.service;
 
-import com.ecommerce.backend.dto.CartItemResponseDto;
+import com.ecommerce.backend.dto.response.CartItemResponseDto;
 import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.entity.Cart;
 import com.ecommerce.backend.entity.CartItem;

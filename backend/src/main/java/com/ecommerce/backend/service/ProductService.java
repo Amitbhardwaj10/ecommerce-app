@@ -1,8 +1,8 @@
 package com.ecommerce.backend.service;
 
-import com.ecommerce.backend.dto.FilterOptionsResponseDto;
-import com.ecommerce.backend.dto.ProductRequestDto;
-import com.ecommerce.backend.dto.ProductResponseDto;
+import com.ecommerce.backend.dto.response.FilterOptionsResponseDto;
+import com.ecommerce.backend.dto.request.ProductRequestDto;
+import com.ecommerce.backend.dto.response.ProductResponseDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
