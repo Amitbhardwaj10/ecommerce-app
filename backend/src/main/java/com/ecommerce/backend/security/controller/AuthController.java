@@ -32,17 +32,12 @@ public class AuthController {
         this.refreshTokenService = refreshTokenService;
     }
 
-//    @PostMapping("/register")
-//    public User register(@RequestBody User user) {
-//        return authService.register(user);
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
 
             LoginResponse result = authService.verify(loginRequest);
-            ResponseCookie cookie = ResponseCookie.from("refresh_token", result.getRefresh_token())
+            ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", result.getRefresh_token())
                     .httpOnly(true)
                     .secure(true)
                     .path("/api/v1/auth")
@@ -50,7 +45,15 @@ public class AuthController {
                     .maxAge(29 * 24 * 60 * 60)
                     .build();
 
-            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(
+            ResponseCookie accessCookie = ResponseCookie.from("access_token", result.getAccess_token())
+                    .httpOnly(true)
+                    .secure(true)
+                    .path("/api/v1/auth")
+                    .sameSite("Strict")
+                    .maxAge(15 * 50)
+                    .build();
+
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, refreshCookie.toString(), accessCookie.toString()).body(
                     LoginResponse.builder()
                             .access_token(result.getAccess_token())
                             .build());
