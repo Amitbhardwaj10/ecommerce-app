@@ -16,6 +16,8 @@ public class LoginResponse {
     @JsonIgnore
     private String refresh_token;
 
+    private UserResponseDto user;
+
     @Builder.Default
     private String token_type = "BEARER";
 }

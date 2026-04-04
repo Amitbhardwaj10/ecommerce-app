@@ -48,9 +48,9 @@ public class AuthController {
             ResponseCookie accessCookie = ResponseCookie.from("access_token", result.getAccess_token())
                     .httpOnly(true)
                     .secure(true)
-                    .path("/api/v1/auth")
+                    .path("/")
                     .sameSite("Strict")
-                    .maxAge(15 * 50)
+                    .maxAge(15 * 60)
                     .build();
 
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, refreshCookie.toString(), accessCookie.toString()).body(

@@ -63,7 +63,7 @@ function Sidebar({ isVisible, setIsVisible }) {
 								alt="avatar"
 							/>
 							<div>
-								<p className="font-semibold">Hi, {user.username}</p>
+								<p className="font-semibold">Hi, {user?.username}</p>
 								<p className="text-sm text-gray-400">Welcome back 👋</p>
 							</div>
 						</div>

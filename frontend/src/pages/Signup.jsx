@@ -29,21 +29,21 @@ function Signup() {
 		e.preventDefault();
 		dispatch(startLoading());
 		try {
-			const res = await api.post("/auth/signup", formData);
+			const res = await api.post("/auth/register", formData);
 			setFormData({
 				fullname: "",
 				username: "",
 				password: "",
 			});
 
-			const message = res.data.message || "User Registered successfully!";
+			const message = res.data || "User Registered successfully!";
 
 			navigate("/auth/login");
 			dispatch(showToast({ message: message, type: "success" }));
 		} catch (err) {
 			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
-				errorMessage = err.response.data || "Signup failed.";
+				errorMessage = err.response.data.message || err.response.data || "Signup failed.";
 			} else if (err.request) {
 				errorMessage = "No response from server. Try again later.";
 			}

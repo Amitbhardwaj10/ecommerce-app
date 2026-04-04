@@ -104,9 +104,10 @@ export default function Home() {
 		const fetchProducts = async () => {
 			try {
 				const res = await api.get("/products");
-				setProducts(res.data);
+				setProducts(Array.isArray(res.data) ? res.data : []);
 			} catch (err) {
 				console.error("Error fetching trending products:", err);
+				setProducts([]);
 			}
 		};
 		fetchProducts();
@@ -166,7 +167,7 @@ export default function Home() {
 							className="relative rounded-xl overflow-hidden hover:scale-105 transition-transform ease-in bg-gray-900 shadow-lg group"
 						>
 							<img
-								src={cat.products[idx].image}
+								src={cat.products?.[0]?.image}
 								alt={cat.category}
 								className="w-full h-60 object-cover opacity-60 group-hover:opacity-80 transition"
 							/>
@@ -175,7 +176,7 @@ export default function Home() {
 									{cat.category}
 								</h3>
 								<p className="text-sm text-gray-100 line-clamp-2">
-									{cat.products[idx].title}
+									{cat.products?.[0]?.title}
 								</p>
 								<button
 									className="mt-4 px-4 py-2 text-white bg-blue-800 text-sm rounded-lg hover:bg-blue-700 transition"

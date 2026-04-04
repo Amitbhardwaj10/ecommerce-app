@@ -110,9 +110,10 @@ function Products() {
 			dispatch(startLoading());
 			try {
 				const res = await api.get("/products", { params });
-				setProducts(res.data);
+				setProducts(Array.isArray(res.data) ? res.data : []);
 			} catch (error) {
 				console.error("Error fetching products:", error);
+				setProducts([]);
 			} finally {
 				dispatch(stopLoading());
 			}

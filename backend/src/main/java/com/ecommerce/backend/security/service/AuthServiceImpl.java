@@ -4,6 +4,7 @@ import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.security.dto.request.LoginRequest;
 import com.ecommerce.backend.security.dto.response.LoginResponse;
+import com.ecommerce.backend.security.dto.response.UserResponseDto;
 import com.ecommerce.backend.security.repository.RefreshTokenRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,9 +50,16 @@ public class AuthServiceImpl implements AuthService {
 
         refreshTokenService.saveToken(refreshToken, user);
 
+        UserResponseDto userResponse = UserResponseDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .fullname(user.getFullname())
+                .build();
+
         return LoginResponse.builder()
                 .access_token(accessToken)
                 .refresh_token(refreshToken)
+                .user(userResponse)
                 .build();
     }
 

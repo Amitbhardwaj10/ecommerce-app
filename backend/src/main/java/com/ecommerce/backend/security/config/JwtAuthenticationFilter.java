@@ -28,32 +28,44 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    private String extractToken(HttpServletRequest request) {
         final String authHeader = request.getHeader("Authorization");
-
-        if (authHeader == null || !authHeader.toLowerCase().startsWith("bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
+        if (authHeader != null && authHeader.toLowerCase().startsWith("bearer ")) {
+            return authHeader.substring(7);
         }
-        final String jwt = authHeader.substring(7);
-        final String username = jwtService.extractUserName(jwt);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (username != null && authentication == null) {
-            //Authenticate
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        if (request.getCookies() != null) {
+            for (var cookie : request.getCookies()) {
+                if ("access_token".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
             }
         }
+        return null;
+    }
 
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        String token = extractToken(request);
+        if (token != null) {
+            final String username = jwtService.extractUserName(token);
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if (username != null && authentication == null) {
+                //Authenticate
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+                if (jwtService.isTokenValid(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
+            }
+        }
         filterChain.doFilter(request, response);
     }
 }

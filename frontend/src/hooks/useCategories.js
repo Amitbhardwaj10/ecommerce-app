@@ -14,13 +14,20 @@ export default function useCategories() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (cache) return;
+		if (cache) {
+			setCategories(cache);
+			return;
+		}
 
 		if (!pending) {
 			dispatch(startLoading());
 			pending = api
 				.get("/categories")
-				.then((res) => (cache = res.data))
+				.then((res) => {
+					const data = Array.isArray(res.data) ? res.data : [];
+					cache = data;
+					return data;
+				})
 				.catch((err) => {
 					throw err;
 				})
@@ -31,7 +38,7 @@ export default function useCategories() {
 		}
 
 		pending
-			.then((data) => setCategories(data))
+			.then((data) => setCategories(Array.isArray(data) ? data : []))
 			.catch((err) => {
 				throw err;
 			});

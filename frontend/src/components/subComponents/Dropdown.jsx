@@ -21,9 +21,9 @@ function Dropdown() {
 				<>
 					<div className="border-b border-slate-500 mb-3 py-1">
 						<p className="text-sm text-white font-normal">
-							Hello, {user.fullname.split(" ")[0]}
+							Hello, {user?.fullname?.split(" ")[0]}
 						</p>
-						<p className="text-xs text-[#adb5bd]">{user.username}</p>
+						<p className="text-xs text-[#adb5bd]">{user?.username}</p>
 					</div>
 
 					<div className="text-sm flex flex-col gap-2">

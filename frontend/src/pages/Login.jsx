@@ -44,7 +44,7 @@ function Login() {
 		} catch (err) {
 			let errorMessage = "Something went wrong. Try again.";
 			if (err.response) {
-				errorMessage = err.response.data.message || "Login failed.";
+				errorMessage = err.response.data.message || err.response.data || "Login failed.";
 			} else if (err.request) {
 				errorMessage = "No response from server. Try again later.";
 			}
