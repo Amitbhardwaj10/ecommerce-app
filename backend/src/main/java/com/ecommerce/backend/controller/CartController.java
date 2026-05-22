@@ -1,8 +1,8 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.UpdateQuantityDto;
 import com.ecommerce.backend.dto.request.CartItemRequestDto;
 import com.ecommerce.backend.dto.response.CartItemResponseDto;
-import com.ecommerce.backend.dto.UpdateQuantityDto;
 import com.ecommerce.backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cart")
-@CrossOrigin(origins = {"http://localhost:5173", "https://tech-store-ts.vercel.app"})
 public class CartController {
 
     @Autowired

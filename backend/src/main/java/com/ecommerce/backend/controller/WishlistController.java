@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/wishlist")
-@CrossOrigin(origins = {"http://localhost:5173", "https://tech-store-ts.vercel.app"})
 public class WishlistController {
 
     @Autowired

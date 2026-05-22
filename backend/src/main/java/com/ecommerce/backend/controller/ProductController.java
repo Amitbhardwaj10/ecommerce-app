@@ -1,7 +1,7 @@
 package com.ecommerce.backend.controller;
 
-import com.ecommerce.backend.dto.response.FilterOptionsResponseDto;
 import com.ecommerce.backend.dto.request.ProductRequestDto;
+import com.ecommerce.backend.dto.response.FilterOptionsResponseDto;
 import com.ecommerce.backend.dto.response.ProductResponseDto;
 import com.ecommerce.backend.service.ProductService;
 import jakarta.validation.Valid;
@@ -14,7 +14,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/products")
-@CrossOrigin(origins = {"http://localhost:5173", "https://tech-store-ts.vercel.app"})
 public class ProductController {
 
     @Autowired
