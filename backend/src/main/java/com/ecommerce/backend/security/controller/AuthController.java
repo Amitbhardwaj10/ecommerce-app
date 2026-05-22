@@ -56,6 +56,7 @@ public class AuthController {
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, refreshCookie.toString(), accessCookie.toString()).body(
                     LoginResponse.builder()
                             .access_token(result.getAccess_token())
+                            .user(result.getUser())
                             .build());
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

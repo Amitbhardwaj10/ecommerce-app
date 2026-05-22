@@ -18,9 +18,4 @@ public class UserController {
     public String register(@Valid @RequestBody RegisterRequestDto registerReq) {
         return userService.register(registerReq);
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody User loginRequest) {
-//        return authService.verify(loginRequest);
-//    }
 }
