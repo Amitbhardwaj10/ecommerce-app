@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class WishlistAddRequestDto {
     @NotNull(message = "Product ID must not be null")
-    private Long ProductId;
+    private Long productId;
 }

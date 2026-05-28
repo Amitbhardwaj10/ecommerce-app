@@ -1,22 +1,22 @@
-package com.ecommerce.backend.service;
+package com.ecommerce.backend.service.impl;
 
-import com.ecommerce.backend.dto.*;
-import com.ecommerce.backend.dto.request.ProductRequestDto;
+import com.ecommerce.backend.dto.FilterOptionDto;
+import com.ecommerce.backend.dto.FilterOptionProjection;
+import com.ecommerce.backend.dto.MinMaxPrice;
 import com.ecommerce.backend.dto.response.FilterOptionsResponseDto;
 import com.ecommerce.backend.dto.response.ProductResponseDto;
-import com.ecommerce.backend.entity.Brand;
 import com.ecommerce.backend.entity.Category;
-import com.ecommerce.backend.entity.Color;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.error.ProductNotFoundException;
+import com.ecommerce.backend.mapper.ProductMapper;
 import com.ecommerce.backend.repository.BrandRepository;
 import com.ecommerce.backend.repository.CategoryRepository;
 import com.ecommerce.backend.repository.ColorRepository;
 import com.ecommerce.backend.repository.ProductRepository;
+import com.ecommerce.backend.service.ProductService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,20 +40,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ColorRepository colorRepository;
 
-    private ProductResponseDto mapToDto(Product product) {
-        ProductResponseDto dto = ProductResponseDto.builder()
-                .productId(product.getProductId())
-                .title(product.getTitle())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .image(product.getImage())
-                .brand(product.getBrand().getName())
-                .color(product.getColor().getName())
-                .inStock(product.getInStock() != null && product.getInStock() == 1)
-                .categoryName(product.getCategory().getName())
-                .build();
-        return dto;
-    }
+    @Autowired
+    private ProductMapper productMapper;
 
     private List<FilterOptionDto> mapToFilterOptionDto(List<FilterOptionProjection> projections) {
         return projections.stream().map((proj) -> FilterOptionDto.builder()
@@ -61,61 +49,6 @@ public class ProductServiceImpl implements ProductService {
                 .value(proj.getValue())
                 .count(proj.getCount())
                 .build()).collect(Collectors.toList());
-    }
-
-    @Override
-    public ResponseEntity<String> createProduct(ProductRequestDto dto) {
-        Brand brand = brandRepository.findById(dto.getBrandId())
-                .orElseThrow(() -> new RuntimeException("Brand not found"));
-
-        Color color = colorRepository.findById(dto.getColorId())
-                .orElseThrow(() -> new RuntimeException("Color not found"));
-
-        Category category = categoryRepository.findById(dto.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
-
-        Product product = Product.builder()
-                .title(dto.getTitle())
-                .price(dto.getPrice())
-                .description(dto.getDescription())
-                .image(dto.getImage())
-                .brand(brand)
-                .color(color)
-                .category(category)
-                .build();
-
-        productRepository.save(product);
-        return ResponseEntity.ok("Created successfully!");
-    }
-
-    @Override
-    public ResponseEntity<String> saveAllProducts(List<ProductRequestDto> productDtos) {
-        List<Product> products = new ArrayList<>();
-
-        for (ProductRequestDto dto : productDtos) {
-            Brand brand = brandRepository.findById(dto.getBrandId())
-                    .orElseThrow(() -> new RuntimeException("Brand not found"));
-
-            Color color = colorRepository.findById(dto.getColorId())
-                    .orElseThrow(() -> new RuntimeException("Color not found"));
-
-            Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found"));
-
-
-            Product product = Product.builder()
-                    .title(dto.getTitle())
-                    .description(dto.getDescription())
-                    .price(dto.getPrice())
-                    .image(dto.getImage())
-                    .color(color)
-                    .brand(brand)
-                    .category(category)
-                    .build();
-
-            products.add(product);
-        }
-        productRepository.saveAll(products);
-        return ResponseEntity.ok("products saved successfully");
     }
 
     @Override
@@ -148,7 +81,8 @@ public class ProductServiceImpl implements ProductService {
                                     Long min = Long.parseLong(prices[0]);
                                     Long max = Long.parseLong(prices[1]);
                                     predicates.add(cb.between(root.get("price"), min, max));
-                                } catch (NumberFormatException ignored) {}
+                                } catch (NumberFormatException ignored) {
+                                }
                             }
                             break;
                         case "inStock":
@@ -166,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
             products = productRepository.findAll(spec);
         }
 
-        return products.stream().map(this::mapToDto).collect(Collectors.toList());
+        return products.stream().map(productMapper::mapToDto).collect(Collectors.toList());
     }
 
 
@@ -196,7 +130,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto getProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not available!"));
-        return mapToDto(product);
+        return productMapper.mapToDto(product);
     }
 
     @Override
@@ -204,6 +138,6 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findBySlug(slug.toLowerCase())
                 .orElseThrow(() -> new RuntimeException("Category not found with slug: " + slug));
         List<Product> products = productRepository.findByCategory_Id(category.getId());
-        return products.stream().map(this::mapToDto).collect(Collectors.toList());
+        return products.stream().map(productMapper::mapToDto).collect(Collectors.toList());
     }
 }

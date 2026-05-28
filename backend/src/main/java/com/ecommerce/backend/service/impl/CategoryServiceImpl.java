@@ -1,10 +1,12 @@
-package com.ecommerce.backend.service;
+package com.ecommerce.backend.service.impl;
 
 import com.ecommerce.backend.dto.response.CategoryDto;
 import com.ecommerce.backend.dto.response.ProductResponseDto;
 import com.ecommerce.backend.entity.Category;
 import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.mapper.ProductMapper;
 import com.ecommerce.backend.repository.CategoryRepository;
+import com.ecommerce.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    private ProductMapper productMapper;
+
+    public CategoryServiceImpl(ProductMapper productMapper) {
+        this.productMapper = productMapper;
+    }
+
     private CategoryDto mapToCategoryDto(Category category) {
-        List<ProductResponseDto> productDtos = category.getProducts().stream().map(this::mapToProductDto).collect(Collectors.toList());
+        List<ProductResponseDto> productDtos = category.getProducts().stream().map(productMapper::mapToDto).collect(Collectors.toList());
 
         return CategoryDto.builder()
                 .id(category.getId())
@@ -28,17 +36,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .products(productDtos)
                 .build();
     }
-
-    private ProductResponseDto mapToProductDto(Product product) {
-        return ProductResponseDto.builder()
-                .productId(product.getProductId())
-                .title(product.getTitle())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .image(product.getImage())
-                .build();
-    }
-
 
     @Override
     @Transactional(readOnly = true)

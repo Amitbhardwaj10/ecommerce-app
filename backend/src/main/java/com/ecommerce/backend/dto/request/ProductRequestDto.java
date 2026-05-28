@@ -15,6 +15,7 @@ public class ProductRequestDto {
 
     private String description;
 
+    @NotNull
     private String image;
 
     @NotNull
@@ -28,4 +29,7 @@ public class ProductRequestDto {
 
     @NotNull
     private Long categoryId;
+
+    @NotNull
+    private Integer Quantity;
 }
