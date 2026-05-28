@@ -1,4 +1,4 @@
-package com.ecommerce.backend.service;
+package com.ecommerce.backend.service.impl;
 
 import com.ecommerce.backend.dto.response.WishlistItemResponseDto;
 import com.ecommerce.backend.error.ProductNotFoundException;
@@ -9,6 +9,7 @@ import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import com.ecommerce.backend.repository.WishlistItemRepository;
 import com.ecommerce.backend.repository.WishlistRepository;
+import com.ecommerce.backend.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

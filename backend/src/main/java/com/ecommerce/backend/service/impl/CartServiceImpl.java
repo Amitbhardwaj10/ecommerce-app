@@ -1,14 +1,16 @@
-package com.ecommerce.backend.service;
+package com.ecommerce.backend.service.impl;
 
 import com.ecommerce.backend.dto.response.CartItemResponseDto;
 import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.entity.Cart;
 import com.ecommerce.backend.entity.CartItem;
 import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.mapper.CartItemMapper;
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.repository.CartItemRepository;
 import com.ecommerce.backend.repository.CartRepository;
 import com.ecommerce.backend.repository.ProductRepository;
+import com.ecommerce.backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,23 +35,8 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ProductRepository productRepository;
 
-
-    public CartItemResponseDto toDto(CartItem cartItem) {
-        Product product = cartItem.getProduct();
-
-        boolean status = product.getInStock() == 1;
-
-        return CartItemResponseDto.builder()
-                .id(cartItem.getId())
-                .productId(product.getProductId())
-                .productTitle(product.getTitle())
-                .price(product.getPrice())
-                .quantity(cartItem.getQuantity())
-                .totalPrice(cartItem.getQuantity() * product.getPrice())
-                .image(product.getImage())
-                .stockStatus(status)
-                .build();
-    }
+    @Autowired
+    private CartItemMapper cartItemMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -62,7 +49,7 @@ public class CartServiceImpl implements CartService {
             return cartRepository.save(newCart);
         });
 
-        return cart.getCartItems().stream().map(this::toDto).collect(Collectors.toList());
+        return cart.getCartItems().stream().map(cartItemMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -78,7 +65,7 @@ public class CartServiceImpl implements CartService {
         Optional<CartItem> existingItem = cartItemRepository.findByCartAndProduct_ProductId(cart, productId);
 
         if (existingItem.isPresent()) {
-            return ResponseEntity.ok(toDto(existingItem.get()));
+            return ResponseEntity.ok(cartItemMapper.toDto(existingItem.get()));
         }
 
         Product product = productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
@@ -91,7 +78,7 @@ public class CartServiceImpl implements CartService {
 
         cartItemRepository.save(cartItem);
 
-        return ResponseEntity.ok(toDto(cartItem));
+        return ResponseEntity.ok(cartItemMapper.toDto(cartItem));
     }
 
     @Override

@@ -30,6 +30,8 @@ public class Product {
 
     private Integer inStock;
 
+    private Integer quantity;
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;

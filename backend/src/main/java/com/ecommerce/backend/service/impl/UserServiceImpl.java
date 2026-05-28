@@ -1,8 +1,9 @@
-package com.ecommerce.backend.service;
+package com.ecommerce.backend.service.impl;
 
 import com.ecommerce.backend.dto.request.RegisterRequestDto;
 import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.repository.UserRepository;
+import com.ecommerce.backend.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

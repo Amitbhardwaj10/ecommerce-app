@@ -19,16 +19,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping
-    public ResponseEntity<String> createProduct(@RequestBody ProductRequestDto dto) {
-        return productService.createProduct(dto);
-    }
-
-    @PostMapping("/bulk")
-    public ResponseEntity<String> createMultipleProducts(@Valid @RequestBody List<ProductRequestDto> productDtos) {
-        return productService.saveAllProducts(productDtos);
-    }
-
     @GetMapping
     public List<ProductResponseDto> getAllProducts(@RequestParam  Map<String, String> filters) {
         return productService.getFilteredProducts(filters);
@@ -48,8 +38,4 @@ public class ProductController {
     public List<ProductResponseDto> getProductsBySlug(@PathVariable String slug) {
         return productService.getProductsByCategory(slug);
     }
-
-//    PUT /products/{id} → Edit product
-//    DELETE /products/{id} → Delete product
-
 }
