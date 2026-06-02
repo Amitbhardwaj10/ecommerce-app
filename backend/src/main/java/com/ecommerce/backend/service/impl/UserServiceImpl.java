@@ -2,6 +2,7 @@ package com.ecommerce.backend.service.impl;
 
 import com.ecommerce.backend.dto.request.RegisterRequestDto;
 import com.ecommerce.backend.entity.User;
+import com.ecommerce.backend.entity.enums.Role;
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
                 .fullname(requestDto.getFullname())
                 .username(requestDto.getUsername())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
+                .role(Role.USER)
                 .build();
         userRepository.save(user);
         return "User registered Successfully";
