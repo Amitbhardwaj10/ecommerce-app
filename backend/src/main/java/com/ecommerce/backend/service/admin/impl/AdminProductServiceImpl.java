@@ -1,4 +1,4 @@
-package com.ecommerce.backend.service.impl;
+package com.ecommerce.backend.service.admin.impl;
 
 import com.ecommerce.backend.dto.request.ProductRequestDto;
 import com.ecommerce.backend.dto.response.ProductResponseDto;
@@ -6,16 +6,17 @@ import com.ecommerce.backend.entity.Brand;
 import com.ecommerce.backend.entity.Category;
 import com.ecommerce.backend.entity.Color;
 import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.error.BrandNotFoundException;
+import com.ecommerce.backend.error.CategoryNotFoundException;
+import com.ecommerce.backend.error.ColorNotFoundException;
+import com.ecommerce.backend.error.ProductNotFoundException;
 import com.ecommerce.backend.mapper.ProductMapper;
 import com.ecommerce.backend.repository.BrandRepository;
 import com.ecommerce.backend.repository.CategoryRepository;
 import com.ecommerce.backend.repository.ColorRepository;
 import com.ecommerce.backend.repository.ProductRepository;
-import com.ecommerce.backend.service.AdminProductService;
-import org.springframework.http.ResponseEntity;
+import com.ecommerce.backend.service.admin.AdminProductService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AdminProductServiceImpl implements AdminProductService {
@@ -37,12 +38,12 @@ public class AdminProductServiceImpl implements AdminProductService {
     @Override
     public ProductResponseDto createProduct(ProductRequestDto dto) {
 
-        Brand brand = brandRepository.findById(dto.getBrandId()).orElseThrow(() -> new RuntimeException("Brand not found!"));
+        Brand brand = brandRepository.findById(dto.getBrandId()).orElseThrow(() -> new BrandNotFoundException("Brand not found!"));
 
         Color color = colorRepository.findById(dto.getColorId())
-                .orElseThrow(() -> new RuntimeException("Color not found"));
+                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
 
-        Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found"));
+        Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
 
         Product product = Product.builder()
                 .color(color)
@@ -62,7 +63,28 @@ public class AdminProductServiceImpl implements AdminProductService {
     }
 
     @Override
-    public ResponseEntity<String> saveAllProducts(List<ProductRequestDto> productDtos) {
-        return null;
+    public ProductResponseDto updateProduct(Long id, ProductRequestDto dto) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+
+        Brand brand = brandRepository.findById(dto.getBrandId()).orElseThrow(() -> new BrandNotFoundException("Brand not found!"));
+
+        Color color = colorRepository.findById(dto.getColorId())
+                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
+
+        Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+
+        product.setBrand(brand);
+        product.setCategory(category);
+        product.setColor(color);
+        product.setImage(dto.getImage());
+        product.setDescription(dto.getDescription());
+        product.setTitle(dto.getTitle());
+        product.setPrice(dto.getPrice());
+        product.setQuantity(dto.getQuantity() != null ? dto.getQuantity() : 0);
+        product.setInStock(dto.getQuantity() != null && dto.getQuantity() >= 1 ? 1 : 0);
+
+        productRepository.save(product);
+        return productMapper.mapToDto(product);
     }
+
 }
