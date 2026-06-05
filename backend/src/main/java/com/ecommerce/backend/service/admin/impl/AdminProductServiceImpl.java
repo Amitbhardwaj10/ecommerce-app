@@ -18,6 +18,9 @@ import com.ecommerce.backend.repository.ProductRepository;
 import com.ecommerce.backend.service.admin.AdminProductService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AdminProductServiceImpl implements AdminProductService {
 
@@ -33,6 +36,12 @@ public class AdminProductServiceImpl implements AdminProductService {
         this.colorRepository = colorRepository;
         this.categoryRepository = categoryRepository;
         this.productMapper = productMapper;
+    }
+
+    @Override
+    public List<ProductResponseDto> getAllProductus() {
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(productMapper::mapToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -87,4 +96,10 @@ public class AdminProductServiceImpl implements AdminProductService {
         return productMapper.mapToDto(product);
     }
 
+    @Override
+    public ProductResponseDto deleteProduct(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        productRepository.delete(product);
+        return productMapper.mapToDto(product);
+    }
 }

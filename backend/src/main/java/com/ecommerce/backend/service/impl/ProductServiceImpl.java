@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 
         if (filters == null || filters.isEmpty()) {
             // No filters → optimized fetch join query
-            products = productRepository.findAllWithRelations();
+            products = productRepository.findAll();
         } else {
             // Apply filters dynamically
             Specification<Product> spec = (root, query, cb) -> {

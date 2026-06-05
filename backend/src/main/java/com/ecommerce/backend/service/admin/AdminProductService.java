@@ -7,7 +7,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface AdminProductService {
-    public ProductResponseDto createProduct(ProductRequestDto dto);
+    ProductResponseDto createProduct(ProductRequestDto dto);
 
     ProductResponseDto updateProduct(Long id, ProductRequestDto dto);
+
+    ProductResponseDto deleteProduct(Long id);
+
+    List<ProductResponseDto> getAllProductus();
 }

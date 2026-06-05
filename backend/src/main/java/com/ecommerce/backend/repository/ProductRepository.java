@@ -25,13 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     @NonNull
     Optional<Product> findById( @NonNull Long id);
 
-    @Query("SELECT DISTINCT p FROM Product p " +
-            "JOIN FETCH p.brand " +
-            "JOIN FETCH p.color " +
-            "JOIN FETCH p.category")
-    public List<Product> findAllWithRelations();
-
-
     @Query("SELECT MIN(p.price) as minPrice, MAX(p.price) as maxPrice FROM Product p")
     public MinMaxPrice findMinMaxPrice();
 }
