@@ -18,7 +18,7 @@ export const fetchWishlist = createAsyncThunk(
 		} finally {
 			dispatch(stopLoading());
 		}
-	}
+	},
 );
 
 export const addToWishlist = createAsyncThunk(
@@ -30,12 +30,12 @@ export const addToWishlist = createAsyncThunk(
 			return res.data;
 		} catch (err) {
 			return rejectWithValue(
-				err.response?.data || "Failed to add item into wishlist"
+				err.response?.data || "Failed to add item into wishlist",
 			);
 		} finally {
 			dispatch(stopLoading());
 		}
-	}
+	},
 );
 
 export const removeFromWishlist = createAsyncThunk(
@@ -50,7 +50,7 @@ export const removeFromWishlist = createAsyncThunk(
 		} finally {
 			dispatch(stopLoading());
 		}
-	}
+	},
 );
 
 export const wishlistSlice = createSlice({
@@ -64,17 +64,24 @@ export const wishlistSlice = createSlice({
 			.addCase(addToWishlist.fulfilled, (state, action) => {
 				const newItem = action.payload;
 				const exists = state.wishlistItems.find(
-					(item) => item.id == newItem.id
+					(item) => item.id == newItem.id,
 				);
 				!exists && state.wishlistItems.push(newItem);
 			})
 			.addCase(removeFromWishlist.fulfilled, (state, action) => {
 				const { itemId } = action.payload;
 				state.wishlistItems = state.wishlistItems.filter(
-					(item) => item.id !== itemId
+					(item) => item.id !== itemId,
 				);
 			});
 	},
+
+	reducers: {
+		clearWishlist: (state) => {
+			state.wishlistItems = [];
+		},
+	},
 });
 
+export const { clearWishlist } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

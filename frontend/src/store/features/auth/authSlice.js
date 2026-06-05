@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { clearCart } from "../cart/cartSlice";
+import { clearWishlist } from "../wishlist/wishlistSlice";
 
 const initialState = {
 	isLoggedIn: !!localStorage.getItem("isLoggedIn"),
@@ -31,6 +32,7 @@ export const { login, logoutSuccess } = authSlice.actions;
 export const logout = () => (dispatch) => {
 	dispatch(logoutSuccess());
 	dispatch(clearCart());
+	dispatch(clearWishlist());
 };
 
 export default authSlice.reducer;
