@@ -30,6 +30,7 @@ public class AdminProductServiceImpl implements AdminProductService {
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
+
     public AdminProductServiceImpl(ProductRepository productRepository, BrandRepository brandRepository, ColorRepository colorRepository, CategoryRepository categoryRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.brandRepository = brandRepository;
@@ -39,7 +40,7 @@ public class AdminProductServiceImpl implements AdminProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getAllProductus() {
+    public List<ProductResponseDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream().map(productMapper::mapToDto).collect(Collectors.toList());
     }
@@ -56,7 +57,6 @@ public class AdminProductServiceImpl implements AdminProductService {
 
         Product product = Product.builder()
                 .color(color)
-                .inStock(dto.getQuantity() >= 1 ? 1 : 0)
                 .quantity(dto.getQuantity())
                 .image(dto.getImage())
                 .description(dto.getDescription())
@@ -90,7 +90,19 @@ public class AdminProductServiceImpl implements AdminProductService {
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
         product.setQuantity(dto.getQuantity() != null ? dto.getQuantity() : 0);
-        product.setInStock(dto.getQuantity() != null && dto.getQuantity() >= 1 ? 1 : 0);
+
+        productRepository.save(product);
+        return productMapper.mapToDto(product);
+    }
+
+    @Override
+    public ProductResponseDto updateStock(Long id, Integer quantity) {
+
+        if (quantity < 0) throw new IllegalArgumentException("Quantity cannot be negative");
+
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+
+        product.setQuantity(quantity);
 
         productRepository.save(product);
         return productMapper.mapToDto(product);

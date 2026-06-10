@@ -16,7 +16,7 @@ public class ProductMapper {
                 .brand(product.getBrand().getName())
                 .color(product.getColor().getName())
                 .quantity(product.getQuantity() != null ? product.getQuantity() : 0)
-                .inStock(product.getInStock() != null && product.getInStock() == 1)
+                .inStock(product.getQuantity() != null && product.getQuantity() > 0)
                 .categoryName(product.getCategory().getName())
                 .build();
     }

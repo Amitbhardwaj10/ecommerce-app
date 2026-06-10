@@ -10,8 +10,6 @@ public class CartItemMapper {
     public CartItemResponseDto toDto(CartItem cartItem) {
         Product product = cartItem.getProduct();
 
-        boolean status = product.getInStock() != null && product.getInStock() == 1;
-
         return CartItemResponseDto.builder()
                 .id(cartItem.getId())
                 .productId(product.getProductId())
@@ -20,7 +18,7 @@ public class CartItemMapper {
                 .quantity(cartItem.getQuantity())
                 .totalPrice(cartItem.getQuantity() * product.getPrice())
                 .image(product.getImage())
-                .stockStatus(status)
+                .stockStatus(product.getQuantity() != null && product.getQuantity() > 0)
                 .build();
     }
 }

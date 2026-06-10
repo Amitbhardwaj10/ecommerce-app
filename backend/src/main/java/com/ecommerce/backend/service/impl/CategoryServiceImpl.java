@@ -27,13 +27,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryDto mapToCategoryDto(Category category) {
-        List<ProductResponseDto> productDtos = category.getProducts().stream().map(productMapper::mapToDto).collect(Collectors.toList());
-
         return CategoryDto.builder()
                 .id(category.getId())
-                .category(category.getName())
+                .name(category.getName())
                 .slug(category.getSlug())
-                .products(productDtos)
                 .build();
     }
 

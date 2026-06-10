@@ -23,8 +23,14 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     @EntityGraph(attributePaths = {"brand", "color", "category"})
     @NonNull
-    Optional<Product> findById( @NonNull Long id);
+    Optional<Product> findById(@NonNull Long id);
 
     @Query("SELECT MIN(p.price) as minPrice, MAX(p.price) as maxPrice FROM Product p")
     public MinMaxPrice findMinMaxPrice();
+
+    @Query(value = "SELECT COUNT(*) from products WHERE quantity > 0", nativeQuery = true)
+    Long countInStock();
+
+    @Query(value = "SELECT COUNT(*) FROM products WHERE quantity <= 0 OR quantity IS NULL", nativeQuery = true)
+    Long countOutOfStock();
 }

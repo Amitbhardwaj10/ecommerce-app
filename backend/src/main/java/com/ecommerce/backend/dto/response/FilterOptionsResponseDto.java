@@ -16,6 +16,7 @@ public class FilterOptionsResponseDto {
     private List<FilterOptionDto> categories;
     private List<FilterOptionDto> brands;
     private List<FilterOptionDto> colors;
+    private List<FilterOptionDto> inStock;
 
     private Long minPrice;
     private Long maxPrice;

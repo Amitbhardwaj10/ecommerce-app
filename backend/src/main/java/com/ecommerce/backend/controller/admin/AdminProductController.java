@@ -1,9 +1,11 @@
 package com.ecommerce.backend.controller.admin;
 
 import com.ecommerce.backend.dto.request.ProductRequestDto;
+import com.ecommerce.backend.dto.request.UpdateStockRequest;
 import com.ecommerce.backend.dto.response.ProductResponseDto;
 import com.ecommerce.backend.payload.ApiResponse;
 import com.ecommerce.backend.service.admin.AdminProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ public class AdminProductController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<ProductResponseDto>>> getAllProducts() {
-        List<ProductResponseDto> products = adminProductService.getAllProductus();
+        List<ProductResponseDto> products = adminProductService.getAllProducts();
         ApiResponse<List<ProductResponseDto>> response = ApiResponse.<List<ProductResponseDto>>builder()
                 .success(true)
                 .message("Products retrieved successfully")
@@ -50,6 +52,19 @@ public class AdminProductController {
         ApiResponse<ProductResponseDto> response = ApiResponse.<ProductResponseDto>builder()
                 .success(true)
                 .message("Product updated successfully")
+                .data(updatedProduct)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PatchMapping("/{id}/stock")
+    public ResponseEntity<ApiResponse<ProductResponseDto>> updateStock(@PathVariable Long id, @Valid @RequestBody UpdateStockRequest request) {
+
+        ProductResponseDto updatedProduct = adminProductService.updateStock(id, request.getQuantity());
+        ApiResponse<ProductResponseDto> response = ApiResponse.<ProductResponseDto>builder()
+                .success(true)
+                .message("Product stock updated successfully")
                 .data(updatedProduct)
                 .build();
 

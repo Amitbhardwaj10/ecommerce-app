@@ -13,7 +13,6 @@ import java.util.List;
 @Builder
 public class CategoryDto {
         private Long id;
-        private String category;
+        private String name;
         private String slug;
-        private List<ProductResponseDto> products;
     }

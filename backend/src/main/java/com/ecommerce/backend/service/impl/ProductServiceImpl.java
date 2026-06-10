@@ -56,51 +56,100 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products;
 
         if (filters == null || filters.isEmpty()) {
-            // No filters → optimized fetch join query
             products = productRepository.findAll();
         } else {
-            // Apply filters dynamically
             Specification<Product> spec = (root, query, cb) -> {
                 List<Predicate> predicates = new ArrayList<>();
 
                 filters.forEach((key, value) -> {
+                    if (value == null || value.isBlank()) return;
+
                     switch (key) {
                         case "brand":
-                            predicates.add(root.get("brand").get("name").in(Arrays.asList(value.split(","))));
+                            predicates.add(root.get("brand").get("name").in(
+                                    Arrays.stream(value.split(","))
+                                            .map(String::trim)
+                                            .filter(v -> !v.isBlank())
+                                            .collect(Collectors.toList())
+                            ));
                             break;
+
                         case "category":
-                            predicates.add(root.get("category").get("name").in(Arrays.asList(value.split(","))));
+                            predicates.add(root.get("category").get("name").in(
+                                    Arrays.stream(value.split(","))
+                                            .map(String::trim)
+                                            .filter(v -> !v.isBlank())
+                                            .collect(Collectors.toList())
+                            ));
                             break;
+
                         case "color":
-                            predicates.add(root.get("color").get("name").in(Arrays.asList(value.split(","))));
+                            predicates.add(root.get("color").get("name").in(
+                                    Arrays.stream(value.split(","))
+                                            .map(String::trim)
+                                            .filter(v -> !v.isBlank())
+                                            .collect(Collectors.toList())
+                            ));
                             break;
+
                         case "price":
                             String[] prices = value.split(",");
                             if (prices.length == 2) {
                                 try {
-                                    Long min = Long.parseLong(prices[0]);
-                                    Long max = Long.parseLong(prices[1]);
+                                    Long min = Long.parseLong(prices[0].trim());
+                                    Long max = Long.parseLong(prices[1].trim());
+
+                                    if (min > max) {
+                                        Long temp = min;
+                                        min = max;
+                                        max = temp;
+                                    }
+
                                     predicates.add(cb.between(root.get("price"), min, max));
                                 } catch (NumberFormatException ignored) {
                                 }
                             }
                             break;
+
                         case "inStock":
-                            List<Integer> inStockValues = Arrays.stream(value.split(","))
-                                    .map(Integer::valueOf)
-                                    .collect(Collectors.toList());
-                            predicates.add(root.get("inStock").in(inStockValues));
+                            List<String> stockValues = Arrays.stream(value.split(","))
+                                    .map(String::trim)
+                                    .filter(v -> !v.isBlank())
+                                    .toList();
+
+                            List<Predicate> stockPredicates = new ArrayList<>();
+
+                            if (stockValues.contains("1")) {
+                                stockPredicates.add(cb.greaterThan(root.get("quantity"), 0));
+                            }
+
+                            if (stockValues.contains("0")) {
+                                stockPredicates.add(
+                                        cb.or(
+                                                cb.lessThanOrEqualTo(root.get("quantity"), 0),
+                                                cb.isNull(root.get("quantity"))
+                                        )
+                                );
+                            }
+
+                            if (!stockPredicates.isEmpty()) {
+                                predicates.add(cb.or(stockPredicates.toArray(new Predicate[0])));
+                            }
                             break;
                     }
                 });
 
-                return predicates.isEmpty() ? cb.conjunction() : cb.and(predicates.toArray(new Predicate[0]));
+                return predicates.isEmpty()
+                        ? cb.conjunction()
+                        : cb.and(predicates.toArray(new Predicate[0]));
             };
 
             products = productRepository.findAll(spec);
         }
 
-        return products.stream().map(productMapper::mapToDto).collect(Collectors.toList());
+        return products.stream()
+                .map(productMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
 
@@ -109,6 +158,15 @@ public class ProductServiceImpl implements ProductService {
         List<FilterOptionProjection> brandFilters = brandRepository.findBrandFilterOptions();
         List<FilterOptionProjection> colorFilters = colorRepository.findColorFilterOptions();
         List<FilterOptionProjection> categoryFilters = categoryRepository.findCategoryFilterOptions();
+
+        Long countInStock = productRepository.countInStock();
+        Long countOutOfStock = productRepository.countOutOfStock();
+
+
+        List<FilterOptionDto> stockOptions = List.of(
+                new FilterOptionDto("In Stock", 1L, countInStock),
+                new FilterOptionDto("Out of Stock", 0L, countOutOfStock)
+        );
 
         MinMaxPrice result = productRepository.findMinMaxPrice();
         Long minPrice = result != null ? result.getMinPrice() : 0L;
@@ -122,6 +180,7 @@ public class ProductServiceImpl implements ProductService {
                 .brands(brands)
                 .categories(categories)
                 .colors(colors)
+                .inStock(stockOptions)
                 .minPrice(minPrice)
                 .maxPrice(maxPrice)
                 .build();

@@ -28,8 +28,6 @@ public class Product {
 
     private String image;
 
-    private Integer inStock;
-
     private Integer quantity;
 
     @ManyToOne
