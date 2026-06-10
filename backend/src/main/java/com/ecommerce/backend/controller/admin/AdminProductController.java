@@ -22,18 +22,6 @@ public class AdminProductController {
         this.adminProductService = adminProductService;
     }
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<ProductResponseDto>>> getAllProducts() {
-        List<ProductResponseDto> products = adminProductService.getAllProducts();
-        ApiResponse<List<ProductResponseDto>> response = ApiResponse.<List<ProductResponseDto>>builder()
-                .success(true)
-                .message("Products retrieved successfully")
-                .data(products)
-                .build();
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-
     @PostMapping
     public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody ProductRequestDto dto) {
         ProductResponseDto addedProduct = adminProductService.createProduct(dto);

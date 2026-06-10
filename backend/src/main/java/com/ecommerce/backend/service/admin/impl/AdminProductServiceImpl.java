@@ -40,12 +40,6 @@ public class AdminProductServiceImpl implements AdminProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products.stream().map(productMapper::mapToDto).collect(Collectors.toList());
-    }
-
-    @Override
     public ProductResponseDto createProduct(ProductRequestDto dto) {
 
         Brand brand = brandRepository.findById(dto.getBrandId()).orElseThrow(() -> new BrandNotFoundException("Brand not found!"));

@@ -13,7 +13,5 @@ public interface AdminProductService {
 
     ProductResponseDto deleteProduct(Long id);
 
-    List<ProductResponseDto> getAllProducts();
-
     ProductResponseDto updateStock(Long id, Integer quantity);
 }
