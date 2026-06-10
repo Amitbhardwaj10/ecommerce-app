@@ -102,11 +102,11 @@ function Navbar({ onToggleSidebar, showBackButton, pageTitle }) {
 										key={item.id}
 										to={`/products`}
 										onClick={() => {
-											dispatch(setCategory([item.category]));
+											dispatch(setCategory([item.name]));
 										}}
 										className="px-2 py-8 whitespace-nowrap hover:text-sky-400"
 									>
-										{item.category}
+										{item.name}
 									</NavLink>
 								))}
 							</ul>
