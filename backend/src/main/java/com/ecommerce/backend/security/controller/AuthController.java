@@ -80,7 +80,7 @@ public class AuthController {
         // Update the cookie
         ResponseCookie cookie = ResponseCookie.from("refresh_token", result.getRefresh_token())
                 .httpOnly(true)
-                .secure(true) // true in prod
+                .secure(true)
                 .path("/api/v1/auth")
                 .maxAge(30L * 24 * 60 * 60)
                 .sameSite("Strict")
@@ -99,12 +99,16 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(
             @CookieValue(value = "refresh_token", required = false) String refreshToken,
+            @CookieValue(value = "access_token", required = false) String accessToken,
             HttpServletResponse response
     ) {
         authService.logout(refreshToken);
 
-        ResponseCookie deleteCookie = CookieUtil.deleteRefreshTokenCookie();
-        response.setHeader(HttpHeaders.SET_COOKIE, deleteCookie.toString());
+
+        ResponseCookie deleteRefreshCookie = CookieUtil.deleteRefreshTokenCookie();
+        ResponseCookie deleteAccessCookie = CookieUtil.deleteAccessTokenCookie();
+        response.addHeader(HttpHeaders.SET_COOKIE, deleteAccessCookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, deleteRefreshCookie.toString());
 
         return ResponseEntity.ok(
                 Map.of("message", "Logout successfully"));

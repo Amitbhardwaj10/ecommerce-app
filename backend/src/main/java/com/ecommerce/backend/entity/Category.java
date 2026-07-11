@@ -24,7 +24,7 @@ public class Category {
     @PrePersist
     @PreUpdate
     public void generateSlug() {
-        if (this.name != null && (this.slug == null || this.slug.isEmpty())) {
+        if (this.name != null) {
             String trimmed = name.trim().toLowerCase();
             this.slug = trimmed.replaceAll("[^a-z0-9]+", "-").replaceAll("(^-|-$)", "");
         }

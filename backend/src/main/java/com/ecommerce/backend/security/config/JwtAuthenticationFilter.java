@@ -49,21 +49,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = extractToken(request);
         if (token != null) {
-            final String username = jwtService.extractUserName(token);
+            try {
+                final String username = jwtService.extractUserName(token);
 
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            if (username != null && authentication == null) {
-                //Authenticate
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                if (username != null && authentication == null) {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                if (jwtService.isTokenValid(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    if (jwtService.isTokenValid(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    }
                 }
+            } catch (Exception e) {
+                // Token is invalid or expired, continue without authentication
+                // This allows login endpoint to work even with expired token in cookie
             }
         }
         filterChain.doFilter(request, response);
